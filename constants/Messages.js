@@ -1,4 +1,4 @@
-module.exports={
+module.exports = {
   INDEX: {
     ERR: {
       CONNECTION: 'Error de conexion en la base de datos: ',
