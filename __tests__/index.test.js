@@ -1,6 +1,7 @@
+/* eslint-disable no-undef */
 describe('__tests__/index.test', () => {
-  it('OK', async () => {
+  it('oK', async () => {
     expect.assertions(1);
     expect(true).toBeTruthy();
   });
-  });
+});
