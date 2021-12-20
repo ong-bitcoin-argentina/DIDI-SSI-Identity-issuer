@@ -1,0 +1,26 @@
+{
+  "name": "@proyecto-didi/identity-issuer",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest",
+    "start": "node ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ong-bitcoin-argentina/DIDI-SSI-Identity-issuer.git"
+  },
+  "author": "Proyecto DIDI",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ong-bitcoin-argentina/DIDI-SSI-Identity-issuer/issues"
+  },
+  "homepage": "https://github.com/ong-bitcoin-argentina/DIDI-SSI-Identity-issuer#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  },
+  "devDependencies": {
+    "jest": "^27.4.5"
+  }
+}
