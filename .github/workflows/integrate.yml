@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '12.x'
       - name: 'install dependencies'
-        run: npm ci
+        run: npm install
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
