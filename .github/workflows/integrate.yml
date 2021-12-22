@@ -3,16 +3,28 @@ name: Integracion continua con node.js
 jobs:
   ci_to_master:
     runs-on: ubuntu-latest
+    container:
+      image: node
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
       - name: 'use node.js'
         uses: actions/setup-node@v1
         with:
-          node-version: 16
+          node-version: '12.x'
       - name: 'install dependencies'
-        run: npm ci
+        run: npm install
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
+  build-image:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+      - name: Build Docker image
+        uses: docker/build-push-action@ad44023a93711e3deb337508980b4b5e9bcdc5dc
+        with:
+          context: .
+          push: false
