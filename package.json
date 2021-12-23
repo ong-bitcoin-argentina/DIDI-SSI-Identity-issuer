@@ -20,7 +20,9 @@
   },
   "homepage": "https://github.com/ong-bitcoin-argentina/DIDI-SSI-Identity-issuer#readme",
   "dependencies": {
-    "express": "^4.17.1"
+    "apicache": "^1.6.3",
+    "express": "^4.17.1",
+    "redis": "^4.0.1"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.7.0",
