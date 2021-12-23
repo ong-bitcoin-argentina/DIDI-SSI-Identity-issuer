@@ -36,6 +36,7 @@ app.get('/:identityId', (req, res) => {
 });
 
 app.listen(Constants.PORT, () =>
+  // eslint-disable-next-line no-console
   console.log(Messages.INDEX.MSG.RUNNING_ON + Constants.PORT),
 );
 
