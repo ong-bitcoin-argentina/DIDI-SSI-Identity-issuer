@@ -11,6 +11,6 @@ RUN npm ci --only=prod
 
 COPY . .
 
-EXPOSE 3500
+EXPOSE 3600
 
 CMD sleep 10 && npm run start
