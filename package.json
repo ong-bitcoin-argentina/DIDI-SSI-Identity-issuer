@@ -22,7 +22,9 @@
   "dependencies": {
     "apicache": "^1.6.3",
     "express": "^4.17.1",
-    "redis": "^4.0.1"
+    "redis": "^4.0.1",
+    "swagger-jsdoc": "6.0.0",
+		"swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
     "eslint": "^8.4.1",
