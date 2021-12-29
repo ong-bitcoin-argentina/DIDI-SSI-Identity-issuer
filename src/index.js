@@ -1,5 +1,6 @@
 const apicache = require('apicache');
 const redis = require('redis');
+const request = require('supertest');
 const express = require('express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
@@ -67,10 +68,18 @@ app.get('/cache', (_, res) => {
 });
 
 app.get('/:identityId', (req, res) => {
-  res.json({
-    id: req.params.identityId,
-  });
+  res.status(200).json({ id: req.params.identityId });
 });
+
+request(app)
+  .get('/:identityId')
+  .expect('Content-Type', /json/)
+  .expect('Content-Length', '20')
+  .expect(200)
+  // eslint-disable-next-line func-names
+  .end(function (err) {
+    if (err) throw err;
+  });
 
 app.listen(Constants.PORT, () =>
   // eslint-disable-next-line no-console
