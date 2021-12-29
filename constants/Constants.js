@@ -1,9 +1,6 @@
 const assert = require('assert');
 
-const PORT = 8089;
-const ENVIRONMENT = 'dev';
-const NAME = 'VUS';
-const VERSION = '1';
+const { PORT, ENVIRONMENT, NAME, VERSION } = process.env;
 
 assert.ok(PORT, 'No esta definida la varibale PORT');
 assert.ok(ENVIRONMENT, 'No esta definida la varibale ENVIRONMENT');
