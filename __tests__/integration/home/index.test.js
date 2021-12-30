@@ -15,7 +15,6 @@ describe('gET identityId', () => {
 });
 
 describe('gET /identityId', () => {
-  // eslint-disable-next-line jest/no-done-callback
   it('responds with json', async () => {
     expect.assertions(0);
     await request(app)
