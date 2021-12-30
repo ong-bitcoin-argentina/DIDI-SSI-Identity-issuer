@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "NODE_ENV=test jest",
     "start": "node ./src/index.js",
     "lint": "eslint --ext .js __tests__/ constants/ src/",
     "lint:fix": "eslint --fix --ext .js __tests__/ constants/ src/"
@@ -24,7 +24,6 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "redis": "^4.0.1",
-    "supertest": "^6.1.6",
     "swagger-jsdoc": "6.0.0",
     "swagger-ui-express": "^4.1.6"
   },
@@ -36,6 +35,7 @@
     "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.5",
-    "prettier": "^2.5.1"
+    "prettier": "^2.5.1",
+    "supertest": "^6.1.6"
   }
 }
