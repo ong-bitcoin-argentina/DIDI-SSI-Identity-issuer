@@ -18,6 +18,8 @@ jobs:
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
+        env:
+          PORT: 8089
   build-image:
     runs-on: ubuntu-latest
     steps:
