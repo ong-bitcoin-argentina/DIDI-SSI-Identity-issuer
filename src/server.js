@@ -1,9 +1,13 @@
-const express = require('express');
+require('dotenv').config();
 
-const app = express();
+const Constants = require('../constants/Constants');
+const Messages = require('../constants/Messages');
 
-app.get('/identityId', (req, res) => {
-  res.status(200).json({ id: '1234' });
-});
+const app = require('./index');
+
+app.listen(Constants.PORT, () =>
+  // eslint-disable-next-line no-console
+  console.log(Messages.INDEX.MSG.RUNNING_ON + Constants.PORT),
+);
 
 module.exports = app;

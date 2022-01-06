@@ -6,15 +6,9 @@ const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 
 const app = express();
-const application = require('./server');
-
 app.use(express.json());
-app.use(application);
 
 require('dotenv').config();
-
-const Constants = require('../constants/Constants');
-const Messages = require('../constants/Messages');
 
 const { NAME, VERSION, ENVIRONMENT } = require('../constants/Constants');
 
@@ -71,7 +65,8 @@ app.get('/cache', (_, res) => {
   }
 });
 
-app.listen(Constants.PORT, () =>
-  // eslint-disable-next-line no-console
-  console.log(Messages.INDEX.MSG.RUNNING_ON + Constants.PORT),
-);
+app.get('/identityId', (req, res) => {
+  return res.status(200).json({ id: '1234' });
+});
+
+module.exports = app;

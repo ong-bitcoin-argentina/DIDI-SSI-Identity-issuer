@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "NODE_ENV=test jest",
-    "start": "node ./src/index.js",
+    "test": "NODE_ENV=test jest --runInBand --forceExit",
+    "start": "node ./src/server.js",
     "lint": "eslint --ext .js __tests__/ constants/ src/",
     "lint:fix": "eslint --fix --ext .js __tests__/ constants/ src/"
   },
