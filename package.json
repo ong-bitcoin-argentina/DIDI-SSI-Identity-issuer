@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "jest",
-    "start": "node ./src/index.js",
+    "start": "nodemon --experimental-worker ./src/server.js",
     "lint": "eslint --ext .js __tests__/ constants/ src/",
     "lint:fix": "eslint --fix --ext .js __tests__/ constants/ src/"
   },
@@ -23,6 +23,7 @@
     "apicache": "^1.6.3",
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "mongoose": "^6.1.6",
     "redis": "^4.0.1",
     "swagger-jsdoc": "6.0.0",
     "swagger-ui-express": "^4.1.6"
@@ -35,6 +36,7 @@
     "eslint-plugin-jest": "^25.3.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^27.4.5",
+    "nodemon": "^2.0.15",
     "prettier": "^2.5.1"
   }
 }

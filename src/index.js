@@ -1,17 +1,29 @@
 const apicache = require('apicache');
 const redis = require('redis');
-const express = require('express');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
-require('dotenv').config();
-
-const Constants = require('../constants/Constants');
-const Messages = require('../constants/Messages');
+const express = require('express');
+const mongoose = require('mongoose');
 
 const app = express();
 
+app.use(express.json());
+
+require('dotenv').config();
+
 const { NAME, VERSION, ENVIRONMENT } = require('../constants/Constants');
+const Constants = require('../constants/Constants');
+const Messages = require('../constants/Messages');
+
+mongoose
+  .connect(Constants.DB_URI)
+  // eslint-disable-next-line no-console
+  .then(() => console.log(Messages.INDEX.MSG.CONNECTED))
+  .catch((err) => {
+    // eslint-disable-next-line no-console
+    console.log(Messages.INDEX.ERR.CONNECTION + err.message);
+  });
 
 /**
  * Config de Swagger
@@ -72,11 +84,4 @@ app.get('/:identityId', (req, res) => {
   });
 });
 
-app.listen(Constants.PORT, () =>
-  // eslint-disable-next-line no-console
-  console.log(Messages.INDEX.MSG.RUNNING_ON + Constants.PORT),
-);
-
-module.exports = {
-  app,
-};
+module.exports = app;
