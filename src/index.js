@@ -12,9 +12,11 @@ app.use(express.json());
 
 require('dotenv').config();
 
-const { NAME, VERSION, ENVIRONMENT } = require('../constants/Constants');
-const Constants = require('../constants/Constants');
-const Messages = require('../constants/Messages');
+const { NAME, VERSION, ENVIRONMENT } = require('./constants/Constants');
+const Constants = require('./constants/Constants');
+const Messages = require('./constants/Messages');
+
+const routes = require('./routes/index');
 
 mongoose
   .connect(Constants.DB_URI)
@@ -83,5 +85,7 @@ app.get('/:identityId', (req, res) => {
     id: req.params.identityId,
   });
 });
+
+app.use('/api', routes);
 
 module.exports = app;
