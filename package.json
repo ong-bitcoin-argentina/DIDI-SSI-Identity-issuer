@@ -6,8 +6,8 @@
   "scripts": {
     "test": "jest",
     "start": "nodemon --experimental-worker ./src/server.js",
-    "lint": "eslint --ext .js __tests__/ constants/ src/",
-    "lint:fix": "eslint --fix --ext .js __tests__/ constants/ src/"
+    "lint": "eslint --ext .js __tests__/ src/",
+    "lint:fix": "eslint --fix --ext .js __tests__/ src/"
   },
   "repository": {
     "type": "git",
