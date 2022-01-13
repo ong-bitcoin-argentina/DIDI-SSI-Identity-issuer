@@ -1,4 +1,5 @@
 const assert = require('assert');
+require('dotenv').config();
 
 const {
   PORT,
