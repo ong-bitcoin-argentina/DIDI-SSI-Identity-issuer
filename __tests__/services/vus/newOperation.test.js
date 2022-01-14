@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-conditional-expect */
 const { newOperation } = require('../../../src/services/vusService');
 const {
   missingUserName,

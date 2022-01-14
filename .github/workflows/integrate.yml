@@ -18,6 +18,8 @@ jobs:
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
+        env:
+          ENV_FILE: ${{ secrets.env }}
   build-image:
     runs-on: ubuntu-latest
     steps:
