@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-/* eslint-disable no-tabs */
 const router = require('express').Router();
 
 // const Validator = require('../utils/Validator');
@@ -13,6 +11,7 @@ const vus = require('../controllers/vus');
  *     summary: Permite validar la identidad de un usuario contra vu Security
  *     requestBody:
  *       required:
+ *         - did
  *         - userName
  *         - ipAddress
  *         - deviceHash
@@ -27,6 +26,8 @@ const vus = require('../controllers/vus');
  *           schema:
  *             type: object
  *             properties:
+ *               did:
+ *                  type: string
  *               userName:
  *                  type: string
  *               ipAddress:

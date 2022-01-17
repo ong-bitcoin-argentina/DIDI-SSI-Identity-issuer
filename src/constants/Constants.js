@@ -35,4 +35,9 @@ module.exports = {
   VUS_API_KEY,
   VUS_API,
   VUS_APP_VERS,
+  AUTHENTICATION_REQUEST: {
+    IN_PROGRESS: 'In Progress',
+    SUCCESSFUL: 'Successful',
+    FALIED: 'Falied',
+  },
 };

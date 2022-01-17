@@ -35,4 +35,24 @@ module.exports = {
     code: '#service-missingDeviceName',
     message: 'Falta el parámetro deviceName',
   },
+  missingDid: {
+    code: '#service-missingDid',
+    message: 'Falta el parametro did',
+  },
+  missingName: {
+    code: '#service-missingName',
+    message: 'Falta el parametro Name',
+  },
+  missingLastName: {
+    code: '#service-missingLastName',
+    message: 'Falta el parametro LastName',
+  },
+  missingOperationId: {
+    code: '#service-missingOperationId',
+    message: 'Falta el parametro operationId',
+  },
+  missingUserDID: {
+    code: '#service-missingUserDID',
+    message: 'Falta el parametro UserDID',
+  },
 };
