@@ -13,7 +13,7 @@ module.exports = {
   },
   missingRooted: {
     code: '#service-missingRooted',
-    message: 'Falta el parámetro rooted',
+    message: 'Falta el parámetro Rooted',
   },
   missingApplicationVersion: {
     code: '#service-missingApplicationVersion',
@@ -54,5 +54,9 @@ module.exports = {
   missingUserDID: {
     code: '#service-missingUserDID',
     message: 'Falta el parametro UserDID',
+  },
+  missingStatus: {
+    code: '#service-missingStatus',
+    message: 'Falta el parametro Status',
   },
 };

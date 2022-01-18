@@ -12,6 +12,7 @@ const {
   missingOperativeSystemVersion,
   missingDeviceManufacturer,
   missingDeviceName,
+  missingOperationId,
 } = require('../constants/serviceErrors');
 
 /**
@@ -74,5 +75,25 @@ module.exports.newOperation = async function newOperation(
     return result.operationId;
   } catch (err) {
     return Messages.VUS.NEW_OPERATION;
+  }
+};
+
+module.exports.cancelOperation = async function cancelOperation(
+  userName,
+  operationId,
+) {
+  if (!userName) throw missingUserName;
+  if (!operationId) throw missingOperationId;
+  try {
+    const result = await vuSecurityPost(
+      Constants.VUS_URLS.cancelOperation,
+      JSON.stringify({
+        userName,
+        operationId,
+      }),
+    );
+    return result.cancelOperation;
+  } catch (error) {
+    return Messages.VUS.CANCEL_OPERATION;
   }
 };

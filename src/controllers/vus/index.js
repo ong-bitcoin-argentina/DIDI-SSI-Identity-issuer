@@ -1,5 +1,9 @@
-const { createVerification } = require('./createVerification');
+const {
+  createVerification,
+  cancelVerification,
+} = require('./createVerification');
 
 module.exports = {
   createVerification,
+  cancelVerification,
 };

@@ -39,5 +39,6 @@ module.exports = {
     IN_PROGRESS: 'In Progress',
     SUCCESSFUL: 'Successful',
     FALIED: 'Falied',
+    CANCELLED: 'Cancelled',
   },
 };

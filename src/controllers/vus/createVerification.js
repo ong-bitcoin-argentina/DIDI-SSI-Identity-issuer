@@ -1,6 +1,11 @@
+/* eslint-disable consistent-return */
+/* eslint-disable no-unused-vars */
 const vusService = require('../../services/vusService');
 const UserService = require('../../services/userService');
 const AuthRequestService = require('../../services/AuthRequestService');
+const Messages = require('../../constants/Messages');
+const Constants = require('../../constants/Constants');
+const { missingUserName } = require('../../constants/serviceErrors');
 
 const createVerification = async (req, res) => {
   const { did } = req.body;
@@ -38,14 +43,35 @@ const createVerification = async (req, res) => {
     // Guardar estado como "en progreso y retornar"
     // eslint-disable-next-line no-unused-vars
     authRequest = await AuthRequestService.create(operationId, user);
-
+    return res.status(200).send('Creado Satisfactoriamente');
     // eslint-disable-next-line prefer-template
-    return res.status(200).send('New operation successfuly');
   } catch (err) {
     return err;
   }
 };
 
+const cancelVerification = async (req, res) => {
+  const { operationId } = req.body;
+  const { userName } = req.body;
+  let authRequest;
+  let cancelRequest;
+  try {
+    // verificar si la operacion esta pendiente
+    authRequest = await AuthRequestService.getByOperationId(operationId);
+    if (authRequest.status === 'In Progress') {
+      cancelRequest = await vusService.cancelOperation(userName, operationId);
+      authRequest = await AuthRequestService.update(
+        Constants.AUTHENTICATION_REQUEST.CANCELLED,
+        Messages.VUS.CANCEL_OPERATION,
+      );
+    }
+    return res.status(200).send(Messages.VUS.CANCEL_OPERATION);
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createVerification,
+  cancelVerification,
 };

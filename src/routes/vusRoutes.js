@@ -66,4 +66,42 @@ router.post(
   vus.createVerification,
 );
 
+/**
+ * @openapi
+ * 	 /cancelVerification:
+ *   post:
+ *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/cancelVerification',
+  // Validator.validateBody([
+  //   { name: 'operationId', validate: [Constants.VALIDATION_TYPES.IS_STRING] },
+
+  //   { name: 'userName', validate: [Constants.VALIDATION_TYPES.IS_DNI] },
+  // ]),
+  // Validator.checkValidationResult,
+  vus.cancelVerification,
+);
+
 module.exports = router;
