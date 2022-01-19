@@ -1,15 +1,17 @@
 const vusService = require('../../services/vusService');
 
 const createVerification = async (req, res) => {
-  const { userName } = req.body;
-  const { ipAddress } = req.body;
-  const { deviceHash } = req.body;
-  const { rooted } = req.body;
-  const { applicationVersion } = req.body;
-  const { operativeSystem } = req.body;
-  const { operativeSystemVersion } = req.body;
-  const { deviceManufacturer } = req.body;
-  const { deviceName } = req.body;
+  const {
+    userName,
+    ipAddress,
+    deviceHash,
+    rooted,
+    applicationVersion,
+    operativeSystem,
+    operativeSystemVersion,
+    deviceManufacturer,
+    deviceName,
+  } = req.body;
 
   let operationId;
   try {
