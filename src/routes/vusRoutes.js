@@ -30,14 +30,11 @@ const vus = require('../controllers/vus');
  *                  type: string
  *               userName:
  *                  type: string
- *               ipAddress:
- *                  type: string
  *               deviceHash:
  *                  type: string
  *               rooted:
  *                  type: boolean
- *               applicationVersion:
- *                  type: string
+ *                  default: false
  *               operativeSystem:
  *                  type: string
  *               operativeSystemVersion:
@@ -55,16 +52,7 @@ const vus = require('../controllers/vus');
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/createVerification',
-  // Validator.validateBody([
-  //   { name: 'did', validate: [Constants.VALIDATION_TYPES.IS_STRING] },
-
-  //   { name: 'userName', validate: [Constants.VALIDATION_TYPES.IS_DNI] },
-  // ]),
-  // Validator.checkValidationResult,
-  vus.createVerification,
-);
+router.post('/createVerification', vus.createVerification);
 
 /**
  * @openapi
@@ -95,12 +83,7 @@ router.post(
  */
 router.post(
   '/cancelVerification',
-  // Validator.validateBody([
-  //   { name: 'operationId', validate: [Constants.VALIDATION_TYPES.IS_STRING] },
 
-  //   { name: 'userName', validate: [Constants.VALIDATION_TYPES.IS_DNI] },
-  // ]),
-  // Validator.checkValidationResult,
   vus.cancelVerification,
 );
 
