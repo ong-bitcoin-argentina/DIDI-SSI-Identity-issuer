@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --runInBand",
     "start": "nodemon --experimental-worker ./src/server.js",
     "lint": "eslint --ext .js __tests__/ src/",
     "lint:fix": "eslint --fix --ext .js __tests__/ src/"

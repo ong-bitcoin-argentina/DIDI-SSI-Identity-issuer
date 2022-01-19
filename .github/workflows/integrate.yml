@@ -18,6 +18,10 @@ jobs:
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
+        env:
+          VUS_URL: ${{ secrets.VUS_URL }}
+          VUS_API: ${{ secrets.VUS_API }}
+          VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
   build-image:
     runs-on: ubuntu-latest
     steps:

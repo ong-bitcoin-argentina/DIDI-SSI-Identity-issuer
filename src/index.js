@@ -10,8 +10,6 @@ const app = express();
 
 app.use(express.json());
 
-require('dotenv').config();
-
 const { NAME, VERSION, ENVIRONMENT } = require('./constants/Constants');
 const Constants = require('./constants/Constants');
 const Messages = require('./constants/Messages');

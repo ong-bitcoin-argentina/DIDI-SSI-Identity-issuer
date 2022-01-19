@@ -1,5 +1,3 @@
-require('dotenv').config();
-
 const Constants = require('./constants/Constants');
 const Messages = require('./constants/Messages');
 
