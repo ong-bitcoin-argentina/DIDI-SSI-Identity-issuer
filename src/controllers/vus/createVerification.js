@@ -59,13 +59,15 @@ const cancelVerification = async (req, res) => {
     // verificar si la operacion esta pendiente
     authRequest = await AuthRequestService.getByOperationId(operationId);
     if (authRequest.status === 'In Progress') {
-      cancelRequest = await vusService.cancelOperation(userName, operationId);
+      authRequest.status = 'Cancelled';
       authRequest = await AuthRequestService.update(
         Constants.AUTHENTICATION_REQUEST.CANCELLED,
-        Messages.VUS.CANCEL_OPERATION,
+        Messages.VUS.CANCEL_OPERATION.message,
+        operationId,
       );
+      cancelRequest = await vusService.cancelOperation(userName, operationId);
     }
-    return res.status(200).send(Messages.VUS.CANCEL_OPERATION);
+    return res.status(200).send('Operacion cancelada satisfactoriamente');
   } catch (error) {
     return error;
   }

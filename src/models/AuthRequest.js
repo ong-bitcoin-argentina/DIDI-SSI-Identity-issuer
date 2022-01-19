@@ -5,6 +5,7 @@ const statuses = [
   Constants.AUTHENTICATION_REQUEST.IN_PROGRESS,
   Constants.AUTHENTICATION_REQUEST.SUCCESSFUL,
   Constants.AUTHENTICATION_REQUEST.FALIED,
+  Constants.AUTHENTICATION_REQUEST.CANCELLED,
 ];
 
 // Registra la informacion de un pedido de validacion de identidad contra VU Security

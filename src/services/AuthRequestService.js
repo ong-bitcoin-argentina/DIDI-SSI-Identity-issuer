@@ -40,14 +40,18 @@ module.exports.getByOperationId = async function getByOperationId(operationId) {
 /**
  *  Actualiza el pedido de validación
  */
-module.exports.update = async function update(status, errMsg) {
+module.exports.update = async function update(
+  status,
+  errorMessage,
+  operationId,
+) {
   if (!status) throw missingStatus;
   try {
-    // TODO: Fix operationId
     // eslint-disable-next-line no-undef
-    let authRequest = await AuthRequest.getByOperationId(operationId);
+    let authRequest = await AuthRequest.findByOperationId(operationId);
     if (!authRequest) return Messages.VUS.GET;
-    authRequest = await authRequest.update(status, errMsg);
+    // eslint-disable-next-line no-use-before-define
+    authRequest = await authRequest.update(status, errorMessage);
     if (!authRequest) return Messages.VUS.UPDATE;
     return authRequest;
   } catch (err) {
