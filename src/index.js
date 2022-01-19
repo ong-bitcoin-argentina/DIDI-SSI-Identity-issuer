@@ -30,7 +30,7 @@ mongoose
  */
 const options = {
   definition: {
-    openapi: '3.0.0',
+    openapi: '3.0.3',
     info: {
       title: NAME,
       description: `Corriendo en el ambiente: ${ENVIRONMENT}. Para más información, visite la [documentación](https://docs.didi.org.ar/).`,
@@ -38,11 +38,11 @@ const options = {
     },
     servers: [
       {
-        url: '/',
+        url: '/api',
       },
     ],
   },
-  apis: ['./*.js', './routes/*.js'], // files containing annotations as above
+  apis: ['./src/routes/*.js'],
 };
 const apiSpecification = swaggerJsdoc(options);
 /**
@@ -76,12 +76,6 @@ app.get('/cache', (_, res) => {
   } catch (e) {
     res.status(500);
   }
-});
-
-app.get('/:identityId', (req, res) => {
-  res.json({
-    id: req.params.identityId,
-  });
 });
 
 app.use('/api', routes);

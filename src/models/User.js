@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 // Registra la informacion correspondiente a un usuario de didi
-// eslint-disable-next-line no-unused-vars
 const UserSchema = new mongoose.Schema({
   did: {
     type: String,
@@ -9,3 +8,7 @@ const UserSchema = new mongoose.Schema({
     unique: true,
   },
 });
+
+const User = mongoose.model('User', UserSchema);
+
+module.exports = User;
