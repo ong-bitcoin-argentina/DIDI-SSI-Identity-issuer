@@ -39,7 +39,7 @@ const createVerification = async (req, res) => {
     // Guardar estado como "en progreso y retornar"
     // eslint-disable-next-line no-unused-vars
     authRequest = await AuthRequestService.create(operationId, user);
-    return res.status(200).send('Creado Satisfactoriamente');
+    return res.status(200).json({ userName, operationId });
   } catch (err) {
     return err;
   }
