@@ -22,7 +22,7 @@ const vus = require('../controllers/vus');
  *         - deviceManufacturer
  *         - deviceName
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:
@@ -30,14 +30,11 @@ const vus = require('../controllers/vus');
  *                  type: string
  *               userName:
  *                  type: string
- *               ipAddress:
- *                  type: string
  *               deviceHash:
  *                  type: string
  *               rooted:
  *                  type: boolean
- *               applicationVersion:
- *                  type: string
+ *                  default: false
  *               operativeSystem:
  *                  type: string
  *               operativeSystemVersion:
@@ -56,5 +53,38 @@ const vus = require('../controllers/vus');
  *
  */
 router.post('/createVerification', vus.createVerification);
+
+/**
+ * @openapi
+ * 	 /cancelVerification:
+ *   post:
+ *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/cancelVerification',
+
+  vus.cancelVerification,
+);
 
 module.exports = router;

@@ -5,9 +5,10 @@ const statuses = [
   Constants.AUTHENTICATION_REQUEST.IN_PROGRESS,
   Constants.AUTHENTICATION_REQUEST.SUCCESSFUL,
   Constants.AUTHENTICATION_REQUEST.FALIED,
+  Constants.AUTHENTICATION_REQUEST.CANCELLED,
 ];
 
-// Registra la informacion de un pedido de validacion de identidad contra Renaper
+// Registra la informacion de un pedido de validacion de identidad contra VU Security
 const AuthRequestSchema = new mongoose.Schema({
   operationId: {
     type: String,
@@ -39,11 +40,11 @@ AuthRequestSchema.methods.update = async function update(status, errorMessage) {
     this.status = status;
     if (errorMessage) this.errorMessage = errorMessage;
     await this.save();
-    return Promise.resolve(this);
+    return this;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return Promise.reject(err);
+    return err;
   }
 };
 
@@ -59,7 +60,7 @@ module.exports = AuthRequest;
 AuthRequest.generate = async function generate(operationId, userDID) {
   try {
     const req = await AuthRequest.findByOperationId(operationId);
-    if (req) return Promise.resolve(null);
+    if (req) return null;
 
     let request = new AuthRequest();
     request.operationId = operationId;
@@ -68,11 +69,11 @@ AuthRequest.generate = async function generate(operationId, userDID) {
     request.createdOn = new Date();
 
     request = await request.save();
-    return Promise.resolve(request);
+    return request;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return Promise.reject(err);
+    return err;
   }
 };
 
@@ -81,11 +82,11 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
   try {
     const query = { operationId };
     const request = await AuthRequest.findOne(query);
-    return Promise.resolve(request);
+    return request;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return Promise.reject(err);
+    return err;
   }
 };
 
