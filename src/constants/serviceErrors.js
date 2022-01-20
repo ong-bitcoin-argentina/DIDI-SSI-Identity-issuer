@@ -11,10 +11,6 @@ module.exports = {
     code: '#service-missingDeviceHash',
     message: 'Falta el parámetro deviceHash',
   },
-  missingRooted: {
-    code: '#service-missingRooted',
-    message: 'Falta el parámetro Rooted',
-  },
   missingApplicationVersion: {
     code: '#service-missingApplicationVersion',
     message: 'Falta el parámetro applicationVersion',
