@@ -22,7 +22,7 @@ const vus = require('../controllers/vus');
  *         - deviceManufacturer
  *         - deviceName
  *       content:
- *         multipart/form-data:
+ *         application/json:
  *           schema:
  *             type: object
  *             properties:

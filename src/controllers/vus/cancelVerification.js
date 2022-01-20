@@ -4,8 +4,7 @@ const AuthRequestService = require('../../services/AuthRequestService');
 const vusService = require('../../services/vusService');
 
 const cancelVerification = async (req, res) => {
-  const { operationId } = req.body;
-  const { userName } = req.body;
+  const { operationId, userName } = req.body;
   let authRequest;
   let cancelRequest;
   try {

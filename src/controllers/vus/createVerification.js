@@ -4,19 +4,21 @@ const AuthRequestService = require('../../services/AuthRequestService');
 const Constants = require('../../constants/Constants');
 
 const createVerification = async (req, res) => {
-  const { did } = req.body;
-
-  const { userName } = req.body;
-  const { deviceHash } = req.body;
-  const { rooted } = req.body;
-  const { operativeSystem } = req.body;
-  const { operativeSystemVersion } = req.body;
-  const { deviceManufacturer } = req.body;
-  const { deviceName } = req.body;
+  const {
+    did,
+    userName,
+    deviceHash,
+    rooted,
+    operativeSystem,
+    operativeSystemVersion,
+    deviceManufacturer,
+    deviceName,
+  } = req.body;
 
   let operationId;
   let user;
   let authRequest;
+
   try {
     // Iniciar pedido de validación de identidad con vu security endpoint New Operation
     operationId = await vusService.newOperation(

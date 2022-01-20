@@ -6,7 +6,6 @@ const {
   missingUserName,
   missingIpAddress,
   missingDeviceHash,
-  missingRooted,
   missingApplicationVersion,
   missingOperativeSystem,
   missingOperativeSystemVersion,
@@ -51,7 +50,6 @@ module.exports.newOperation = async function newOperation(
   if (!userName) throw missingUserName;
   if (!ipAddress) throw missingIpAddress;
   if (!deviceHash) throw missingDeviceHash;
-  if (!rooted) throw missingRooted;
   if (!applicationVersion) throw missingApplicationVersion;
   if (!operativeSystem) throw missingOperativeSystem;
   if (!operativeSystemVersion) throw missingOperativeSystemVersion;
