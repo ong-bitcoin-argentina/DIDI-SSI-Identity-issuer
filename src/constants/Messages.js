@@ -28,6 +28,21 @@ module.exports = {
       message:
         'Hubo un error al iniciar el tramite de validacion, por favor inténtelo de nuevo más tarde.',
     },
+    CANCEL_OPERATION: {
+      code: 'CANCEL_OPERATION',
+      message:
+        'Hubo un error al cancelar el tramite de validacion, por favor inténtelo de nuevo más tarde.',
+    },
+    GET: {
+      code: 'REQ_GET',
+      message:
+        'No pudo obtenerse el pedido de validacion de identidad, por favor inténtelo de nuevo más tarde.',
+    },
+    UPDATE: {
+      code: 'REQ_UPDATE',
+      message:
+        'No pudo actualizarse el pedido de validacion de identidad, por favor inténtelo de nuevo más tarde.',
+    },
   },
   USER: {
     SUCCESS: {

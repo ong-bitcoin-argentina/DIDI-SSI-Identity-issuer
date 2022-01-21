@@ -3,7 +3,6 @@ const {
   missingUserName,
   missingIpAddress,
   missingDeviceHash,
-  missingRooted,
   missingApplicationVersion,
   missingOperativeSystem,
   missingOperativeSystemVersion,
@@ -65,24 +64,6 @@ describe('services/vus/newOperation.test.js', () => {
         ),
       ),
     ).rejects.toBe(missingDeviceHash);
-  });
-  it('expect newOperation to throw on missing Rooted', async () => {
-    expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          'deviceHash',
-          undefined,
-          'ApplicationVersion',
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingRooted);
   });
   it('expect newOperation to throw on missing ApplicationVersion', async () => {
     expect.assertions(1);
