@@ -28,4 +28,19 @@ User.getByDID = async function getByDID(did) {
   }
 };
 
+// crear nuevo usuario
+User.generate = async function generate(did) {
+  try {
+    let user = new User();
+    user.did = did;
+
+    user = await user.save();
+    return Promise.resolve(user);
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    return Promise.reject(err);
+  }
+};
+
 module.exports = User;
