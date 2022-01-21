@@ -7,6 +7,14 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
+  name: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
 });
 
 const User = mongoose.model('User', UserSchema);
@@ -29,10 +37,12 @@ User.getByDID = async function getByDID(did) {
 };
 
 // crear nuevo usuario
-User.generate = async function generate(did) {
+User.generate = async function generate(did, name, lastname) {
   try {
     let user = new User();
     user.did = did;
+    user.name = name;
+    user.lastname = lastname;
 
     user = await user.save();
     return Promise.resolve(user);

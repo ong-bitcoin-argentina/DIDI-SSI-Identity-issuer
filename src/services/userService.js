@@ -2,7 +2,11 @@
 const User = require('../models/User');
 const Messages = require('../constants/Messages');
 
-const missingDid = require('../constants/serviceErrors');
+const {
+  missingDid,
+  missingName,
+  missingLastName,
+} = require('../constants/serviceErrors');
 
 /**
  * Obtener usuario a partir de un did
@@ -24,15 +28,17 @@ module.exports = { getByDID };
 /**
  * Crear un usuario, siempre que este no exista uno asociado al did
  */
-module.exports.create = async function create(did) {
+module.exports.create = async function create(did, name, lastname) {
   if (!did) throw missingDid;
+  if (!name) throw missingName;
+  if (!lastname) throw missingLastName;
   try {
     // Verificar si ya existe un usuario asociado a ese did
     let user = await getByDID(did);
     if (user) return Messages.USER.ERR.USER_ALREADY_EXIST;
 
     // Crear usuario
-    user = await User.generate(did);
+    user = await User.generate(did, name, lastname);
     if (!user) return Messages.USER.ERR.CREATE;
     return user;
   } catch (err) {

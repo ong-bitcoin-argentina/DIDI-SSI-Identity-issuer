@@ -8,12 +8,18 @@ const user = require('../controllers/user');
  *     summary: Genera usuario.
  *     requestBody:
  *       required:
+ *         - name
+ *         - lastname
  *         - did
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
+ *               name:
+ *                 type: string
+ *               lastname:
+ *                 type: string
  *               did:
  *                 type: string
  *     responses:
