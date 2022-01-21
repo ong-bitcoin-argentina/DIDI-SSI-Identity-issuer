@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Constants = require('../constants/Constants');
 
-const { IN_PROGRES } = Constants.AUTHENTICATION_REQUEST;
+const IN_PROGRES = Constants.AUTHENTICATION_REQUEST.IN_PROGRESS;
 
 // Registra la informacion de un pedido de validacion de identidad contra VU Security
 const AuthRequestSchema = new mongoose.Schema({
