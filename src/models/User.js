@@ -19,7 +19,7 @@ UserSchema.methods.getDid = async function getDid() {
 // obtener usuario a partir del did
 User.getByDID = async function getByDID(did) {
   try {
-    const query = { did, deleted: false };
+    const query = { did };
     const user = await User.findOne(query);
     return Promise.resolve(user);
   } catch (err) {
