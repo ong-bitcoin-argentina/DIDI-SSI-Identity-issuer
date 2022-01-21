@@ -47,10 +47,8 @@ module.exports.update = async function update(
 ) {
   if (!status) throw missingStatus;
   try {
-    // eslint-disable-next-line no-undef
     let authRequest = await AuthRequest.findByOperationId(operationId);
     if (!authRequest) return Messages.VUS.GET;
-    // eslint-disable-next-line no-use-before-define
     authRequest = await authRequest.update(status, errorMessage);
     if (!authRequest) return Messages.VUS.UPDATE;
     return authRequest;
