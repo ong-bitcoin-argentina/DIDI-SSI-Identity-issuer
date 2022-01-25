@@ -1,5 +1,10 @@
 const router = require('express').Router();
+
+const Validator = require('../utils/Validator');
+const Constants = require('../constants/Constants');
 const user = require('../controllers/user');
+
+const { IS_STRING } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
@@ -30,6 +35,10 @@ const user = require('../controllers/user');
  *       500:
  *         description: Error interno del servidor
  */
-router.post('/registerUser', user.createUser);
+router.post(
+  '/registerUser',
+  Validator.validateBody([{ name: 'did', validate: [IS_STRING] }]),
+  user.createUser,
+);
 
 module.exports = router;
