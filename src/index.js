@@ -6,6 +6,8 @@ const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 const mongoose = require('mongoose');
 
+const multer = require('multer');
+
 const app = express();
 
 app.use(express.json());
@@ -15,6 +17,20 @@ const Constants = require('./constants/Constants');
 const Messages = require('./constants/Messages');
 
 const routes = require('./routes/index');
+
+const fileStorage = multer.diskStorage({
+  // eslint-disable-next-line no-empty-pattern
+  filename: ({}, file, callback) => {
+    const filename = 'pic';
+    callback(null, filename);
+  },
+});
+
+app.use(
+  multer({
+    storage: fileStorage,
+  }).single('file'),
+);
 
 mongoose
   .connect(Constants.DB_URI)

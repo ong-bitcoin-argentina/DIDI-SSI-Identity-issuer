@@ -12,6 +12,7 @@ const {
   missingDeviceManufacturer,
   missingDeviceName,
   missingOperationId,
+  missingFile,
 } = require('../constants/serviceErrors');
 
 /**
@@ -93,5 +94,32 @@ module.exports.cancelOperation = async function cancelOperation(
     return result.cancelOperation;
   } catch (error) {
     return Messages.VUS.CANCEL_OPERATION;
+  }
+};
+
+module.exports.addFront = async function addFront(
+  operationId,
+  userName,
+  analyzeAnomalies,
+  analyzeOcr,
+  file,
+) {
+  if (!operationId) throw missingOperationId;
+  if (!userName) throw missingUserName;
+  if (!file) throw missingFile;
+  try {
+    const result = await vuSecurityPost(
+      Constants.VUS_URLS.ADD_FRONT,
+      JSON.stringify({
+        operationId,
+        userName,
+        analyzeAnomalies,
+        analyzeOcr,
+        file,
+      }),
+    );
+    return result;
+  } catch (error) {
+    return Messages.VUS.ADD_FRONT;
   }
 };

@@ -36,6 +36,7 @@ module.exports = {
   VUS_URLS: {
     NEW_OPERATION: `${VUS_URL}/newOperation`,
     CANCEL_OPERATION: `${VUS_URL}/cancelOperation`,
+    ADD_FRONT: `${VUS_URL}/addFront`,
   },
   VUS_API_KEY,
   VUS_API,

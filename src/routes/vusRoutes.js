@@ -107,4 +107,44 @@ router.post(
   vus.cancelVerification,
 );
 
+/**
+ * @openapi
+ * 	 /vuSecurity/frontImage:
+ *   post:
+ *     summary: Permite adherir el frente de un documento
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *         - file
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *               file:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/frontImage',
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
+  vus.frontImage,
+);
+
 module.exports = router;
