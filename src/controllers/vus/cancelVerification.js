@@ -22,7 +22,7 @@ const cancelVerification = async (req, res) => {
     }
     return res.status(200).send('Operacion cancelada exitosamente');
   } catch (error) {
-    return error;
+    return res.status(500).send(error);
   }
 };
 

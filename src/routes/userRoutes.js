@@ -8,23 +8,17 @@ const { IS_STRING } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- *   /registerUser:
+ *   /vuSecurity/registerUser:
  *   post:
  *     summary: Genera usuario.
  *     requestBody:
  *       required:
- *         - name
- *         - lastname
  *         - did
  *       content:
  *         application/json:
  *           schema:
  *             type: object
  *             properties:
- *               name:
- *                 type: string
- *               lastname:
- *                 type: string
  *               did:
  *                 type: string
  *     responses:
@@ -38,6 +32,7 @@ const { IS_STRING } = Constants.VALIDATION_TYPES;
 router.post(
   '/registerUser',
   Validator.validateBody([{ name: 'did', validate: [IS_STRING] }]),
+  Validator.checkValidationResult,
   user.createUser,
 );
 

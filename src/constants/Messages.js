@@ -48,35 +48,8 @@ module.exports = {
   },
 
   VALIDATION: {
-    COMMON_PASSWORD: {
-      code: 'PARAMETER_TYPE_ERROR',
-      message:
-        'La contraseña ingresada es de uso común, por favor ingrese una mas segura.',
-    },
-    PASSWORD_NOT_SAFE: {
-      code: 'PASSWORD_NOT_SAFE',
-      message:
-        'La contraseña debe tener caracteres en mayuscúlas, minúsculas, números y caracteres especiales, por favor ingrese una mas segura.',
-    },
-    PASSWORD_TOO_SHORT: {
-      code: 'PASSWORD_TOO_SHORT',
-      message:
-        'La contraseña debe tener al menos 8 caracteres, por favor ingrese una mas segura.',
-    },
     DOES_NOT_EXIST(type) {
       return { code: 'PARAMETER_MISSING', message: `falta el campo: ${type}` };
-    },
-    MOVILE_PHONE_FORMAT_INVALID(field) {
-      return {
-        code: 'PARAMETER_TYPE_ERROR',
-        message: `El campo ${field} es incorrecto, se esperaba un número telefónico`,
-      };
-    },
-    EMAIL_FORMAT_INVALID(field) {
-      return {
-        code: 'PARAMETER_TYPE_ERROR',
-        message: `El campo ${field} es incorrecto, se esperaba un mail`,
-      };
     },
     IP_FORMAT_INVALID(field) {
       return {
@@ -102,22 +75,10 @@ module.exports = {
         message: `El campo ${field} es incorrecto, se esperaba un booleano ('true' o 'false')`,
       };
     },
-    BASE64_FORMAT_INVALID(field) {
-      return {
-        code: 'PARAMETER_TYPE_ERROR',
-        message: `El campo ${field} es incorrecto, se esperaba un texto en base 64`,
-      };
-    },
     DNI_FORMAT_INVALID(field) {
       return {
         code: 'PARAMETER_TYPE_ERROR',
         message: `El campo ${field} es incorrecto, se esperaba una dni`,
-      };
-    },
-    DATE_FORMAT_INVALID(field) {
-      return {
-        code: 'PARAMETER_TYPE_ERROR',
-        message: `El campo ${field} es incorrecto, se esperaba una fecha con el siguiente formato: 'aaaa-mm-ddThh:mm:ssZ.' `,
       };
     },
     LENGTH_INVALID(field, min, max) {

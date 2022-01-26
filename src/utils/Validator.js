@@ -46,38 +46,6 @@ module.exports.validateBody = function validateBody(params) {
       param.validate.forEach((validationType) => {
         let regex;
         switch (validationType) {
-          case Constants.VALIDATION_TYPES.IS_PASSWORD:
-            // Campo es una contraseña, verifica que no esté en la lista de contraseñas comunes,
-            // que tenga al menos 8 caracteres y letras min,may, números y caracteres especiales
-            regex =
-              /(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/;
-
-            validation
-              .matches(regex)
-              .withMessage(Messages.VALIDATION.PASSWORD_NOT_SAFE)
-              .isLength({ min: 8 })
-              .withMessage(Messages.VALIDATION.PASSWORD_TOO_SHORT)
-              .not()
-              .isIn(Constants.COMMON_PASSWORDS)
-              .withMessage(Messages.VALIDATION.COMMON_PASSWORD);
-            break;
-          case Constants.VALIDATION_TYPES.IS_MOBILE_PHONE:
-            // Campo es un número de teléfono, valida que el formato sea el correcto
-            regex = /(^\+\d+$)/;
-            validation
-              .matches(regex)
-              .withMessage(
-                Messages.VALIDATION.MOVILE_PHONE_FORMAT_INVALID(param.name),
-              );
-            break;
-          case Constants.VALIDATION_TYPES.IS_EMAIL:
-            // Campo es un mail, valida que el formato sea el correcto
-            validation
-              .isEmail()
-              .withMessage(
-                Messages.VALIDATION.EMAIL_FORMAT_INVALID(param.name),
-              );
-            break;
           case Constants.VALIDATION_TYPES.IS_STRING:
             // Campo es un string, valida que lo sea
             validation
@@ -109,19 +77,6 @@ module.exports.validateBody = function validateBody(params) {
             validation
               .matches(regex)
               .withMessage(Messages.VALIDATION.IP_FORMAT_INVALID(param.name))
-              .isString()
-              .withMessage(
-                Messages.VALIDATION.STRING_FORMAT_INVALID(param.name),
-              );
-            break;
-          case Constants.VALIDATION_TYPES.IS_DNI:
-            // Campo es un dni
-            regex = /^\d{8}(?:[-\s]\d{4})?$/;
-            validation
-              .isLength({ min: 7, max: 9 })
-              .withMessage(Messages.VALIDATION.LENGTH_INVALID(param.name, 7, 9))
-              .matches(regex)
-              .withMessage(Messages.VALIDATION.DNI_FORMAT_INVALID(param.name))
               .isString()
               .withMessage(
                 Messages.VALIDATION.STRING_FORMAT_INVALID(param.name),

@@ -8,7 +8,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- * 	 /createVerification:
+ * 	 /vuSecurity/createVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
  *     requestBody:
@@ -66,12 +66,13 @@ router.post(
     { name: 'deviceManufacturer', validate: [IS_STRING] },
     { name: 'deviceName', validate: [IS_STRING] },
   ]),
+  Validator.checkValidationResult,
   vus.createVerification,
 );
 
 /**
  * @openapi
- * 	 /cancelVerification:
+ * 	 /vuSecurity/cancelVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
  *     requestBody:
@@ -102,6 +103,7 @@ router.post(
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
   ]),
+  Validator.checkValidationResult,
   vus.cancelVerification,
 );
 
