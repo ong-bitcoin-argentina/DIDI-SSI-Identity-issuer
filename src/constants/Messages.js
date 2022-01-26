@@ -6,6 +6,7 @@ const COMMUNICATION_ERROR = {
 
 module.exports = {
   COMMUNICATION_ERROR,
+
   INDEX: {
     ERR: {
       CONNECTION: 'Error de conexion en la base de datos: ',
@@ -17,6 +18,7 @@ module.exports = {
       RUNNING_ON: 'Ejecutandose en puerto ',
     },
   },
+
   VUS: {
     CREATE: {
       code: 'REQ_CREATE',
@@ -44,6 +46,84 @@ module.exports = {
         'No pudo actualizarse el pedido de validacion de identidad, por favor inténtelo de nuevo más tarde.',
     },
   },
+
+  VALIDATION: {
+    DOES_NOT_EXIST(type) {
+      return { code: 'PARAMETER_MISSING', message: `falta el campo: ${type}` };
+    },
+    IP_FORMAT_INVALID(field) {
+      return {
+        code: 'PARAMETER_TYPE_ERROR',
+        message: `El campo ${field} es incorrecto, se esperaba una direccion ip`,
+      };
+    },
+    STRING_FORMAT_INVALID(field) {
+      return {
+        code: 'PARAMETER_TYPE_ERROR',
+        message: `El campo ${field} es incorrecto, se esperaba un texto`,
+      };
+    },
+    NUMBER_FORMAT_INVALID(field) {
+      return {
+        code: 'PARAMETER_TYPE_ERROR',
+        message: `El campo ${field} es incorrecto, se esperaba un número`,
+      };
+    },
+    BOOLEAN_FORMAT_INVALID(field) {
+      return {
+        code: 'PARAMETER_TYPE_ERROR',
+        message: `El campo ${field} es incorrecto, se esperaba un booleano ('true' o 'false')`,
+      };
+    },
+    DNI_FORMAT_INVALID(field) {
+      return {
+        code: 'PARAMETER_TYPE_ERROR',
+        message: `El campo ${field} es incorrecto, se esperaba una dni`,
+      };
+    },
+    LENGTH_INVALID(field, min, max) {
+      const code = 'PARAMETER_LENGTH_ERROR';
+      const msgStart = `El campo ${field} tendría que tener`;
+
+      if (min && !max) {
+        return {
+          code,
+          message: `${msgStart} mas que ${min} caracteres`,
+        };
+      }
+
+      if (!min && max) {
+        return {
+          code,
+          message: `${msgStart} menos que ${max} caracteres`,
+        };
+      }
+
+      if (min === max) {
+        return {
+          code,
+          message: `${msgStart} exactamete ${max} caracteres`,
+        };
+      }
+      return {
+        code,
+        message: `${msgStart} entre ${min} y ${max} caracteres`,
+      };
+    },
+    APP_DID_NOT_FOUND: (did) => ({
+      code: 'APP_DID_NOT_FOUND',
+      message: `La Aplicación con el DID ${did} no esta autorizada.`,
+    }),
+    ADMIN_DID_NOT_MATCH: (did) => ({
+      code: 'ADMIN_DID_NOT_MATCH',
+      message: `El DID ${did} provisto no coincide con ningún admin.`,
+    }),
+    DID_NOT_FOUND: (did) => ({
+      code: 'DID_NOT_FOUND',
+      message: `El usuario con el DID ${did} no existe.`,
+    }),
+  },
+
   USER: {
     SUCCESS: {
       LOGGED_IN: {},

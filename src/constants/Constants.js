@@ -46,6 +46,23 @@ module.exports = {
     FALIED: 'Falied',
     CANCELLED: 'Cancelled',
   },
+
+  VALIDATION_TYPES: {
+    IS_AUTH_TOKEN: 'IsAuthToken',
+    IS_MOBILE_PHONE: 'isMobilePhone',
+    IS_EMAIL: 'isEmail',
+    IS_STRING: 'isString',
+    IS_DATE_TIME: 'isDateTime',
+    IS_BOOLEAN: 'isBoolean',
+    IS_PASSWORD: 'isPassword',
+    IS_BASE_64_IMAGE: 'isBase64Image',
+    IS_FINGER_PRINT: 'isFingerPrint',
+    IS_NUMBER: 'isNumber',
+    IS_DNI: 'isDni',
+    IS_IP: 'isIp',
+    MAX_MB: 3,
+  },
+
   VERSION_APP,
   IP_ADDRESS,
 };

@@ -1,12 +1,14 @@
 const router = require('express').Router();
 
-// const Validator = require('../utils/Validator');
-// const Constants = require('../constants/Constants');
+const Constants = require('../constants/Constants');
 const vus = require('../controllers/vus');
+const Validator = require('../utils/Validator');
+
+const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- * 	 /createVerification:
+ * 	 /vuSecurity/createVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
  *     requestBody:
@@ -52,11 +54,25 @@ const vus = require('../controllers/vus');
  *         description: Error interno del servidor
  *
  */
-router.post('/createVerification', vus.createVerification);
+router.post(
+  '/createVerification',
+  Validator.validateBody([
+    { name: 'did', validate: [IS_STRING] },
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'deviceHash', validate: [IS_STRING] },
+    { name: 'rooted', validate: [IS_BOOLEAN] },
+    { name: 'operativeSystem', validate: [IS_STRING] },
+    { name: 'operativeSystemVersion', validate: [IS_STRING] },
+    { name: 'deviceManufacturer', validate: [IS_STRING] },
+    { name: 'deviceName', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
+  vus.createVerification,
+);
 
 /**
  * @openapi
- * 	 /cancelVerification:
+ * 	 /vuSecurity/cancelVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
  *     requestBody:
@@ -83,7 +99,11 @@ router.post('/createVerification', vus.createVerification);
  */
 router.post(
   '/cancelVerification',
-
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
   vus.cancelVerification,
 );
 

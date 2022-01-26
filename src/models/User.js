@@ -7,13 +7,8 @@ const UserSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  name: {
+  operationId: {
     type: String,
-    required: true,
-  },
-  lastname: {
-    type: String,
-    required: true,
   },
 });
 
