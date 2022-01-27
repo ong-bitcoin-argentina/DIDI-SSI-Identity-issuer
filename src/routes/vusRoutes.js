@@ -142,6 +142,7 @@ router.post(
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
+    { name: 'file', validate: [IS_STRING] },
   ]),
   Validator.checkValidationResult,
   vus.frontImage,

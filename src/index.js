@@ -1,16 +1,13 @@
 const apicache = require('apicache');
 const redis = require('redis');
+const bodyParser = require('body-parser');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const express = require('express');
 const mongoose = require('mongoose');
 
-const multer = require('multer');
-
 const app = express();
-
-app.use(express.json());
 
 const { NAME, VERSION, ENVIRONMENT } = require('./constants/Constants');
 const Constants = require('./constants/Constants');
@@ -18,19 +15,17 @@ const Messages = require('./constants/Messages');
 
 const routes = require('./routes/index');
 
-const fileStorage = multer.diskStorage({
-  // eslint-disable-next-line no-empty-pattern
-  filename: ({}, file, callback) => {
-    const filename = 'pic';
-    callback(null, filename);
-  },
-});
-
+// aumentar el tamaño de request permitido para poder recibir la imagen en base64
+app.use(bodyParser.json({ limit: '50mb' }));
 app.use(
-  multer({
-    storage: fileStorage,
-  }).single('file'),
+  bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true,
+    parameterLimit: 50000,
+  }),
 );
+
+app.use(express.json());
 
 mongoose
   .connect(Constants.DB_URI)
