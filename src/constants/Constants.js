@@ -7,6 +7,7 @@ const {
   NAME,
   VERSION,
   MONGO_URI,
+  REDIS_URI,
   VUS_URL,
   VUS_APP_VERS,
   VUS_API_KEY,
@@ -33,6 +34,7 @@ module.exports = {
   NAME,
   VERSION,
   MONGO_URI,
+  REDIS_URI,
   VUS_URLS: {
     NEW_OPERATION: `${VUS_URL}/newOperation`,
     CANCEL_OPERATION: `${VUS_URL}/cancelOperation`,
