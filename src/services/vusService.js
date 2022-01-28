@@ -123,3 +123,26 @@ module.exports.addFront = async function addFront(
     return Messages.VUS.ADD_FRONT;
   }
 };
+
+module.exports.addDocumentImage = async function addDocumentImage(
+  operationId,
+  userName,
+  file,
+) {
+  if (!operationId) throw missingOperationId;
+  if (!userName) throw missingUserName;
+  if (!file) throw missingFile;
+  try {
+    const result = await vuSecurityPost(
+      Constants.VUS_URLS.ADD_DOCUMENT_IMAGE,
+      JSON.stringify({
+        operationId,
+        userName,
+        file,
+      }),
+    );
+    return result;
+  } catch (error) {
+    return Messages.VUS.ADD_DOCUMENT_IMAGE;
+  }
+};

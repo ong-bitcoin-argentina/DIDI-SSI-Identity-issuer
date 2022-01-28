@@ -1,11 +1,9 @@
 const vusService = require('../../services/vusService');
-const UserService = require('../../services/userService');
 const AuthRequestService = require('../../services/AuthRequestService');
 const Constants = require('../../constants/Constants');
 
 const createVerification = async (req, res) => {
   let operationId;
-  let user;
   let authRequest;
 
   try {
@@ -32,12 +30,9 @@ const createVerification = async (req, res) => {
       deviceName,
     );
 
-    // Obtener usuario a partir de un did
-    user = await UserService.getByDID(did);
-
     // Guardar estado como "en progreso y retornar"
     // eslint-disable-next-line no-unused-vars
-    authRequest = await AuthRequestService.create(operationId, user);
+    authRequest = await AuthRequestService.create(operationId, did);
     return res.status(200).json({ userName, operationId });
   } catch (err) {
     return err;

@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { validateUser } = require('../middelwares/ValidateUser');
 const Constants = require('../constants/Constants');
 const vus = require('../controllers/vus');
 const Validator = require('../utils/Validator');
@@ -56,6 +57,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  */
 router.post(
   '/createVerification',
+  validateUser,
   Validator.validateBody([
     { name: 'did', validate: [IS_STRING] },
     { name: 'userName', validate: [IS_STRING] },
@@ -99,6 +101,7 @@ router.post(
  */
 router.post(
   '/cancelVerification',
+  validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
@@ -146,6 +149,47 @@ router.post(
   ]),
   Validator.checkValidationResult,
   vus.frontImage,
+);
+
+/**
+ * @openapi
+ * 	 /vuSecurity/addDocumentImage:
+ *   post:
+ *     summary: Permite adherir la imagen del documento
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *         - file
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *               file:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/addDocumentImage',
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+    { name: 'file', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
+  vus.addDocumentImage,
 );
 
 module.exports = router;
