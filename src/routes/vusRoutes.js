@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { validateUser } = require('../middelwares/ValidateUser');
 const Constants = require('../constants/Constants');
 const vus = require('../controllers/vus');
 const Validator = require('../utils/Validator');
@@ -56,6 +57,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  */
 router.post(
   '/createVerification',
+  validateUser,
   Validator.validateBody([
     { name: 'did', validate: [IS_STRING] },
     { name: 'userName', validate: [IS_STRING] },
@@ -99,6 +101,7 @@ router.post(
  */
 router.post(
   '/cancelVerification',
+  validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },

@@ -1,5 +1,3 @@
-const Constants = require('../constants/Constants');
-
 /**
  *  Mandar respuesta html genérica
  */
@@ -25,7 +23,7 @@ module.exports.sendRes = function sendRes(res, data) {
  */
 module.exports.sendErr = function sendErr(res, err) {
   // eslint-disable-next-line no-console
-  if (Constants.DEBUGG && err) console.log(err);
+  console.log(err);
 
   res.type('application/json; charset=UTF-8');
   return res.json({
@@ -44,7 +42,7 @@ module.exports.sendErrWithStatus = function sendErrWithStatus(
   status = 500,
 ) {
   // eslint-disable-next-line no-console
-  if (Constants.DEBUGG && err) console.log(err);
+  console.log(err);
   return res.status(status).json({
     status: 'error',
     errorCode: err.code,
