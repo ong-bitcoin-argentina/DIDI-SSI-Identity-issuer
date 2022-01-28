@@ -15,10 +15,11 @@ const validateUser = async (req, res, next) => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(jwt),
+      body: JSON.stringify({ jwt }),
     });
+    const userResp = await user.json();
 
-    if (!user) throw USER.ERR.VALIDATE;
+    if (!userResp) throw USER.ERR.VALIDATE;
     next();
   } catch (e) {
     // eslint-disable-next-line no-console
