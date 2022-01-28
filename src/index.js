@@ -1,23 +1,28 @@
 const apicache = require('apicache');
-const redis = require('redis');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const express = require('express');
 const mongoose = require('mongoose');
+const redis = require('redis');
 
 const app = express();
 
 app.use(express.json());
 
-const { NAME, VERSION, ENVIRONMENT } = require('./constants/Constants');
-const Constants = require('./constants/Constants');
+const {
+  NAME,
+  VERSION,
+  ENVIRONMENT,
+  REDIS_URI,
+  MONGO_URI,
+} = require('./constants/Constants');
 const Messages = require('./constants/Messages');
 
 const routes = require('./routes/index');
 
 mongoose
-  .connect(Constants.DB_URI)
+  .connect(MONGO_URI)
   // eslint-disable-next-line no-console
   .then(() => console.log(Messages.INDEX.MSG.CONNECTED))
   .catch((err) => {
@@ -59,7 +64,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpecification));
 app.use(
   apicache
     .options({
-      redisClient: redis.createClient(),
+      redisClient: redis.createClient({ REDIS_URI }),
       debug: false,
       trackPerformance: true,
       respectCacheControl: false,
