@@ -7,12 +7,12 @@ const {
   missingUserName,
   missingFile,
 } = require('../../../src/constants/serviceErrors');
-const { successRespAddBack } = require('../mock/constants');
+const { successResAddBack } = require('../mock/constants');
 
 describe('services/vus/addBack.test.js', () => {
   it('expect addBack OK', async () => {
     expect.assertions(2);
-    fetch.mockReturnValue(Promise.resolve(successRespAddBack));
+    fetch.mockReturnValue(Promise.resolve(successResAddBack));
     const response = await addBack(
       'operationId',
       'userName',
@@ -21,7 +21,7 @@ describe('services/vus/addBack.test.js', () => {
       'file',
     );
     expect(fetch).toHaveBeenCalledTimes(1);
-    expect(response).toBe(successRespAddBack.json());
+    expect(response).toBe(successResAddBack.json());
   });
   it('expect addBack to throw missing OperationId', async () => {
     expect.assertions(1);
