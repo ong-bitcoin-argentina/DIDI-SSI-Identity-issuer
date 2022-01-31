@@ -6,9 +6,8 @@ const addDocumentImage = async (req, res) => {
   // eslint-disable-next-line no-console
   console.log(`${operationId} adding image dni front data`);
 
-  let imageDocument;
   try {
-    imageDocument = await vusService.addDocumentImage(
+    const imageDocument = await vusService.addDocumentImage(
       operationId,
       userName,
       file,
