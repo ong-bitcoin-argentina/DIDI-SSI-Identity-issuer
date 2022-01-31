@@ -54,6 +54,10 @@ module.exports = {
       message:
         'El resultado arrojado por VU Security tiene un grado bajo de precision. Por favor, intente sacar nuevamente la foto al frente del DNI',
     },
+    ADD_DOCUMENT_IMAGE: {
+      code: 'ADD_DOCUMENT_IMAGE',
+      message: 'Hubo un error al adherir la imgen del frente del documento',
+    },
   },
 
   VALIDATION: {

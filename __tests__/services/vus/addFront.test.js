@@ -1,31 +1,27 @@
-const fetchMock = require('fetch-mock');
+jest.mock('node-fetch');
+
+const fetch = require('node-fetch');
 const { addFront } = require('../../../src/services/vusService');
 const {
   missingOperationId,
   missingUserName,
   missingFile,
 } = require('../../../src/constants/serviceErrors');
-const { VUS_URLS } = require('../../../src/constants/Constants');
+const { successRespAddFront } = require('../mock/constants');
 
 describe('services/vus/addFront.test.js', () => {
   it('expect addFront OK', async () => {
-    expect.assertions(0);
-    fetchMock.post(VUS_URLS.addFront, {
-      image: {
-        code: 0,
-        message: 'Add front success',
-        detectedCountry: 'pais',
-        detectedCountryId: 1,
-        detectedDocumentCountryId: 1,
-        detectedDocumentCountry: 'Pais',
-        addBackRequired: true,
-        addDocumentPictureRequired: true,
-        documentPictureDetected: true,
-        containsBarcode: true,
-        barcodeDetected: true,
-      },
-    });
-    fetchMock.reset();
+    expect.assertions(2);
+    fetch.mockReturnValue(Promise.resolve(successRespAddFront));
+    const response = await addFront(
+      'operationId',
+      'userName',
+      true,
+      true,
+      'file',
+    );
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(response).toBe(successRespAddFront.json());
   });
   it('expect addFront to throw missing OperationId', async () => {
     expect.assertions(1);

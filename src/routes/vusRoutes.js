@@ -12,6 +12,12 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  * 	 /vuSecurity/createVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - did
@@ -77,6 +83,12 @@ router.post(
  * 	 /vuSecurity/cancelVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - userName
@@ -115,6 +127,12 @@ router.post(
  * 	 /vuSecurity/frontImage:
  *   post:
  *     summary: Permite adherir el frente de un documento
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - userName
@@ -142,6 +160,7 @@ router.post(
  */
 router.post(
   '/frontImage',
+  validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
@@ -149,6 +168,54 @@ router.post(
   ]),
   Validator.checkValidationResult,
   vus.frontImage,
+);
+
+/**
+ * @openapi
+ * 	 /vuSecurity/addDocumentImage:
+ *   post:
+ *     summary: Permite adherir la imagen del documento
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *         - file
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *               file:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/addDocumentImage',
+  validateUser,
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+    { name: 'file', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
+  vus.addDocumentImage,
 );
 
 module.exports = router;

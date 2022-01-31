@@ -1,9 +1,11 @@
 const { createVerification } = require('./createVerification');
 const { cancelVerification } = require('./cancelVerification');
 const { frontImage } = require('./addFront');
+const { addDocumentImage } = require('./addDocumentImage');
 
 module.exports = {
   createVerification,
   cancelVerification,
   frontImage,
+  addDocumentImage,
 };
