@@ -12,6 +12,12 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  * 	 /vuSecurity/createVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - did
@@ -77,6 +83,12 @@ router.post(
  * 	 /vuSecurity/cancelVerification:
  *   post:
  *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - userName
@@ -115,6 +127,12 @@ router.post(
  * 	 /vuSecurity/frontImage:
  *   post:
  *     summary: Permite adherir el frente de un documento
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - userName
@@ -142,6 +160,7 @@ router.post(
  */
 router.post(
   '/frontImage',
+  validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
@@ -156,6 +175,12 @@ router.post(
  * 	 /vuSecurity/addDocumentImage:
  *   post:
  *     summary: Permite adherir la imagen del documento
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
  *     requestBody:
  *       required:
  *         - userName
@@ -183,6 +208,7 @@ router.post(
  */
 router.post(
   '/addDocumentImage',
+  validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
