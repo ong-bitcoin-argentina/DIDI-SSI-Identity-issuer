@@ -1,10 +1,11 @@
 const apicache = require('apicache');
+const redis = require('redis');
+const bodyParser = require('body-parser');
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 
 const express = require('express');
 const mongoose = require('mongoose');
-const redis = require('redis');
 
 const app = express();
 
@@ -20,6 +21,18 @@ const {
 const Messages = require('./constants/Messages');
 
 const routes = require('./routes/index');
+
+// aumentar el tamaño de request permitido para poder recibir la imagen en base64
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(
+  bodyParser.urlencoded({
+    limit: '50mb',
+    extended: true,
+    parameterLimit: 50000,
+  }),
+);
+
+app.use(express.json());
 
 mongoose
   .connect(MONGO_URI)

@@ -55,4 +55,8 @@ module.exports = {
     code: '#service-missingStatus',
     message: 'Falta el parametro Status',
   },
+  missingFile: {
+    code: '#service-missingFile',
+    message: 'Falta el parametro File',
+  },
 };
