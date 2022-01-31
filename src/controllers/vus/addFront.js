@@ -9,9 +9,14 @@ const frontImage = async (req, res) => {
   // eslint-disable-next-line no-console
   console.log(`${operationId} adding dni front data`);
 
-  let image;
   try {
-    image = await vusService.addFront(operationId, userName, true, true, file);
+    const image = await vusService.addFront(
+      operationId,
+      userName,
+      true,
+      true,
+      file,
+    );
     if (image.message.includes('fail')) {
       authRequest.update(
         Constants.AUTHENTICATION_REQUEST.FALIED,
