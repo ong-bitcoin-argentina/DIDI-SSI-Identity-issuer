@@ -146,3 +146,30 @@ module.exports.addDocumentImage = async function addDocumentImage(
     return Messages.VUS.ADD_DOCUMENT_IMAGE;
   }
 };
+
+module.exports.addBack = async function addBack(
+  operationId,
+  userName,
+  analyzeAnomalies,
+  analyzeOcr,
+  file,
+) {
+  if (!operationId) throw missingOperationId;
+  if (!userName) throw missingUserName;
+  if (!file) throw missingFile;
+  try {
+    const result = await vuSecurityPost(
+      Constants.VUS_URLS.ADD_BACK,
+      JSON.stringify({
+        operationId,
+        userName,
+        analyzeAnomalies,
+        analyzeOcr,
+        file,
+      }),
+    );
+    return result;
+  } catch (error) {
+    return Messages.VUS.ADD_BACK;
+  }
+};

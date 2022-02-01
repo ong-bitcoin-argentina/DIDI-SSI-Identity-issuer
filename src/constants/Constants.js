@@ -44,6 +44,7 @@ module.exports = {
     CANCEL_OPERATION: `${VUS_URL}/cancelOperation`,
     ADD_FRONT: `${VUS_URL}/addFront`,
     ADD_DOCUMENT_IMAGE: `${VUS_URL}/addDocumentImage`,
+    ADD_BACK: `${VUS_URL}/addBack`,
   },
   VUS_API_KEY,
   VUS_API,
