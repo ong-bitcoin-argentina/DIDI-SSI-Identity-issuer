@@ -21,11 +21,23 @@ const successBodyAddFront = {
   },
 };
 
+const successBodyAddBack = {
+  imgage: {
+    code: 912,
+    message: 'Add back success',
+    containsBarcode: true,
+    barcodeDetected: true,
+  },
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
   },
   successRespAddFront: {
     json: () => successBodyAddFront,
+  },
+  successResAddBack: {
+    json: () => successBodyAddBack,
   },
 };

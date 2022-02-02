@@ -58,6 +58,10 @@ module.exports = {
       code: 'ADD_DOCUMENT_IMAGE',
       message: 'Hubo un error al adherir la imgen del frente del documento',
     },
+    ADD_BACK: {
+      code: 'ADD_BACK',
+      message: 'Hubo un error al adherir el dorso del documento',
+    },
   },
 
   VALIDATION: {
