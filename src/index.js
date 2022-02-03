@@ -12,6 +12,9 @@ limiter({
   path: '*',
   method: 'all',
   lookup: 'connection.remoteAddress',
+  // 150 requests per hour
+  total: 150,
+  expire: 1000 * 60 * 60,
 });
 
 // aumentar el tamaño de request permitido para poder recibir la imagen en base64
