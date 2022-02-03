@@ -85,5 +85,12 @@ app.get('/cache', (_, res) => {
 });
 
 app.use('/api', routes);
+app.use('*', (req, res) =>
+  res.status(404).json({
+    status: 'error',
+    errorCode: 'INVALID_ROUTE',
+    message: 'Route does not exist',
+  }),
+);
 
 module.exports = app;
