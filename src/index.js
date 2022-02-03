@@ -1,12 +1,18 @@
 const apicache = require('apicache');
-const redis = require('redis');
+const client = require('redis').createClient;
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-
 const express = require('express');
 const mongoose = require('mongoose');
+const limiter = require('express-limiter');
 
 const app = express();
+
+limiter({
+  path: '*',
+  method: 'all',
+  lookup: 'connection.remoteAddress',
+});
 
 // aumentar el tamaño de request permitido para poder recibir la imagen en base64
 app.use(express.json({ limit: '10mb' }));
@@ -65,7 +71,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpecification));
 app.use(
   apicache
     .options({
-      redisClient: redis.createClient({ REDIS_URI }),
+      redisClient: client({ REDIS_URI }),
       debug: false,
       trackPerformance: true,
       respectCacheControl: false,
