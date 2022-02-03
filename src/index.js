@@ -89,7 +89,7 @@ app.use('*', (req, res) =>
   res.status(404).json({
     status: 'error',
     errorCode: 'INVALID_ROUTE',
-    message: 'Route does not exist',
+    message: 'La ruta no existe.',
   }),
 );
 
