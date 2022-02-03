@@ -145,7 +145,7 @@ module.exports = {
     ERR: {
       VALIDATE: {
         code: 'VALIDATE',
-        message: 'Error al validar informacion de usuario.',
+        message: 'Error al validar información de usuario.',
       },
     },
   },

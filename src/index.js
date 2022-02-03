@@ -1,12 +1,22 @@
 const apicache = require('apicache');
-const redis = require('redis');
+const client = require('redis').createClient;
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
-
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
 const app = express();
+
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 100, // Limit each IP to 100 requests per `window`
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
+});
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter);
 
 // aumentar el tamaño de request permitido para poder recibir la imagen en base64
 app.use(express.json({ limit: '10mb' }));
@@ -65,7 +75,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpecification));
 app.use(
   apicache
     .options({
-      redisClient: redis.createClient({ REDIS_URI }),
+      redisClient: client({ REDIS_URI }),
       debug: false,
       trackPerformance: true,
       respectCacheControl: false,
