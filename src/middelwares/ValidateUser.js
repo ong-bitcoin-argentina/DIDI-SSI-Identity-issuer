@@ -3,14 +3,11 @@ const redis = require('redis');
 const didJWT = require('did-jwt');
 
 const { USER } = require('../constants/Messages');
-const { DIDI_SERVER } = require('../constants/Constants');
+const { DIDI_SERVER, REDIS_URI } = require('../constants/Constants');
 const { sendErrWithStatus } = require('../utils/ResponseHandler');
 
 const url = `${DIDI_SERVER}/user/verifyToken`;
-const client = redis.createClient({
-  host: process.env.REDIS_HOST,
-  port: process.env.REDIS_PORT,
-});
+const client = redis.createClient({ url: REDIS_URI });
 
 (async () => {
   await client.connect();
