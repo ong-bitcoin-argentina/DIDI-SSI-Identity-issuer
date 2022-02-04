@@ -75,7 +75,7 @@ app.use(
   apicache
     .options({
       redisClient: client({ url: REDIS_URI }),
-      debug: false,
+      debug: true,
       trackPerformance: true,
       respectCacheControl: false,
     })
