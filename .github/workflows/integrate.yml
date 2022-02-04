@@ -6,18 +6,16 @@ jobs:
     container:
       image: node
     services:
-      redis:
       # Etiqueta usada para acceder al contenedor de servicio   redis:
       # Imagen del contenedor Docker Hub
-        image: redis
+      image: redis
       # Establece revisiones de estado para esperar hasta que Redis haya comenzado
-       options: >-
-          --health-cmd "redis-cli ping"
-          --health-interval 10s
-          --health-timeout 5s
-          --health-retries 5
-        ports:
-          6379:6379
+      options: >-
+        --health-cmd "redis-cli ping"
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5
+      ports: 6379:6379
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
