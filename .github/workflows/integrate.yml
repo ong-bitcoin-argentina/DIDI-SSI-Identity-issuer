@@ -3,6 +3,16 @@ name: Integracion continua con node.js
 jobs:
   ci_to_master:
     runs-on: ubuntu-latest
+    services:
+      # Etiqueta usada para acceder al contenedor de servicio   redis:
+      # Imagen del contenedor Docker Hub
+      image: redis
+      # Establece revisiones de estado para esperar hasta que Redis haya comenzado
+      options: >-
+        --health-cmd "redis-cli ping"
+        --health-interval 10s
+        --health-timeout 5s
+        --health-retries 5
     container:
       image: node
     steps:
@@ -14,6 +24,8 @@ jobs:
           node-version: '16.x'
       - name: 'install dependencies'
         run: npm install
+      - name: Connect to Redis
+        run: node redis/client.js
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
@@ -22,6 +34,8 @@ jobs:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
+          REDIS_HOST: redis
+          REDIS_PORT: 6379
   build-image:
     runs-on: ubuntu-latest
     steps:
