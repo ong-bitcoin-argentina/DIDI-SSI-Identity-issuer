@@ -29,6 +29,10 @@ jobs:
         run: npm install
       - name: 'run eslint'
         run: npm run lint
+      - name: Connect to Redis
+        # Ejecuta un script que crea un cliente Redis, rellena
+        # el cliente con datos y recupera datos
+        run: node redis/client.js
       - name: 'npm run tests'
         run: npm test
         env:
