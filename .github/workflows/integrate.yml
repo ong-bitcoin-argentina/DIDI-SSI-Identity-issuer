@@ -39,6 +39,9 @@ jobs:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
+          REDIS_HOST: localhost
+          REDIS_PORT: 6379
+          REDIS_URI: ${{ secrets.REDIS_URI }}
   build-image:
     runs-on: ubuntu-latest
     steps:
