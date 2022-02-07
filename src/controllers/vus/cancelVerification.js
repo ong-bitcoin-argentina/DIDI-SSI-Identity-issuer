@@ -21,9 +21,9 @@ const cancelVerification = async (req, res) => {
     }
     cancelRequest = await vusService.cancelOperation(userName, operationId);
 
-    return res.status(200).send(cancelRequest);
+    return res.status(200).json(cancelRequest);
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json(error);
   }
 };
 

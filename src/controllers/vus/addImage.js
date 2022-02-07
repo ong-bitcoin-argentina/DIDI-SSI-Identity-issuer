@@ -8,9 +8,9 @@ const addImage = async (req, res) => {
 
   try {
     const image = await vusService.addImage(operationId, userName, file, side);
-    return res.status(200).send(image);
+    return res.status(200).json(image);
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json(error);
   }
 };
 
