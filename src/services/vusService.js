@@ -36,7 +36,7 @@ const vuSecurityPost = async function vuSecurityPost(url, body) {
       ? Promise.reject(response.json())
       : Promise.resolve(response.json());
   } catch (err) {
-    return err;
+    return Promise.reject(err);
   }
 };
 
