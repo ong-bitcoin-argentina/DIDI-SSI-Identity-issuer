@@ -32,13 +32,11 @@ const vuSecurityPost = async function vuSecurityPost(url, body) {
       body,
       url,
     });
-
-    const jsonResp = await response.json();
-    return jsonResp.message.contains('fail')
-      ? Promise.reject(jsonResp)
-      : Promise.resolve(jsonResp);
+    return response.status === 400
+      ? Promise.reject(response.json())
+      : Promise.resolve(response.json());
   } catch (err) {
-    return Promise.reject(err);
+    return err;
   }
 };
 

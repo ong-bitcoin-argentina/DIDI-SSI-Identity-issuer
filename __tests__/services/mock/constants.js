@@ -37,7 +37,7 @@ module.exports = {
   successRespAddFront: {
     json: () => successBodyAddFront,
   },
-  successResAddBack: {
+  successRespAddBack: {
     json: () => successBodyAddBack,
   },
 };
