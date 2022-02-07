@@ -3,19 +3,20 @@ const client = require('redis').createClient;
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const express = require('express');
+const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
-const limiter = require('express-limiter');
 
 const app = express();
 
-limiter({
-  path: '*',
-  method: 'all',
-  lookup: 'connection.remoteAddress',
-  // 150 requests per hour
-  total: 150,
-  expire: 1000 * 60 * 60,
+const limiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 100, // Limit each IP to 100 requests per `window`
+  standardHeaders: true, // Return rate limit info in the `RateLimit-*` headers
+  legacyHeaders: false, // Disable the `X-RateLimit-*` headers
 });
+
+// Apply the rate limiting middleware to all requests
+app.use(limiter);
 
 // aumentar el tamaño de request permitido para poder recibir la imagen en base64
 app.use(express.json({ limit: '10mb' }));
@@ -94,5 +95,12 @@ app.get('/cache', (_, res) => {
 });
 
 app.use('/api', routes);
+app.use('*', (req, res) =>
+  res.status(404).json({
+    status: 'error',
+    errorCode: 'INVALID_ROUTE',
+    message: 'La ruta no existe.',
+  }),
+);
 
 module.exports = app;
