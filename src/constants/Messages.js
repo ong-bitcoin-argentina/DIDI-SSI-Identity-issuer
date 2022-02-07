@@ -45,22 +45,13 @@ module.exports = {
       message:
         'No pudo actualizarse el pedido de validacion de identidad, por favor inténtelo de nuevo más tarde.',
     },
-    ADD_FRONT: {
-      code: 'ADD_FRONT',
-      message: 'Hubo un error al adherir el frente del documento.',
-    },
-    WEAK_MATCH_FRONT: {
-      code: 'WEAK_MATCH',
-      message:
-        'El resultado arrojado por VU Security tiene un grado bajo de precision. Por favor, intente sacar nuevamente la foto al frente del DNI',
-    },
     ADD_DOCUMENT_IMAGE: {
       code: 'ADD_DOCUMENT_IMAGE',
       message: 'Hubo un error al adherir la imgen del frente del documento',
     },
-    ADD_BACK: {
-      code: 'ADD_BACK',
-      message: 'Hubo un error al adherir el dorso del documento',
+    ADD_IMAGE: {
+      code: 'ADD_IMAGE',
+      message: 'Hubo un error al adherir la imagen documento',
     },
   },
 
