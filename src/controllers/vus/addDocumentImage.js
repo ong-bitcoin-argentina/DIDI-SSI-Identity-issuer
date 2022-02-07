@@ -12,9 +12,9 @@ const addDocumentImage = async (req, res) => {
       userName,
       file,
     );
-    return res.status(200).json({ imageDocument });
+    return res.status(200).send(imageDocument);
   } catch (error) {
-    return res.status(500).json({ error });
+    return res.status(500).send(error);
   }
 };
 

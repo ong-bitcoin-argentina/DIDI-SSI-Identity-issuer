@@ -2,18 +2,16 @@ const Messages = require('../constants/Messages');
 const AuthRequest = require('../models/AuthRequest');
 const {
   missingOperationId,
-  missingUserDID,
   missingStatus,
 } = require('../constants/serviceErrors');
 
 /**
  *  Crea y guarda pedido de validación de identidad
  */
-module.exports.create = async function create(operationId, userDID) {
+module.exports.create = async function create(operationId) {
   if (!operationId) throw missingOperationId;
-  if (!userDID) throw missingUserDID;
   try {
-    const authRequest = await AuthRequest.generate(operationId, userDID);
+    const authRequest = await AuthRequest.generate(operationId);
     if (!authRequest) return Messages.VUS.CREATE;
     return authRequest;
   } catch (err) {

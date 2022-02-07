@@ -210,7 +210,7 @@ router.post(
  */
 router.post(
   '/addImage',
-  // validateUser,
+  validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },

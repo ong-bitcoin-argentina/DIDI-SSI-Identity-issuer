@@ -18,9 +18,10 @@ const cancelVerification = async (req, res) => {
         operationId,
       );
       // eslint-disable-next-line no-unused-vars
-      cancelRequest = await vusService.cancelOperation(userName, operationId);
     }
-    return res.status(200).send('Operacion cancelada exitosamente');
+    cancelRequest = await vusService.cancelOperation(userName, operationId);
+
+    return res.status(200).send(cancelRequest);
   } catch (error) {
     return res.status(500).send(error);
   }
