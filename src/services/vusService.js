@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 const fetch = require('node-fetch');
 const Constants = require('../constants/Constants');
 const Messages = require('../constants/Messages');
+const options = require('../constants/ImageOptions');
 
 const {
   missingUserName,
@@ -13,6 +15,7 @@ const {
   missingDeviceName,
   missingOperationId,
   missingFile,
+  missingSide,
 } = require('../constants/serviceErrors');
 
 /**
@@ -31,9 +34,11 @@ const vuSecurityPost = async function vuSecurityPost(url, body) {
     });
 
     const jsonResp = await response.json();
-    return jsonResp;
+    return jsonResp.message.contains('fail')
+      ? Promise.reject(jsonResp)
+      : Promise.resolve(jsonResp);
   } catch (err) {
-    return err;
+    return Promise.reject(err);
   }
 };
 
@@ -71,9 +76,9 @@ module.exports.newOperation = async function newOperation(
         deviceName,
       }),
     );
-    return result.operationId;
+    return Promise.resolve(result);
   } catch (err) {
-    return Messages.VUS.NEW_OPERATION;
+    return Promise.reject(Messages.VUS.NEW_OPERATION);
   }
 };
 
@@ -85,42 +90,15 @@ module.exports.cancelOperation = async function cancelOperation(
   if (!operationId) throw missingOperationId;
   try {
     const result = await vuSecurityPost(
-      Constants.VUS_URLS.cancelOperation,
+      Constants.VUS_URLS.CANCEL_OPERATION,
       JSON.stringify({
         userName,
         operationId,
       }),
     );
-    return result.cancelOperation;
+    return Promise.resolve(result);
   } catch (error) {
-    return Messages.VUS.CANCEL_OPERATION;
-  }
-};
-
-module.exports.addFront = async function addFront(
-  operationId,
-  userName,
-  analyzeAnomalies,
-  analyzeOcr,
-  file,
-) {
-  if (!operationId) throw missingOperationId;
-  if (!userName) throw missingUserName;
-  if (!file) throw missingFile;
-  try {
-    const result = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_FRONT,
-      JSON.stringify({
-        operationId,
-        userName,
-        analyzeAnomalies,
-        analyzeOcr,
-        file,
-      }),
-    );
-    return result;
-  } catch (error) {
-    return Messages.VUS.ADD_FRONT;
+    return Promise.reject(Messages.VUS.CANCEL_OPERATION);
   }
 };
 
@@ -141,35 +119,36 @@ module.exports.addDocumentImage = async function addDocumentImage(
         file,
       }),
     );
-    return result;
+    return Promise.resolve(result);
   } catch (error) {
-    return Messages.VUS.ADD_DOCUMENT_IMAGE;
+    return Promise.reject(Messages.VUS.ADD_DOCUMENT_IMAGE);
   }
 };
 
-module.exports.addBack = async function addBack(
+module.exports.addImage = async function addImage(
   operationId,
   userName,
-  analyzeAnomalies,
-  analyzeOcr,
   file,
+  side,
 ) {
   if (!operationId) throw missingOperationId;
   if (!userName) throw missingUserName;
   if (!file) throw missingFile;
+  if (!side) throw missingSide;
+
   try {
     const result = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_BACK,
+      options.get(side),
       JSON.stringify({
         operationId,
         userName,
-        analyzeAnomalies,
-        analyzeOcr,
+        analyzeAnomalies: true,
+        analyzeOcr: true,
         file,
       }),
     );
-    return result;
+    return Promise.resolve(result);
   } catch (error) {
-    return Messages.VUS.ADD_BACK;
+    return Promise.reject(Messages.VUS.ADD_IMAGE);
   }
 };

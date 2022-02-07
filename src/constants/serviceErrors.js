@@ -59,4 +59,8 @@ module.exports = {
     code: '#service-missingFile',
     message: 'Falta el parametro File',
   },
+  missingSide: {
+    code: '#service-missingSide',
+    message: 'Falta el parametro Side',
+  },
 };
