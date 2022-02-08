@@ -10,7 +10,7 @@ const cancelVerification = async (req, res) => {
   try {
     // verificar si la operacion esta pendiente
     authRequest = await AuthRequestService.getByOperationId(operationId);
-    if (AuthRequestService.verifyStatus(operationId, 'In Progress')) {
+    if (await AuthRequestService.verifyStatus(operationId, 'In Progress')) {
       authRequest.status = 'Cancelled';
       await AuthRequestService.update(
         Constants.AUTHENTICATION_REQUEST.CANCELLED,
@@ -19,12 +19,11 @@ const cancelVerification = async (req, res) => {
       );
       // eslint-disable-next-line no-unused-vars
     }
-    console.log(authRequest);
     cancelRequest = await vusService.cancelOperation(userName, operationId);
 
     return res.status(200).json(cancelRequest);
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(500).json(Messages.VUS.CANCEL_VERIFICATION);
   }
 };
 

@@ -58,6 +58,11 @@ module.exports = {
       message:
         'No se encontró ningun usuario con el did ingresado. Inténteelo nuevamente más tarde.',
     },
+    CANCEL_VERIFICATION: {
+      code: 'CANCEL_VERIFICATION',
+      message:
+        'No se pudo cancelar la operacion. Inténteelo nuevamente más tarde.',
+    },
   },
 
   VALIDATION: {

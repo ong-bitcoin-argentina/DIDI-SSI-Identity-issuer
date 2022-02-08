@@ -1,6 +1,7 @@
 const vusService = require('../../services/vusService');
 const AuthRequestService = require('../../services/AuthRequestService');
 const Constants = require('../../constants/Constants');
+const Messages = require('../../constants/Messages');
 
 const createVerification = async (req, res) => {
   const {
@@ -32,7 +33,7 @@ const createVerification = async (req, res) => {
     await AuthRequestService.create(response.operationId, did);
     return res.status(200).json(response);
   } catch (err) {
-    return res.status(500).json(err);
+    return res.status(500).json(Messages.VUS.CREATE);
   }
 };
 

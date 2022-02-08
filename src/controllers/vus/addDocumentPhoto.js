@@ -1,3 +1,4 @@
+const Messages = require('../../constants/Messages');
 const vusService = require('../../services/vusService');
 
 const addDocumentPhoto = async (req, res) => {
@@ -14,7 +15,7 @@ const addDocumentPhoto = async (req, res) => {
     );
     return res.status(200).json(imageDocument);
   } catch (error) {
-    return res.status(500).json(error);
+    return res.status(500).json(Messages.VUS.ADD_IMAGE);
   }
 };
 
