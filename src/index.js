@@ -29,8 +29,8 @@ const {
   MONGO_URI,
 } = require('./constants/Constants');
 const Messages = require('./constants/Messages');
-
 const routes = require('./routes/index');
+const serviceRoutes = require('./routes/serviceRoutes');
 
 mongoose
   .connect(MONGO_URI)
@@ -94,6 +94,7 @@ app.get('/cache', (_, res) => {
   }
 });
 
+app.use(serviceRoutes);
 app.use('/api', routes);
 app.use('*', (req, res) =>
   res.status(404).json({
