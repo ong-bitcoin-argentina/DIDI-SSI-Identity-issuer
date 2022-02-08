@@ -3,7 +3,6 @@ const AuthRequestService = require('../../services/AuthRequestService');
 const Constants = require('../../constants/Constants');
 
 const createVerification = async (req, res) => {
-  let authRequest;
   const {
     did,
     userName,
@@ -30,7 +29,7 @@ const createVerification = async (req, res) => {
 
     // Guardar estado como "en progreso y retornar"
     // eslint-disable-next-line no-unused-vars
-    authRequest = await AuthRequestService.create(response.operationId, did);
+    await AuthRequestService.create(response.operationId, did);
     return res.status(200).json(response);
   } catch (err) {
     return res.status(500).json(err);
