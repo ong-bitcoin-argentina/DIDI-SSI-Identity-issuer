@@ -124,9 +124,9 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/addDocumentImage:
+ * 	 /vuSecurity/addDocumentPhoto:
  *   post:
- *     summary: Permite adherir la imagen del documento
+ *     summary: Permite adherir la foto de perfil del documento
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -159,22 +159,22 @@ router.post(
  *
  */
 router.post(
-  '/addDocumentImage',
-  validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-    { name: 'file', validate: [IS_STRING] },
-  ]),
-  Validator.checkValidationResult,
-  vus.addDocumentImage,
+  '/addDocumentPhoto',
+  // validateUser,
+  // Validator.validateBody([
+  //   { name: 'userName', validate: [IS_STRING] },
+  //   { name: 'operationId', validate: [IS_STRING] },
+  //   { name: 'file', validate: [IS_STRING] },
+  // ]),
+  // Validator.checkValidationResult,
+  vus.addDocumentPhoto,
 );
 
 /**
  * @openapi
- * 	 /vuSecurity/addImage:
+ * 	 /vuSecurity/addDocumentImage:
  *   post:
- *     summary: Permite adherir el dorso de un documento
+ *     summary: Permite adherir el frente/dorso de un documento
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -209,15 +209,16 @@ router.post(
  *
  */
 router.post(
-  '/addImage',
-  validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-    { name: 'file', validate: [IS_STRING] },
-  ]),
-  Validator.checkValidationResult,
-  vus.addImage,
+  '/addDocumentImage',
+  // validateUser,
+  // Validator.validateBody([
+  //   { name: 'userName', validate: [IS_STRING] },
+  //   { name: 'operationId', validate: [IS_STRING] },
+  //   { name: 'file', validate: [IS_STRING] },
+  //   { name: 'side', validate: [IS_STRING] },
+  // ]),
+  // Validator.checkValidationResult,
+  vus.addDocumentImage,
 );
 
 module.exports = router;
