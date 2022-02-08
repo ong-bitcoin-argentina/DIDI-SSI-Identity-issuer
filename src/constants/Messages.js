@@ -53,6 +53,11 @@ module.exports = {
       code: 'ADD_IMAGE',
       message: 'Hubo un error al adherir la imagen documento',
     },
+    FIND_BY_ID: {
+      code: 'FIND_BY_ID',
+      message:
+        'No se encontró ningun usuario con el did ingresado. Inténteelo nuevamente más tarde.',
+    },
   },
 
   VALIDATION: {

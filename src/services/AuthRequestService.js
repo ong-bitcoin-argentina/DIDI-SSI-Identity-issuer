@@ -3,15 +3,16 @@ const AuthRequest = require('../models/AuthRequest');
 const {
   missingOperationId,
   missingStatus,
+  missingDid,
 } = require('../constants/serviceErrors');
 
 /**
  *  Crea y guarda pedido de validación de identidad
  */
-module.exports.create = async function create(operationId) {
+module.exports.create = async function create(operationId, did) {
   if (!operationId) throw missingOperationId;
   try {
-    const authRequest = await AuthRequest.generate(operationId);
+    const authRequest = await AuthRequest.generate(operationId, did);
     if (!authRequest) return Messages.VUS.CREATE;
     return authRequest;
   } catch (err) {
@@ -52,5 +53,29 @@ module.exports.update = async function update(
     return authRequest;
   } catch (err) {
     throw Messages.COMMUNICATION_ERROR;
+  }
+};
+
+module.exports.findByDid = async function findByDid(did) {
+  if (!did) throw missingDid;
+  try {
+    const response = await AuthRequest.findByDid(did);
+    if (!response) throw Messages.VUS.FIND_BY_ID;
+    return response;
+  } catch (error) {
+    return Messages.VUS.FIND_BY_ID;
+  }
+};
+
+module.exports.verifyStatus = async function verifyStatus(operationId, status) {
+  if (!operationId) throw missingOperationId;
+  if (!status) throw missingStatus;
+  try {
+    const authRequest = await AuthRequest.findByOperationId(operationId);
+    if (!authRequest) throw Messages.VUS.FIND_BY_ID;
+    if (authRequest.status === status) return true;
+    return false;
+  } catch (error) {
+    return Messages.VUS.FIND_BY_ID;
   }
 };

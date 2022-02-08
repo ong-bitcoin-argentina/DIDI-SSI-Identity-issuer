@@ -160,13 +160,13 @@ router.post(
  */
 router.post(
   '/addDocumentPhoto',
-  // validateUser,
-  // Validator.validateBody([
-  //   { name: 'userName', validate: [IS_STRING] },
-  //   { name: 'operationId', validate: [IS_STRING] },
-  //   { name: 'file', validate: [IS_STRING] },
-  // ]),
-  // Validator.checkValidationResult,
+  validateUser,
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+    { name: 'file', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
   vus.addDocumentPhoto,
 );
 
@@ -210,14 +210,14 @@ router.post(
  */
 router.post(
   '/addDocumentImage',
-  // validateUser,
-  // Validator.validateBody([
-  //   { name: 'userName', validate: [IS_STRING] },
-  //   { name: 'operationId', validate: [IS_STRING] },
-  //   { name: 'file', validate: [IS_STRING] },
-  //   { name: 'side', validate: [IS_STRING] },
-  // ]),
-  // Validator.checkValidationResult,
+  validateUser,
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+    { name: 'file', validate: [IS_STRING] },
+    { name: 'side', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
   vus.addDocumentImage,
 );
 
