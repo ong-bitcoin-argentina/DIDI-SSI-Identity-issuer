@@ -59,4 +59,12 @@ module.exports = {
     code: '#service-missingFile',
     message: 'Falta el parametro File',
   },
+  missingKey: {
+    code: '#service-missingKey',
+    message: 'Falta el parametro Key',
+  },
+  missingValue: {
+    code: '#service-missingValue',
+    message: 'Falta el parametro Value',
+  },
 };
