@@ -47,9 +47,9 @@ module.exports = {
     code: '#service-missingOperationId',
     message: 'Falta el parametro operationId',
   },
-  missingUserDID: {
-    code: '#service-missingUserDID',
-    message: 'Falta el parametro UserDID',
+  missingDID: {
+    code: '#service-missingDID',
+    message: 'Falta el parametro DID',
   },
   missingStatus: {
     code: '#service-missingStatus',

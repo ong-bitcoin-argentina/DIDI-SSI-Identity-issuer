@@ -1,6 +1,8 @@
+/* eslint-disable camelcase */
 const fetch = require('node-fetch');
 const Constants = require('../constants/Constants');
 const Messages = require('../constants/Messages');
+const options = require('../constants/ImageOptions');
 
 const {
   missingUserName,
@@ -13,6 +15,7 @@ const {
   missingDeviceName,
   missingOperationId,
   missingFile,
+  missingSide,
 } = require('../constants/serviceErrors');
 
 /**
@@ -29,11 +32,11 @@ const vuSecurityPost = async function vuSecurityPost(url, body) {
       body,
       url,
     });
-
-    const jsonResp = await response.json();
-    return jsonResp;
+    return response.status === 400
+      ? Promise.reject(response.json())
+      : Promise.resolve(response.json());
   } catch (err) {
-    return err;
+    return Promise.reject(err);
   }
 };
 
@@ -71,9 +74,9 @@ module.exports.newOperation = async function newOperation(
         deviceName,
       }),
     );
-    return result.operationId;
+    return Promise.resolve(result);
   } catch (err) {
-    return Messages.VUS.NEW_OPERATION;
+    return Promise.reject(Messages.VUS.NEW_OPERATION);
   }
 };
 
@@ -85,91 +88,42 @@ module.exports.cancelOperation = async function cancelOperation(
   if (!operationId) throw missingOperationId;
   try {
     const result = await vuSecurityPost(
-      Constants.VUS_URLS.cancelOperation,
+      Constants.VUS_URLS.CANCEL_OPERATION,
       JSON.stringify({
         userName,
         operationId,
       }),
     );
-    return result.cancelOperation;
+    return Promise.resolve(result);
   } catch (error) {
-    return Messages.VUS.CANCEL_OPERATION;
+    return Promise.reject(Messages.VUS.CANCEL_OPERATION);
   }
 };
 
-module.exports.addFront = async function addFront(
+module.exports.addImage = async function addImage(
   operationId,
   userName,
-  analyzeAnomalies,
-  analyzeOcr,
   file,
+  side,
 ) {
   if (!operationId) throw missingOperationId;
   if (!userName) throw missingUserName;
   if (!file) throw missingFile;
-  try {
-    const result = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_FRONT,
-      JSON.stringify({
-        operationId,
-        userName,
-        analyzeAnomalies,
-        analyzeOcr,
-        file,
-      }),
-    );
-    return result;
-  } catch (error) {
-    return Messages.VUS.ADD_FRONT;
-  }
-};
+  if (!side) throw missingSide;
 
-module.exports.addDocumentImage = async function addDocumentImage(
-  operationId,
-  userName,
-  file,
-) {
-  if (!operationId) throw missingOperationId;
-  if (!userName) throw missingUserName;
-  if (!file) throw missingFile;
   try {
     const result = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_DOCUMENT_IMAGE,
+      options.get(side),
       JSON.stringify({
         operationId,
         userName,
+        analyzeAnomalies: true,
+        analyzeOcr: true,
         file,
       }),
     );
-    return result;
+    return Promise.resolve(result);
   } catch (error) {
-    return Messages.VUS.ADD_DOCUMENT_IMAGE;
-  }
-};
-
-module.exports.addBack = async function addBack(
-  operationId,
-  userName,
-  analyzeAnomalies,
-  analyzeOcr,
-  file,
-) {
-  if (!operationId) throw missingOperationId;
-  if (!userName) throw missingUserName;
-  if (!file) throw missingFile;
-  try {
-    const result = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_BACK,
-      JSON.stringify({
-        operationId,
-        userName,
-        analyzeAnomalies,
-        analyzeOcr,
-        file,
-      }),
-    );
-    return result;
-  } catch (error) {
-    return Messages.VUS.ADD_BACK;
+    return Promise.reject(Messages.VUS.ADD_IMAGE);
   }
 };

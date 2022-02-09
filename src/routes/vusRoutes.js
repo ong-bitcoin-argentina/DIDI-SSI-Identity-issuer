@@ -124,57 +124,9 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/frontImage:
- *   post:
- *     summary: Permite adherir el frente de un documento
- *     parameters:
- *       - in: header
- *         name: Authorization
- *         schema:
- *           type: string
- *         required: true
- *     requestBody:
- *       required:
- *         - userName
- *         - operationId
- *         - file
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                  type: string
- *               operationId:
- *                  type: string
- *               file:
- *                  type: string
- *     responses:
- *       200:
- *         description: Puede devolver ok o error en algun parametro
- *       401:
- *         description: Acción no autorizada
- *       500:
- *         description: Error interno del servidor
- *
- */
-router.post(
-  '/frontImage',
-  validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-    { name: 'file', validate: [IS_STRING] },
-  ]),
-  Validator.checkValidationResult,
-  vus.frontImage,
-);
-
-/**
- * @openapi
  * 	 /vuSecurity/addDocumentImage:
  *   post:
- *     summary: Permite adherir la imagen del documento
+ *     summary: Permite adherir el frente/dorso de un documento
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -196,6 +148,8 @@ router.post(
  *               operationId:
  *                  type: string
  *               file:
+ *                  type: string
+ *               side:
  *                  type: string
  *     responses:
  *       200:
@@ -213,57 +167,10 @@ router.post(
     { name: 'userName', validate: [IS_STRING] },
     { name: 'operationId', validate: [IS_STRING] },
     { name: 'file', validate: [IS_STRING] },
+    { name: 'side', validate: [IS_STRING] },
   ]),
   Validator.checkValidationResult,
   vus.addDocumentImage,
-);
-
-/**
- * @openapi
- * 	 /vuSecurity/backImage:
- *   post:
- *     summary: Permite adherir el dorso de un documento
- *     parameters:
- *       - in: header
- *         name: Authorization
- *         schema:
- *           type: string
- *         required: true
- *     requestBody:
- *       required:
- *         - userName
- *         - operationId
- *         - file
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                  type: string
- *               operationId:
- *                  type: string
- *               file:
- *                  type: string
- *     responses:
- *       200:
- *         description: Puede devolver ok o error en algun parametro
- *       401:
- *         description: Acción no autorizada
- *       500:
- *         description: Error interno del servidor
- *
- */
-router.post(
-  '/backImage',
-  validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-    { name: 'file', validate: [IS_STRING] },
-  ]),
-  Validator.checkValidationResult,
-  vus.backImage,
 );
 
 module.exports = router;

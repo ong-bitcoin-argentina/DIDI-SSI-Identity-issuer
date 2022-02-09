@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Constants = require('../constants/Constants');
+const Messages = require('../constants/Messages');
 
 const { IN_PROGRESS, SUCCESSFUL, FALIED, CANCELLED } =
   Constants.AUTHENTICATION_REQUEST;
@@ -12,7 +13,7 @@ const AuthRequestSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  userDID: {
+  did: {
     type: String,
     required: true,
   },
@@ -48,21 +49,18 @@ AuthRequestSchema.methods.update = async function update(status, errorMessage) {
 
 // retorna el did del usuario a validar
 AuthRequestSchema.methods.getDid = async function getDid() {
-  return this.userDID;
+  return this.did;
 };
 
 const AuthRequest = mongoose.model('AuthRequest', AuthRequestSchema);
 module.exports = AuthRequest;
 
 // inicailizar registro de un pedido nuevo
-AuthRequest.generate = async function generate(operationId, userDID) {
+AuthRequest.generate = async function generate(operationId, did) {
   try {
-    const req = await AuthRequest.findByOperationId(operationId);
-    if (req) return null;
-
     let request = new AuthRequest();
     request.operationId = operationId;
-    request.userDID = userDID;
+    request.did = did;
     request.status = IN_PROGRESS;
     request.createdOn = new Date();
 
@@ -90,7 +88,16 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
 
 // retorna el pedido buscandolo por 'did' y successful
 AuthRequest.findByDid = async function findByDid(did) {
-  const query = { userDID: did, status: 'Successful' };
-  const request = await AuthRequest.findOne(query);
-  return request;
+  try {
+    const query = { did };
+    const request = await AuthRequest.findOne(query);
+    if (!request) throw Messages.VUS.FIND_BY_ID;
+    const response = JSON.stringify({
+      operationId: request.operationId,
+      status: request.status,
+    });
+    return response;
+  } catch (error) {
+    return error;
+  }
 };

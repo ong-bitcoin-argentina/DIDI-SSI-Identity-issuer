@@ -5,24 +5,24 @@ const vusService = require('../../services/vusService');
 
 const cancelVerification = async (req, res) => {
   const { operationId, userName } = req.body;
-  let authRequest;
-  let cancelRequest;
   try {
+    const cancelRequest = await vusService.cancelOperation(
+      userName,
+      operationId,
+    );
+
     // verificar si la operacion esta pendiente
-    authRequest = await AuthRequestService.getByOperationId(operationId);
-    if (authRequest.status === 'In Progress') {
-      authRequest.status = 'Cancelled';
-      authRequest = await AuthRequestService.update(
+    if (await AuthRequestService.verifyStatus(operationId, 'In Progress')) {
+      await AuthRequestService.update(
         Constants.AUTHENTICATION_REQUEST.CANCELLED,
         Messages.VUS.CANCEL_OPERATION.message,
         operationId,
       );
-      // eslint-disable-next-line no-unused-vars
-      cancelRequest = await vusService.cancelOperation(userName, operationId);
     }
-    return res.status(200).send('Operacion cancelada exitosamente');
+
+    return res.status(200).json(cancelRequest);
   } catch (error) {
-    return res.status(500).send(error);
+    return res.status(500).json(Messages.VUS.CANCEL_VERIFICATION);
   }
 };
 
