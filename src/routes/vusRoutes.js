@@ -124,54 +124,6 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/addDocumentPhoto:
- *   post:
- *     summary: Permite adherir la foto de perfil del documento
- *     parameters:
- *       - in: header
- *         name: Authorization
- *         schema:
- *           type: string
- *         required: true
- *     requestBody:
- *       required:
- *         - userName
- *         - operationId
- *         - file
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                  type: string
- *               operationId:
- *                  type: string
- *               file:
- *                  type: string
- *     responses:
- *       200:
- *         description: Puede devolver ok o error en algun parametro
- *       401:
- *         description: Acción no autorizada
- *       500:
- *         description: Error interno del servidor
- *
- */
-router.post(
-  '/addDocumentPhoto',
-  validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-    { name: 'file', validate: [IS_STRING] },
-  ]),
-  Validator.checkValidationResult,
-  vus.addDocumentPhoto,
-);
-
-/**
- * @openapi
  * 	 /vuSecurity/addDocumentImage:
  *   post:
  *     summary: Permite adherir el frente/dorso de un documento

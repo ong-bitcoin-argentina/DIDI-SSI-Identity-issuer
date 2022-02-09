@@ -100,29 +100,6 @@ module.exports.cancelOperation = async function cancelOperation(
   }
 };
 
-module.exports.addDocumentImage = async function addDocumentImage(
-  operationId,
-  userName,
-  file,
-) {
-  if (!operationId) throw missingOperationId;
-  if (!userName) throw missingUserName;
-  if (!file) throw missingFile;
-  try {
-    const result = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_DOCUMENT_IMAGE,
-      JSON.stringify({
-        operationId,
-        userName,
-        file,
-      }),
-    );
-    return Promise.resolve(result);
-  } catch (error) {
-    return Promise.reject(Messages.VUS.ADD_DOCUMENT_IMAGE);
-  }
-};
-
 module.exports.addImage = async function addImage(
   operationId,
   userName,
