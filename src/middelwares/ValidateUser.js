@@ -14,7 +14,7 @@ const validateUser = async (req, res, next) => {
   const jwt = req.header('Authorization');
   try {
     const { iss } = await didJWT.decodeJWT(jwt).payload;
-    const searchTerm = `verificacion-usuario-test-${iss}`;
+    const searchTerm = `verificacion-usuario-${iss}`;
     const userInCache = await get(searchTerm);
     if (!userInCache) {
       const user = await fetch(url, {
