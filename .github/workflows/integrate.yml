@@ -16,9 +16,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-        ports:
-          # Asigna el puerto 6379 en el contenedor de servicio al host
-          - 6379:6379
+        ports: 6379:6379
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
