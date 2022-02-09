@@ -74,6 +74,7 @@ module.exports.newOperation = async function newOperation(
         deviceName,
       }),
     );
+    result.userName = userName;
     return Promise.resolve(result);
   } catch (err) {
     return Promise.reject(Messages.VUS.NEW_OPERATION);
