@@ -2,7 +2,7 @@ const redis = require('redis');
 const { REDIS_URI } = require('../constants/Constants');
 const { missingKey, missingValue } = require('../constants/serviceErrors');
 
-const client = redis.createClient(REDIS_URI);
+const client = redis.createClient({ url: REDIS_URI });
 
 (async () => {
   await client.connect();
