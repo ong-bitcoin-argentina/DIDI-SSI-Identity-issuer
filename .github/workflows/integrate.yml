@@ -7,8 +7,8 @@ jobs:
       image: node
     # Contenedores de servicio para ejecutar con `container-job`
     services:
-      redis:    
-      # Etiqueta usada para acceder al contenedor de servicio   redis:
+      redis:
+        # Etiqueta utilizada para acceder al contenedor de servicio
         # Imagen del contenedor Docker Hub
         image: redis
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
