@@ -67,4 +67,12 @@ module.exports = {
     code: '#service-missingValue',
     message: 'Falta el parametro Value',
   },
+  missingSide: {
+    code: '#service-missingSide',
+    message: 'Falta el parametro Side',
+  },
+  missingSelfieList: {
+    code: '#service-missingSelfieList',
+    message: 'Falta el parametro SelfieList',
+  },
 };

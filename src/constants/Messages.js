@@ -63,6 +63,11 @@ module.exports = {
       message:
         'No se pudo cancelar la operacion. Inténteelo nuevamente más tarde.',
     },
+    ADD_SELFIE: {
+      code: 'ADD_SELFIE',
+      message:
+        'No se pudo registrar la selfie. Inténteelo nuevamente más tarde.',
+    },
   },
 
   VALIDATION: {

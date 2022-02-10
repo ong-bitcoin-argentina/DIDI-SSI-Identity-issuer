@@ -16,6 +16,7 @@ const {
   missingOperationId,
   missingFile,
   missingSide,
+  missingSelfieList,
 } = require('../constants/serviceErrors');
 
 /**
@@ -120,6 +121,29 @@ module.exports.addImage = async function addImage(
         analyzeAnomalies: true,
         analyzeOcr: true,
         file,
+      }),
+    );
+    return Promise.resolve(result);
+  } catch (error) {
+    return Promise.reject(Messages.VUS.ADD_IMAGE);
+  }
+};
+
+module.exports.addSelfie = async function addSelfie(
+  operationId,
+  userName,
+  selfie,
+) {
+  if (!operationId) throw missingOperationId;
+  if (!userName) throw missingUserName;
+  if (!selfie) throw missingSelfieList;
+  try {
+    const result = await vuSecurityPost(
+      Constants.VUS_URLS.ADD_SELFIE,
+      JSON.stringify({
+        operationId,
+        userName,
+        selfieList: [{ file: selfie, imageType: 'SN' }],
       }),
     );
     return Promise.resolve(result);

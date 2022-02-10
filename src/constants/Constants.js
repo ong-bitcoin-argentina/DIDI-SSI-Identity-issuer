@@ -45,6 +45,7 @@ module.exports = {
     ADD_FRONT: `${VUS_URL}/addFront`,
     ADD_DOCUMENT_IMAGE: `${VUS_URL}/addDocumentImage`,
     ADD_BACK: `${VUS_URL}/addBack`,
+    ADD_SELFIE: `${VUS_URL}/register`,
   },
   VUS_API_KEY,
   VUS_API,
