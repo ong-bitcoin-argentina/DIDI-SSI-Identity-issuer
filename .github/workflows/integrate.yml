@@ -5,10 +5,9 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node
-    # Contenedores de servicio para ejecutar con `container-job`
+    # Contenedores de servicio para ejecutar con `ci_to_master`
     services:
-      redis:
-        # Etiqueta utilizada para acceder al contenedor de servicio
+      redis:  # Etiqueta utilizada para acceder al contenedor de servicio
         # Imagen del contenedor Docker Hub
         image: redis
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
