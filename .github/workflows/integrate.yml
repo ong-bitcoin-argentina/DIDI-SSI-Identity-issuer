@@ -18,6 +18,9 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
+        password:
+          required: false
+          default: ''
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
