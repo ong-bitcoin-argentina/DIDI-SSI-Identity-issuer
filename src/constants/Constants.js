@@ -15,6 +15,7 @@ const {
   VUS_API,
   IP_ADDRESS,
   VERSION_APP,
+  PREFIJO_REDIS,
 } = process.env;
 
 // assert.ok(PORT, 'No esta definida la varibale PORT');
@@ -30,6 +31,7 @@ assert.ok(VUS_API, 'No esta definida la variable VUS_API');
 // assert.ok(REDIS_URI, 'No esta definida la variable REDIS_URI');
 // assert.ok(IP_ADDRESS, 'No esta definida la variable IP_ADDRESS');
 // assert.ok(VERSION_APP, 'No esta definida la variable VERSION_APP');
+assert.ok(PREFIJO_REDIS, 'No esta definida la variable PREFIJO_REDIS');
 
 module.exports = {
   PORT,
@@ -39,6 +41,7 @@ module.exports = {
   DIDI_SERVER,
   MONGO_URI,
   REDIS_URI,
+  PREFIJO_REDIS,
   VUS_URLS: {
     NEW_OPERATION: `${VUS_URL}/newOperation`,
     CANCEL_OPERATION: `${VUS_URL}/cancelOperation`,

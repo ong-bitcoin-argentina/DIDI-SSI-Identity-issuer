@@ -1,5 +1,5 @@
 const redis = require('redis');
-const { REDIS_URI } = require('../constants/Constants');
+const { REDIS_URI, PREFIJO_REDIS } = require('../constants/Constants');
 const { missingKey, missingValue } = require('../constants/serviceErrors');
 
 const client = redis.createClient(REDIS_URI);
@@ -11,7 +11,7 @@ const client = redis.createClient(REDIS_URI);
 const get = async (key) => {
   if (!key) throw missingKey;
   try {
-    const value = await client.get(key);
+    const value = await client.get(`${PREFIJO_REDIS}-${key}`);
     return value;
   } catch (err) {
     return err;
@@ -22,7 +22,11 @@ const set = async (key, value) => {
   if (!key) throw missingKey;
   if (!value) throw missingValue;
   try {
-    const response = await client.setEx(key, 864000, value);
+    const response = await client.setEx(
+      `${PREFIJO_REDIS}-${key}`,
+      864000,
+      value,
+    );
     return response;
   } catch (err) {
     return err;
@@ -32,7 +36,7 @@ const set = async (key, value) => {
 const del = async (key) => {
   if (!key) throw missingKey;
   try {
-    const response = await client.del(key);
+    const response = await client.del(`${PREFIJO_REDIS}-${key}`);
     return response;
   } catch (err) {
     return err;
