@@ -1,5 +1,10 @@
 /* eslint-disable jest/no-hooks */
-const { set, get, del } = require('../../../src/services/RedisService');
+const {
+  set,
+  get,
+  del,
+  disconnect,
+} = require('../../../src/services/RedisService');
 
 const { missingKey } = require('../../../src/constants/serviceErrors');
 
@@ -9,6 +14,9 @@ const value = 'value';
 describe('services/RedisService/del.test.js', () => {
   beforeAll(async () => {
     await set(key, value);
+  });
+  afterAll(async () => {
+    await disconnect();
   });
   it('expect del to throw missing key', async () => {
     expect.assertions(1);
