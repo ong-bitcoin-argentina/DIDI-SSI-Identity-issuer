@@ -9,6 +9,9 @@ let client;
   // eslint-disable-next-line no-console
   client.on('error', (err) => console.log('Redis Client Error', err));
 
+  // Disable client's AUTH command.
+  client.auth = null;
+
   await client.connect();
 })();
 
