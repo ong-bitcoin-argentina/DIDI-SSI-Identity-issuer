@@ -56,4 +56,5 @@ module.exports = {
   set,
   del,
   disconnect,
+  client,
 };
