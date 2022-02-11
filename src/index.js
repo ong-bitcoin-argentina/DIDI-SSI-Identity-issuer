@@ -75,7 +75,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpecification));
 app.use(
   apicache
     .options({
-      redisClient: client({ REDIS_URI }),
+      redisClient: client({ url: REDIS_URI }),
       debug: false,
       trackPerformance: true,
       respectCacheControl: false,

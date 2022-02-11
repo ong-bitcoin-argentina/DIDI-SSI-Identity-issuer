@@ -5,6 +5,19 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: node
+    # Contenedores de servicio para ejecutar con `ci_to_master`
+    services:
+      redis:  # Etiqueta utilizada para acceder al contenedor de servicio
+        # Imagen del contenedor Docker Hub
+        image: redis
+        # Establece revisiones de estado para esperar hasta que Redis haya comenzado
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
@@ -22,6 +35,7 @@ jobs:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
+          REDIS_URI: ${{ secrets.REDIS_URI }}
   build-image:
     runs-on: ubuntu-latest
     steps:
