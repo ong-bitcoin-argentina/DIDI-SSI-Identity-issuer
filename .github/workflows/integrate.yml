@@ -10,13 +10,13 @@ jobs:
       redis:  # Etiqueta utilizada para acceder al contenedor de servicio
         # Imagen del contenedor Docker Hub
         image: redis
-        command: redis-server --requirepass $${{ secrets.REDIS_PASSWORD }}
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
         options: >-
           --health-cmd "redis-cli ping"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+          --requirepass $${{ secrets.REDIS_PASSWORD }}
         ports:
           - 6379:6379
     steps:
