@@ -1,13 +1,6 @@
 on: [push, pull_request]
 name: Integracion continua con node.js
 
-env:
-  VUS_URL: ${{ secrets.VUS_URL }}
-  VUS_API: ${{ secrets.VUS_API }}
-  VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
-  REDIS_URI: ${{ secrets.REDIS_URI }}
-  REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-  PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
 
 jobs:
   ci_to_master:
@@ -42,6 +35,13 @@ jobs:
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
+        env:
+          VUS_URL: ${{ secrets.VUS_URL }}
+          VUS_API: ${{ secrets.VUS_API }}
+          VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
+          REDIS_URI: ${{ secrets.REDIS_URI }}
+          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+          PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
   build-image:
     runs-on: ubuntu-latest
     steps:
