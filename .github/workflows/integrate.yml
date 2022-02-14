@@ -1,5 +1,14 @@
 on: [push, pull_request]
 name: Integracion continua con node.js
+
+env:
+  VUS_URL: ${{ secrets.VUS_URL }}
+  VUS_API: ${{ secrets.VUS_API }}
+  VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
+  REDIS_URI: ${{ secrets.REDIS_URI }}
+  REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+  PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
+
 jobs:
   ci_to_master:
     runs-on: ubuntu-latest
@@ -13,10 +22,10 @@ jobs:
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
         options: >-
           --health-cmd "redis-cli ping"
+          --health-cmd "redis-server --appendonly yes --requirepass ${REDIS_PASSWORD}"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          --requirepass 'redis123456'
         ports:
           - 6379:6379
     steps:
@@ -32,13 +41,6 @@ jobs:
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
-        env:
-          VUS_URL: ${{ secrets.VUS_URL }}
-          VUS_API: ${{ secrets.VUS_API }}
-          VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
-          REDIS_URI: ${{ secrets.REDIS_URI }}
-          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-          PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
   build-image:
     runs-on: ubuntu-latest
     steps:
