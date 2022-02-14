@@ -11,9 +11,9 @@ jobs:
         # Imagen del contenedor Docker Hub
         image: redis
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
+        redis password: 'redis123456'
         options: >-
           --health-cmd "redis-cli ping"
-          --health-cmd "CONFIG SET requirepass 'redis123456'"
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
