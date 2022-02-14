@@ -29,7 +29,7 @@ jobs:
       - name: 'install dependencies'
         run: npm install
       - name: 'Set redis password'
-        run: `redis-server --requirepass ${{ secrets.REDIS_PASSWORD }}`
+        run: 'redis-server --requirepass ${{ secrets.REDIS_PASSWORD }}'
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
