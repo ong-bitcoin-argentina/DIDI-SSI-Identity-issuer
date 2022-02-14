@@ -2,7 +2,6 @@ const successBodyNewOPeration = {
   code: 901,
   message: 'New operation created',
   operationId: 1,
-  operationGuid: 'b888c80c-5b95-433b-85e5-f2bf6fbd94c6',
 };
 
 const successBodyDocumentImage = {
