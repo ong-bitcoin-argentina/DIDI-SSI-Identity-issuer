@@ -3,11 +3,11 @@ name: Integracion continua con node.js
 
 
 jobs:
-  ci_to_master:
+  ci-develop:
     runs-on: ubuntu-latest
     container:
       image: node
-    # Contenedores de servicio para ejecutar con `ci_to_master`
+    # Contenedores de servicio para ejecutar con `ci-develop`
     services:
       redis:  # Etiqueta utilizada para acceder al contenedor de servicio
         # Imagen del contenedor Docker Hub
@@ -20,17 +20,15 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-        credentials:
-          password: ${{ secrets.REDIS_PASSWORD }}
     steps:
       - name: 'clone and checkout'
-        uses: actions/checkout@v1
+        uses: actions/checkout@v2
       - name: 'use node.js'
         uses: actions/setup-node@v1
         with:
           node-version: '16.x'
       - name: 'install dependencies'
-        run: npm install
+        run: npm ci
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
@@ -39,8 +37,6 @@ jobs:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
-          REDIS_URI: ${{ secrets.REDIS_URI }}
-          REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
           PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
   build-image:
     runs-on: ubuntu-latest
