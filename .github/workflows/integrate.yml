@@ -27,12 +27,12 @@ jobs:
           node-version: '16.x'
       - name: 'install dependencies'
         run: npm install
+      - name: 'Set redis password'
+        run: 'redis-cli CONFIG SET requirepass ${{ secrets.REDIS_PASSWORD }}'
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
-      - name: 'Set redis password'
-        run: 'redis-cli CONFIG SET requirepass ${{ secrets.REDIS_PASSWORD }}'
         env:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
