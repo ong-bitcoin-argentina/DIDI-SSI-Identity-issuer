@@ -13,6 +13,7 @@ jobs:
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
         options: >-
           --health-cmd "redis-cli ping"
+          --health'cmd `redis-server --requirepass ${{ secrets.REDIS_URI }}`
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
@@ -27,8 +28,6 @@ jobs:
           node-version: '16.x'
       - name: 'install dependencies'
         run: npm install
-      - name: 'Set redis password'
-        run: 'redis-cli CONFIG SET requirepass ${{ secrets.REDIS_PASSWORD }}'
       - name: 'run eslint'
         run: npm run lint
       - name: 'npm run tests'
