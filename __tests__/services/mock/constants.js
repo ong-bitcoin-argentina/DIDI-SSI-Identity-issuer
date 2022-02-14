@@ -1,3 +1,10 @@
+const successBodyNewOPeration = {
+  code: 901,
+  message: 'New operation created',
+  operationId: 1,
+  operationGuid: 'b888c80c-5b95-433b-85e5-f2bf6fbd94c6',
+};
+
 const successBodyDocumentImage = {
   imageDocument: {
     code: 937,
@@ -30,6 +37,13 @@ const successBodyAddBack = {
   },
 };
 
+const successBodyCancelOperation = {
+  imgage: {
+    code: 906,
+    message: 'Cancel operation success',
+  },
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
@@ -39,5 +53,11 @@ module.exports = {
   },
   successRespAddBack: {
     json: () => successBodyAddBack,
+  },
+  successRespCancelOperation: {
+    json: () => successBodyCancelOperation,
+  },
+  successRespNewOperation: {
+    json: () => successBodyNewOPeration,
   },
 };

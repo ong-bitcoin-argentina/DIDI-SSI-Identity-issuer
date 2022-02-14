@@ -6,9 +6,7 @@ const Messages = require('../constants/Messages');
 
 const {
   missingUserName,
-  missingIpAddress,
   missingDeviceHash,
-  missingApplicationVersion,
   missingOperativeSystem,
   missingOperativeSystemVersion,
   missingDeviceManufacturer,
@@ -41,41 +39,29 @@ const vuSecurityPost = async function vuSecurityPost(url, body) {
   }
 };
 
-module.exports.newOperation = async function newOperation(
-  userName,
-  ipAddress,
-  deviceHash,
-  rooted,
-  applicationVersion,
-  operativeSystem,
-  operativeSystemVersion,
-  deviceManufacturer,
-  deviceName,
-) {
-  if (!userName) throw missingUserName;
-  if (!ipAddress) throw missingIpAddress;
-  if (!deviceHash) throw missingDeviceHash;
-  if (!applicationVersion) throw missingApplicationVersion;
-  if (!operativeSystem) throw missingOperativeSystem;
-  if (!operativeSystemVersion) throw missingOperativeSystemVersion;
-  if (!deviceManufacturer) throw missingDeviceManufacturer;
-  if (!deviceName) throw missingDeviceName;
+module.exports.newOperation = async function newOperation(params) {
+  if (!params.userName) throw missingUserName;
+  if (!params.deviceHash) throw missingDeviceHash;
+  if (!params.operativeSystem) throw missingOperativeSystem;
+  if (!params.operativeSystemVersion) throw missingOperativeSystemVersion;
+  if (!params.deviceManufacturer) throw missingDeviceManufacturer;
+  if (!params.deviceName) throw missingDeviceName;
   try {
     const result = await vuSecurityPost(
       Constants.VUS_URLS.NEW_OPERATION,
       JSON.stringify({
-        userName,
-        ipAddress,
-        deviceHash,
-        rooted,
+        userName: params.userName,
+        ipAddress: Constants.IP_ADDRESS,
+        deviceHash: params.deviceHash,
+        rooted: params.rooted,
         applicationVersion: Constants.VUS_APP_VERS,
-        operativeSystem,
-        operativeSystemVersion,
-        deviceManufacturer,
-        deviceName,
+        operativeSystem: params.operativeSystem,
+        operativeSystemVersion: params.operativeSystemVersion,
+        deviceManufacturer: params.deviceManufacturer,
+        deviceName: params.deviceName,
       }),
     );
-    result.userName = userName;
+    result.userName = params.userName;
     return result;
   } catch (error) {
     return Messages.VUS.NEW_OPERATION;

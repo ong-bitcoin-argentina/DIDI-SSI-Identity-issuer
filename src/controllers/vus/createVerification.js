@@ -1,35 +1,14 @@
 const vusService = require('../../services/vusService');
 const AuthRequestService = require('../../services/AuthRequestService');
-const Constants = require('../../constants/Constants');
 
 const createVerification = async (req, res) => {
-  const {
-    did,
-    userName,
-    deviceHash,
-    rooted,
-    operativeSystem,
-    operativeSystemVersion,
-    deviceManufacturer,
-    deviceName,
-  } = req.body;
+  const params = req.body;
   try {
     // Iniciar pedido de validación de identidad con vu security endpoint New Operation
-    const response = await vusService.newOperation(
-      userName,
-      Constants.IP_ADDRESS,
-      deviceHash,
-      rooted,
-      Constants.VERSION_APP,
-      operativeSystem,
-      operativeSystemVersion,
-      deviceManufacturer,
-      deviceName,
-    );
+    const response = await vusService.newOperation(params);
 
     // Guardar estado como "en progreso y retornar"
-    // eslint-disable-next-line no-unused-vars
-    await AuthRequestService.create(response.operationId, did);
+    await AuthRequestService.create(response.operationId, params.did);
     return res.status(200).json(response);
   } catch (error) {
     return res.status(500).json(error);
