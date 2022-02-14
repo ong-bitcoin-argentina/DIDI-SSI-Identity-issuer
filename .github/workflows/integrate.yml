@@ -27,7 +27,8 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-        redis-password: ${REDIS_PASSWORD}
+        credentials:
+          password: ${{ secrets.REDIS_PASSWORD }}
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
