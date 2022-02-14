@@ -18,7 +18,6 @@ jobs:
           --health-retries 5
         ports:
           - 6379:6379
-        password: ${{ secrets.REDIS_ASSWORD }}
     steps:
       - name: 'clone and checkout'
         uses: actions/checkout@v1
@@ -32,6 +31,8 @@ jobs:
         run: npm run lint
       - name: 'npm run tests'
         run: npm test
+      - name: 'Set redis password'
+        run: `redis-cli CONFIG SET requirepass ${{ secrets.REDIS_PASSWORD }}`
         env:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
