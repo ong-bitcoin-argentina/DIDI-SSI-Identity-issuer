@@ -16,7 +16,7 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-          --requirepass $${{ REDIS_PASSWORD }}
+          --requirepass 'redis123456'
         ports:
           - 6379:6379
     steps:
