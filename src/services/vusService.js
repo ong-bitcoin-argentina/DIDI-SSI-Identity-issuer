@@ -72,14 +72,13 @@ module.exports.cancelOperation = async function cancelOperation(params) {
   if (!params.userName) throw missingUserName;
   if (!params.operationId) throw missingOperationId;
   try {
-    const result = await vuSecurityPost(
+    return await vuSecurityPost(
       Constants.VUS_URLS.CANCEL_OPERATION,
       JSON.stringify({
         userName: params.userName,
         operationId: params.operationId,
       }),
     );
-    return result;
   } catch (error) {
     return Messages.VUS.CANCEL_OPERATION;
   }
@@ -113,7 +112,7 @@ module.exports.addSelfie = async function addSelfie(params) {
   if (!params.userName) throw missingUserName;
   if (!params.file) throw missingSelfieList;
   try {
-    const result = await vuSecurityPost(
+    return await vuSecurityPost(
       Constants.VUS_URLS.ADD_SELFIE,
       JSON.stringify({
         operationId: params.operationId,
@@ -121,7 +120,6 @@ module.exports.addSelfie = async function addSelfie(params) {
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
     );
-    return result;
   } catch (error) {
     return Messages.VUS.ADD_SELFIE;
   }
