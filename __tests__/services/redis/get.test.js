@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-hooks */
 const { set, get, disconnect } = require('../../../src/services/RedisService');
 
 const { missingKey } = require('../../../src/constants/serviceErrors');

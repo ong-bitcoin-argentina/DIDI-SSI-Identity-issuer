@@ -1,4 +1,3 @@
-/* eslint-disable jest/no-hooks */
 const { set, disconnect } = require('../../../src/services/RedisService');
 
 const {
