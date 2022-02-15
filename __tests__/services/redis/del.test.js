@@ -19,7 +19,11 @@ describe('services/RedisService/del.test.js', () => {
   });
   it('expect del to throw missing key', async () => {
     expect.assertions(1);
-    await expect(Promise.resolve(del(undefined))).rejects.toBe(missingKey);
+    try {
+      await del(undefined);
+    } catch (e) {
+      expect(e).toBe(missingKey);
+    }
   });
   it('expect del to throw success', async () => {
     expect.assertions(2);

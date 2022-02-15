@@ -14,7 +14,11 @@ describe('services/RedisService/get.test.js', () => {
   });
   it('expect get to throw missing key', async () => {
     expect.assertions(1);
-    await expect(Promise.resolve(get(undefined))).rejects.toBe(missingKey);
+    try {
+      await get(undefined);
+    } catch (e) {
+      expect(e).toBe(missingKey);
+    }
   });
   it('expect get to throw success', async () => {
     expect.assertions(1);
