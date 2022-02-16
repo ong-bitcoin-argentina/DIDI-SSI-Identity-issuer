@@ -1,10 +1,10 @@
 const apicache = require('apicache');
-const client = require('redis').createClient;
 const swaggerJsdoc = require('swagger-jsdoc');
 const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
+const { client } = require('./services/RedisService');
 
 const app = express();
 
@@ -25,7 +25,6 @@ const {
   NAME,
   VERSION,
   ENVIRONMENT,
-  REDIS_URI,
   MONGO_URI,
 } = require('./constants/Constants');
 const Messages = require('./constants/Messages');
@@ -75,7 +74,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpecification));
 app.use(
   apicache
     .options({
-      redisClient: client({ url: REDIS_URI }),
+      redisClient: client,
       debug: false,
       trackPerformance: true,
       respectCacheControl: false,
