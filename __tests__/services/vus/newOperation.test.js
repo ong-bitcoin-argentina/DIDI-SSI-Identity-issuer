@@ -1,158 +1,71 @@
+jest.mock('node-fetch');
+
+const fetch = require('node-fetch');
 const { newOperation } = require('../../../src/services/vusService');
 const {
   missingUserName,
-  missingIpAddress,
   missingDeviceHash,
-  missingApplicationVersion,
   missingOperativeSystem,
   missingOperativeSystemVersion,
   missingDeviceManufacturer,
   missingDeviceName,
 } = require('../../../src/constants/serviceErrors');
+const { newOperationParams } = require('./constants');
+const { successRespNewOperation } = require('../mock/constants');
 
 describe('services/vus/newOperation.test.js', () => {
+  it('expect newOperation OK', async () => {
+    expect.assertions(2);
+    fetch.mockReturnValue(Promise.resolve(successRespNewOperation));
+    const response = await newOperation(newOperationParams);
+    expect(fetch).toHaveBeenCalledTimes(1);
+    expect(response).toBe(successRespNewOperation.json());
+  });
   it('expect newOperation to throw on missing userName', async () => {
     expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          undefined,
-          'IpAddress',
-          'deviceHash',
-          'Rooted',
-          'ApplicationVersion',
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingUserName);
-  });
-  it('expect newOperation to throw on missing ipAddress', async () => {
-    expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          undefined,
-          'deviceHash',
-          'Rooted',
-          'ApplicationVersion',
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingIpAddress);
+    newOperationParams.userName = undefined;
+    await expect(newOperation(newOperationParams)).rejects.toBe(
+      missingUserName,
+    );
   });
   it('expect newOperation to throw on missing deviceHash', async () => {
     expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          undefined,
-          'Rooted',
-          'ApplicationVersion',
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingDeviceHash);
+    newOperationParams.userName = 'userName';
+    newOperationParams.deviceHash = undefined;
+    await expect(newOperation(newOperationParams)).rejects.toBe(
+      missingDeviceHash,
+    );
   });
-  it('expect newOperation to throw on missing ApplicationVersion', async () => {
+  it('expect newOperation to throw on missing operativeSystem', async () => {
     expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          'deviceHash',
-          'Rooted',
-          undefined,
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingApplicationVersion);
+    newOperationParams.deviceHash = 'hash';
+    newOperationParams.operativeSystem = undefined;
+    await expect(newOperation(newOperationParams)).rejects.toBe(
+      missingOperativeSystem,
+    );
   });
-  it('expect newOperation to throw on missing OperativeSystem', async () => {
+  it('expect newOperation to throw on missing operativeSystemVersion', async () => {
     expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          'deviceHash',
-          'Rooted',
-          'ApplicationVersion',
-          undefined,
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingOperativeSystem);
+    newOperationParams.operativeSystem = 'operativeSystem';
+    newOperationParams.operativeSystemVersion = undefined;
+    await expect(newOperation(newOperationParams)).rejects.toBe(
+      missingOperativeSystemVersion,
+    );
   });
-  it('expect newOperation to throw on missing OperativeSystemVersion', async () => {
+  it('expect newOperation to throw on missing deviceManufacturer', async () => {
     expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          'deviceHash',
-          'Rooted',
-          'ApplicationVersion',
-          'OperativeSystem',
-          undefined,
-          'DeviceManufacturer',
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingOperativeSystemVersion);
+    newOperationParams.operativeSystemVersion = 'operativeSystemVersion';
+    newOperationParams.deviceManufacturer = undefined;
+    await expect(newOperation(newOperationParams)).rejects.toBe(
+      missingDeviceManufacturer,
+    );
   });
-  it('expect newOperation to throw on missing DeviceManufacturer', async () => {
+  it('expect newOperation to throw on missing deviceName', async () => {
     expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          'deviceHash',
-          'Rooted',
-          'ApplicationVersion',
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          undefined,
-          'deviceName',
-        ),
-      ),
-    ).rejects.toBe(missingDeviceManufacturer);
-  });
-  it('expect newOperation to throw on missing DeviceName', async () => {
-    expect.assertions(1);
-    await expect(
-      Promise.resolve(
-        newOperation(
-          'userName',
-          'ipAddress',
-          'deviceHash',
-          'Rooted',
-          'ApplicationVersion',
-          'OperativeSystem',
-          'OperativeSystemVersion',
-          'DeviceManufacturer',
-          undefined,
-        ),
-      ),
-    ).rejects.toBe(missingDeviceName);
+    newOperationParams.deviceManufacturer = 'deviceManufacturer';
+    newOperationParams.deviceName = undefined;
+    await expect(newOperation(newOperationParams)).rejects.toBe(
+      missingDeviceName,
+    );
   });
 });
