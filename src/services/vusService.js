@@ -72,7 +72,7 @@ module.exports.cancelOperation = async function cancelOperation(params) {
   if (!params.userName) throw missingUserName;
   if (!params.operationId) throw missingOperationId;
   try {
-    return await vuSecurityPost(
+    return vuSecurityPost(
       Constants.VUS_URLS.CANCEL_OPERATION,
       JSON.stringify({
         userName: params.userName,
@@ -89,9 +89,8 @@ module.exports.addImage = async function addImage(params) {
   if (!params.userName) throw missingUserName;
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
-
   try {
-    const result = await vuSecurityPost(
+    return vuSecurityPost(
       options.get(params.side),
       JSON.stringify({
         operationId: params.operationId,
@@ -101,7 +100,6 @@ module.exports.addImage = async function addImage(params) {
         file: params.file,
       }),
     );
-    return await result;
   } catch (error) {
     return Messages.VUS.ADD_IMAGE;
   }
@@ -112,7 +110,7 @@ module.exports.addSelfie = async function addSelfie(params) {
   if (!params.userName) throw missingUserName;
   if (!params.file) throw missingSelfieList;
   try {
-    return await vuSecurityPost(
+    return vuSecurityPost(
       Constants.VUS_URLS.ADD_SELFIE,
       JSON.stringify({
         operationId: params.operationId,
