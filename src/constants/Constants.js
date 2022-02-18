@@ -49,6 +49,7 @@ module.exports = {
     ADD_DOCUMENT_IMAGE: `${VUS_URL}/addDocumentImage`,
     ADD_BACK: `${VUS_URL}/addBack`,
     ADD_SELFIE: `${VUS_URL}/register`,
+    END_OPERATION: `${VUS_URL}/endOperation`,
   },
   VUS_API_KEY,
   VUS_API,

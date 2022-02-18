@@ -68,6 +68,11 @@ module.exports = {
       message:
         'No se pudo registrar la selfie. Inténteelo nuevamente más tarde.',
     },
+    END_OPERATION: {
+      code: 'END_OPERATION',
+      message:
+        'No se pudo finalizar la operación. Inténteelo nuevamente más tarde.',
+    },
   },
 
   VALIDATION: {

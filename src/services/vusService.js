@@ -122,3 +122,19 @@ module.exports.addSelfie = async function addSelfie(params) {
     return Messages.VUS.ADD_SELFIE;
   }
 };
+
+module.exports.endOperation = async function endOperation(params) {
+  if (!params.operationId) throw missingOperationId;
+  if (!params.userName) throw missingUserName;
+  try {
+    return vuSecurityPost(
+      Constants.VUS_URLS.END_OPERATION,
+      JSON.stringify({
+        operationId: params.operationId,
+        userName: params.userName,
+      }),
+    );
+  } catch (error) {
+    return Messages.VUS.END_OPERATION;
+  }
+};
