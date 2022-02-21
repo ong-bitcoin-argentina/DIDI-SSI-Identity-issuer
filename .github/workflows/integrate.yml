@@ -38,6 +38,8 @@ jobs:
           ENVIRONMENT: dev
           NAME: Identity-Issuer
           VERSION: 1.0.0
+          IP_ADDRESS: 127.0.0.1
+          VERSION_APP: 1.0.0
   build-image:
     runs-on: ubuntu-latest
     steps:
