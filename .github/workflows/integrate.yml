@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     # Contenedores de servicio para ejecutar con `ci-develop`
     services:
-      redis:  # Etiqueta utilizada para acceder al contenedor de servicio
+      redis: # Etiqueta utilizada para acceder al contenedor de servicio
         # Imagen del contenedor Docker Hub
         image: redis
         # Establece revisiones de estado para esperar hasta que Redis haya comenzado
@@ -31,7 +31,10 @@ jobs:
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
           PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
-
+          PORT: 8089
+          ENVIRONMENT: dev
+          NAME: Identity-Issuer
+          VERSION: 1.0.0
   build-image:
     runs-on: ubuntu-latest
     steps:

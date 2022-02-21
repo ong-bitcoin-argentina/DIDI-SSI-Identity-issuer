@@ -73,6 +73,11 @@ module.exports = {
       message:
         'No se pudo finalizar la operación. Inténteelo nuevamente más tarde.',
     },
+    OPERATION_FAIL: {
+      code: 'OPERATION_FAIL',
+      message:
+        'No se pudo realizar la operacion. Intentelo nuevamente mas tarde.',
+    },
   },
 
   VALIDATION: {

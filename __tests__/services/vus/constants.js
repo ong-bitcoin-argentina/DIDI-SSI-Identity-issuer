@@ -5,7 +5,7 @@ const addImageParams = {
   side: 'back',
 };
 
-const cancelOperationParams = {
+const simpleOperationParams = {
   operationId: 'operationId',
   userName: 'userName',
 };
@@ -19,5 +19,8 @@ const newOperationParams = {
   deviceManufacturer: 'deviceManufacturer',
   deviceName: 'deviceName',
 };
-
-module.exports = { addImageParams, cancelOperationParams, newOperationParams };
+module.exports = {
+  addImageParams,
+  simpleOperationParams,
+  newOperationParams,
+};
