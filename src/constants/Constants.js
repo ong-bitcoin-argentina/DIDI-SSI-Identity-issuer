@@ -28,7 +28,6 @@ assert.ok(VUS_API_KEY, 'No esta definida la variable API_KEY');
 assert.ok(PREFIJO_REDIS, 'No esta definida la variable PREFIJO_REDIS');
 assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
-assert.ok(REDIS_URI, 'No esta definida la variable REDIS_URI');
 assert.ok(IP_ADDRESS, 'No esta definida la variable IP_ADDRESS');
 assert.ok(VERSION_APP, 'No esta definida la variable VERSION_APP');
 
