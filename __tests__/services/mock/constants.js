@@ -72,6 +72,11 @@ const successBodyEndOperation = {
   identical: true,
 };
 
+const badRequest = {
+  status: 400,
+  statusText: 'Bad Request',
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
@@ -90,5 +95,8 @@ module.exports = {
   },
   successRespEndOperation: {
     json: () => successBodyEndOperation,
+  },
+  failResponse: {
+    json: () => badRequest,
   },
 };
