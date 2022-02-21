@@ -27,10 +27,12 @@ jobs:
       - name: Run tests
         run: npm test
         env:
+          DIDI_SERVER: ${{ secrets.DIDI_SERVER }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
-          PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
           VUS_APP_VERS: ${{ secrets.VUS_APP_VERS }}
           PORT: 8089
           ENVIRONMENT: dev
