@@ -43,6 +43,40 @@ const successBodyCancelOperation = {
   },
 };
 
+const successBodyEndOperation = {
+  code: 0,
+  message: 'End operation success',
+  confidence: 0,
+  confidenceDocument: 0,
+  confidenceTotal: 0,
+  anomalies: {
+    areaValidations: '{"INFO":"0"}',
+    textValidationsOcr: '{"INFO":"0"}',
+    textValidationsMrz: '{"INDO":"0"}',
+    textValidationsDocumentData: '{"INFO":"0"}',
+    areaValidationsDocumentAnomalies: '{"INFO":"0"}',
+    textValidationsDocument: '{"INFO":"0"}',
+    textValidationsTotal: '{"INFO":"0"}',
+  },
+  ocr: {
+    extra: {
+      additional: '{"INFO":"00"}',
+      mrz: '{"INFO":"00"}',
+    },
+    number: 'XXXXXXXX',
+    gender: 'X',
+    lastNames: ' XXXXX ',
+    names: 'NAME',
+    birthdate: '1111-11-11',
+  },
+  identical: true,
+};
+
+const badRequest = {
+  status: 400,
+  statusText: 'Bad Request',
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
@@ -58,5 +92,11 @@ module.exports = {
   },
   successRespNewOperation: {
     json: () => successBodyNewOPeration,
+  },
+  successRespEndOperation: {
+    json: () => successBodyEndOperation,
+  },
+  failResponse: {
+    json: () => badRequest,
   },
 };

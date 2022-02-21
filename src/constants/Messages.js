@@ -47,26 +47,38 @@ module.exports = {
     },
     ADD_DOCUMENT_IMAGE: {
       code: 'ADD_DOCUMENT_IMAGE',
-      message: 'Hubo un error al adherir la imgen del frente del documento',
+      message:
+        'Hubo un error al adherir la imgen del frente del documento. Inténtelo nuevamente más tarde.',
     },
     ADD_IMAGE: {
       code: 'ADD_IMAGE',
-      message: 'Hubo un error al adherir la imagen documento',
+      message:
+        'Hubo un error al adherir la imagen documento. Inténtelo nuevamente más tarde.',
     },
     FIND_BY_ID: {
       code: 'FIND_BY_ID',
       message:
-        'No se encontró ningun usuario con el did ingresado. Inténteelo nuevamente más tarde.',
+        'No se encontró ningun usuario con el did ingresado. Inténtelo nuevamente más tarde.',
     },
     CANCEL_VERIFICATION: {
       code: 'CANCEL_VERIFICATION',
       message:
-        'No se pudo cancelar la operacion. Inténteelo nuevamente más tarde.',
+        'No se pudo cancelar la operacion. Inténtelo nuevamente más tarde.',
     },
     ADD_SELFIE: {
       code: 'ADD_SELFIE',
       message:
-        'No se pudo registrar la selfie. Inténteelo nuevamente más tarde.',
+        'No se pudo registrar la selfie. Inténtelo nuevamente más tarde.',
+    },
+    END_OPERATION: {
+      code: 'END_OPERATION',
+      message:
+        'No se pudo finalizar la operación. Inténtelo nuevamente más tarde.',
+    },
+    OPERATION_FAIL: {
+      code: 'OPERATION_FAIL',
+      message:
+        'No se pudo realizar la operacion. Inténtelo nuevamente mas tarde.',
     },
   },
 
