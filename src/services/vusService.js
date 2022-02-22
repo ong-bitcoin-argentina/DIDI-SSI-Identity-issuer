@@ -68,22 +68,6 @@ module.exports.newOperation = async function newOperation(params) {
   }
 };
 
-module.exports.cancelOperation = async function cancelOperation(params) {
-  if (!params.userName) throw missingUserName;
-  if (!params.operationId) throw missingOperationId;
-  try {
-    return vuSecurityPost(
-      Constants.VUS_URLS.CANCEL_OPERATION,
-      JSON.stringify({
-        userName: params.userName,
-        operationId: params.operationId,
-      }),
-    );
-  } catch (error) {
-    return Messages.VUS.CANCEL_OPERATION;
-  }
-};
-
 module.exports.addImage = async function addImage(params) {
   if (!params.operationId) throw missingOperationId;
   if (!params.userName) throw missingUserName;
@@ -120,5 +104,22 @@ module.exports.addSelfie = async function addSelfie(params) {
     );
   } catch (error) {
     return Messages.VUS.ADD_SELFIE;
+  }
+};
+
+// OPERACION SIMPLE: consultas por userName y operationId
+module.exports.simpleOperation = async function simpleOperation(params, url) {
+  if (!params.userName) throw missingUserName;
+  if (!params.operationId) throw missingOperationId;
+  try {
+    return vuSecurityPost(
+      url,
+      JSON.stringify({
+        userName: params.userName,
+        operationId: params.operationId,
+      }),
+    );
+  } catch (error) {
+    return error;
   }
 };
