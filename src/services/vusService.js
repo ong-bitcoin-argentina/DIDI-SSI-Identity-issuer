@@ -41,7 +41,7 @@ module.exports.newOperation = async function newOperation(params) {
   if (!params.deviceManufacturer) throw missingDeviceManufacturer;
   if (!params.deviceName) throw missingDeviceName;
   try {
-    const result = await vuSecurityPost(
+    const result = vuSecurityPost(
       Constants.VUS_URLS.NEW_OPERATION,
       JSON.stringify({
         userName: params.userName,
