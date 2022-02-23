@@ -1,10 +1,6 @@
-const apicache = require('apicache');
-const swaggerJsdoc = require('swagger-jsdoc');
-const swaggerUi = require('swagger-ui-express');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
-const { client } = require('./services/RedisService');
 
 const app = express();
 
@@ -21,12 +17,7 @@ app.use(limiter);
 // aumentar el tamaño de request permitido para poder recibir la imagen en base64
 app.use(express.json({ limit: '10mb' }));
 
-const {
-  NAME,
-  VERSION,
-  ENVIRONMENT,
-  MONGO_URI,
-} = require('./constants/Constants');
+const { MONGO_URI } = require('./constants/Constants');
 const Messages = require('./constants/Messages');
 const routes = require('./routes/index');
 const serviceRoutes = require('./routes/serviceRoutes');
@@ -40,61 +31,8 @@ mongoose
     console.log(Messages.INDEX.ERR.CONNECTION + err.message);
   });
 
-/**
- * Config de Swagger
- */
-const options = {
-  definition: {
-    openapi: '3.0.3',
-    info: {
-      title: NAME,
-      description: `Corriendo en el ambiente: ${ENVIRONMENT}. Para más información, visite la [documentación](https://docs.didi.org.ar/).`,
-      version: VERSION,
-    },
-    servers: [
-      {
-        url: '/api',
-      },
-    ],
-  },
-  apis: ['./src/routes/*.js'],
-};
-const apiSpecification = swaggerJsdoc(options);
-/**
- * @openapi
- * /api-docs:
- *   get:
- *     description: Welcome to the jungle!
- *     responses:
- *       200:
- *         description: Returns a mysterious webpage.
- */
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(apiSpecification));
-
-app.use(
-  apicache
-    .options({
-      redisClient: client,
-      debug: false,
-      trackPerformance: true,
-      respectCacheControl: false,
-    })
-    .middleware(),
-);
-
-app.get('/cache', (_, res) => {
-  try {
-    res.json({
-      performance: apicache.getPerformance(),
-      index: apicache.getIndex(),
-    });
-  } catch (e) {
-    res.status(500);
-  }
-});
-
 app.use(serviceRoutes);
-app.use('/api', routes);
+app.use(routes);
 app.use('*', (req, res) =>
   res.status(404).json({
     status: 'error',
