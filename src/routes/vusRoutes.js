@@ -82,7 +82,7 @@ router.post(
  * @openapi
  * 	 /vuSecurity/cancelVerification:
  *   post:
- *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     summary: Permite cancelar operación pendiente de validación de identidad
  *     parameters:
  *       - in: header
  *         name: Authorization
