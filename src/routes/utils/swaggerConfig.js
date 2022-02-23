@@ -15,7 +15,7 @@ const options = {
     },
     servers: [
       {
-        url: '/api',
+        url: '/',
       },
     ],
   },
