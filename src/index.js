@@ -53,7 +53,7 @@ const options = {
     },
     servers: [
       {
-        url: '/api',
+        url: '/',
       },
     ],
   },
@@ -94,7 +94,7 @@ app.get('/cache', (_, res) => {
 });
 
 app.use(serviceRoutes);
-app.use('/api', routes);
+app.use(routes);
 app.use('*', (req, res) =>
   res.status(404).json({
     status: 'error',
