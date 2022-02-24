@@ -2,6 +2,12 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
+const routes = require('./routes/index');
+const serviceRoutes = require('./routes/serviceRoutes');
+
+const { MONGO_URI } = require('./constants/Constants');
+const Messages = require('./constants/Messages');
+
 const app = express();
 
 const limiter = rateLimit({
@@ -16,11 +22,6 @@ app.use(limiter);
 
 // aumentar el tamaño de request permitido para poder recibir la imagen en base64
 app.use(express.json({ limit: '10mb' }));
-
-const { MONGO_URI } = require('./constants/Constants');
-const Messages = require('./constants/Messages');
-const routes = require('./routes/index');
-const serviceRoutes = require('./routes/serviceRoutes');
 
 mongoose
   .connect(MONGO_URI)
