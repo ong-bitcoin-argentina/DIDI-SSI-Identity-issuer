@@ -1,19 +1,27 @@
 const vusService = require('../../services/vusService');
-const Messages = require('../../constants/Messages');
 const AuthRequestService = require('../../services/AuthRequestService');
+const { get, set } = require('../../services/RedisService');
+
 const ResponseHandler = require('../../utils/ResponseHandler');
 
 const createVerification = async (req, res) => {
   const params = req.body;
   try {
-    // Iniciar pedido de validación de identidad con vu security endpoint New Operation
-    const response = await vusService.newOperation(params);
+    const searchTerm = `create-verification-${params.did}`;
+    let response = JSON.parse(await get(searchTerm));
 
-    // Guardar estado como "en progreso y retornar"
-    await AuthRequestService.create(response.operationId, params.did);
+    if (!response) {
+      // Iniciar pedido de validación de identidad con vu security endpoint New Operation
+      response = await vusService.newOperation(params);
+
+      // Guardar estado como "en progreso y retornar"
+      await AuthRequestService.create(response.operationId, params.did);
+      await set(searchTerm, JSON.stringify(response));
+    }
+
     return ResponseHandler.sendRes(res, response);
   } catch (error) {
-    return ResponseHandler.sendErrWithStatus(res, Messages.VUS.NEW_OPERATION);
+    return ResponseHandler.sendErrWithStatus(res, error);
   }
 };
 

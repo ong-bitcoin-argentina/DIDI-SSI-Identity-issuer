@@ -1,10 +1,9 @@
 /* eslint-disable camelcase */
 const fetch = require('node-fetch');
 
-const { get, set } = require('./RedisService');
-
 const Constants = require('../constants/Constants');
 const options = require('../constants/ImageOptions');
+const Messages = require('../constants/Messages');
 
 const {
   missingUserName,
@@ -23,23 +22,17 @@ const {
  *  Realiza un post al servicio de vuSecurity con la url interna y el body recibidos
  */
 const vuSecurityPost = async function vuSecurityPost(url, body) {
-  const searchTerm = `verificacion-body-${body}`;
-  let jsonResp = JSON.parse(await get(searchTerm));
-  if (!jsonResp) {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-apikey': Constants.VUS_API_KEY,
-      },
-      body,
-      url,
-    });
-    jsonResp = await response.json();
-    if (response.status === 400) throw jsonResp;
-    await set(searchTerm, JSON.stringify(jsonResp));
-  }
-  return jsonResp;
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-apikey': Constants.VUS_API_KEY,
+    },
+    body,
+    url,
+  });
+  if (response.status === 400) throw response.json();
+  return response.json();
 };
 
 module.exports.newOperation = async function newOperation(params) {
@@ -63,11 +56,13 @@ module.exports.newOperation = async function newOperation(params) {
         deviceManufacturer: params.deviceManufacturer,
         deviceName: params.deviceName,
       }),
+      params.userName,
     );
+    if (!result) throw Messages.VUS.OPERATION_FAIL;
     result.userName = params.userName;
     return result;
   } catch (error) {
-    return error;
+    throw Messages.VUS.NEW_OPERATION;
   }
 };
 
@@ -77,7 +72,7 @@ module.exports.addImage = async function addImage(params) {
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
   try {
-    return vuSecurityPost(
+    const response = await vuSecurityPost(
       options.get(params.side),
       JSON.stringify({
         operationId: params.operationId,
@@ -86,9 +81,12 @@ module.exports.addImage = async function addImage(params) {
         analyzeOcr: true,
         file: params.file,
       }),
+      params.userName,
     );
+    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    return response;
   } catch (error) {
-    return error;
+    throw Messages.VUS.ADD_IMAGE;
   }
 };
 
@@ -97,16 +95,19 @@ module.exports.addSelfie = async function addSelfie(params) {
   if (!params.userName) throw missingUserName;
   if (!params.file) throw missingSelfieList;
   try {
-    return vuSecurityPost(
+    const response = await vuSecurityPost(
       Constants.VUS_URLS.ADD_SELFIE,
       JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
+      params.userName,
     );
+    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    return response;
   } catch (error) {
-    return error;
+    throw Messages.VUS.ADD_SELFIE;
   }
 };
 
@@ -115,14 +116,17 @@ module.exports.simpleOperation = async function simpleOperation(params, url) {
   if (!params.userName) throw missingUserName;
   if (!params.operationId) throw missingOperationId;
   try {
-    return vuSecurityPost(
+    const response = await vuSecurityPost(
       url,
       JSON.stringify({
         userName: params.userName,
         operationId: params.operationId,
       }),
+      params.userName,
     );
+    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    return response;
   } catch (error) {
-    return error;
+    throw Messages.VUS.SIMPLE_OPERATION;
   }
 };

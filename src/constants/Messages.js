@@ -55,6 +55,11 @@ module.exports = {
       message:
         'No se encontró ningun usuario con el did ingresado. Inténtelo nuevamente más tarde.',
     },
+    GET_DID: {
+      code: 'GET_DID',
+      message:
+        'No se encontró ningún did con el operationId ingresado. Inténtelo nuevamente más tarde.',
+    },
     CANCEL_VERIFICATION: {
       code: 'CANCEL_VERIFICATION',
       message:
@@ -64,6 +69,11 @@ module.exports = {
       code: 'END_OPERATION',
       message:
         'No se pudo finalizar la operación. Inténtelo nuevamente más tarde.',
+    },
+    SIMPLE_OPERATION: {
+      code: 'SIMPLE_OPERATION',
+      message:
+        'No se pudo cancelar/finalizar la operacion. Inténtelo nuevamente más tarde.',
     },
     OPERATION_FAIL: {
       code: 'OPERATION_FAIL',

@@ -76,6 +76,18 @@ module.exports.verifyStatus = async function verifyStatus(operationId, status) {
     if (authRequest.status === status) return true;
     return false;
   } catch (error) {
-    return Messages.VUS.FIND_BY_ID;
+    throw Messages.VUS.FIND_BY_ID;
+  }
+};
+
+module.exports.getDidByOperationId = async function getDidByOperationId(
+  operationId,
+) {
+  if (!operationId) throw missingOperationId;
+  try {
+    const authRequest = await AuthRequest.findByOperationId(operationId);
+    return authRequest.did;
+  } catch (error) {
+    throw Messages.VUS.GET_DID;
   }
 };
