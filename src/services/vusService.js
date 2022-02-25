@@ -1,5 +1,8 @@
 /* eslint-disable camelcase */
 const fetch = require('node-fetch');
+
+const { get, set } = require('./RedisService');
+
 const Constants = require('../constants/Constants');
 const options = require('../constants/ImageOptions');
 
@@ -20,17 +23,23 @@ const {
  *  Realiza un post al servicio de vuSecurity con la url interna y el body recibidos
  */
 const vuSecurityPost = async function vuSecurityPost(url, body) {
-  const response = await fetch(url, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-access-apikey': Constants.VUS_API_KEY,
-    },
-    body,
-    url,
-  });
-  if (response.status === 400) throw response.json();
-  return response.json();
+  const searchTerm = `verificacion-body-${body}`;
+  let jsonResp = JSON.parse(await get(searchTerm));
+  if (!jsonResp) {
+    const response = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'x-access-apikey': Constants.VUS_API_KEY,
+      },
+      body,
+      url,
+    });
+    jsonResp = await response.json();
+    if (response.status === 400) throw jsonResp;
+    await set(searchTerm, JSON.stringify(jsonResp));
+  }
+  return jsonResp;
 };
 
 module.exports.newOperation = async function newOperation(params) {
