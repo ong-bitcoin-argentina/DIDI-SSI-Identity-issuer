@@ -2,7 +2,6 @@
 const fetch = require('node-fetch');
 const Constants = require('../constants/Constants');
 const options = require('../constants/ImageOptions');
-const Messages = require('../constants/Messages');
 
 const {
   missingUserName,
@@ -21,22 +20,17 @@ const {
  *  Realiza un post al servicio de vuSecurity con la url interna y el body recibidos
  */
 const vuSecurityPost = async function vuSecurityPost(url, body) {
-  try {
-    const response = await fetch(url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'x-access-apikey': Constants.VUS_API_KEY,
-      },
-      body,
-      url,
-    });
-    return response.status === 400
-      ? Promise.reject(response.json())
-      : Promise.resolve(response.json());
-  } catch (err) {
-    return Promise.reject(err);
-  }
+  const response = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-access-apikey': Constants.VUS_API_KEY,
+    },
+    body,
+    url,
+  });
+  if (response.status === 400) throw response.json();
+  return response.json();
 };
 
 module.exports.newOperation = async function newOperation(params) {
@@ -64,7 +58,7 @@ module.exports.newOperation = async function newOperation(params) {
     result.userName = params.userName;
     return result;
   } catch (error) {
-    return Messages.VUS.NEW_OPERATION;
+    return error;
   }
 };
 
@@ -85,7 +79,7 @@ module.exports.addImage = async function addImage(params) {
       }),
     );
   } catch (error) {
-    return Messages.VUS.ADD_IMAGE;
+    return error;
   }
 };
 
@@ -103,7 +97,7 @@ module.exports.addSelfie = async function addSelfie(params) {
       }),
     );
   } catch (error) {
-    return Messages.VUS.ADD_SELFIE;
+    return error;
   }
 };
 
