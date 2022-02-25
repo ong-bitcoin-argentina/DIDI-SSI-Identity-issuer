@@ -56,7 +56,6 @@ module.exports.newOperation = async function newOperation(params) {
         deviceManufacturer: params.deviceManufacturer,
         deviceName: params.deviceName,
       }),
-      params.userName,
     );
     if (!result) throw Messages.VUS.OPERATION_FAIL;
     result.userName = params.userName;
@@ -81,7 +80,6 @@ module.exports.addImage = async function addImage(params) {
         analyzeOcr: true,
         file: params.file,
       }),
-      params.userName,
     );
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
@@ -102,7 +100,6 @@ module.exports.addSelfie = async function addSelfie(params) {
         userName: params.userName,
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
-      params.userName,
     );
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
@@ -122,7 +119,6 @@ module.exports.simpleOperation = async function simpleOperation(params, url) {
         userName: params.userName,
         operationId: params.operationId,
       }),
-      params.userName,
     );
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
