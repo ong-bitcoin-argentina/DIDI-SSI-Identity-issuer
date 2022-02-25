@@ -1,5 +1,7 @@
 const vusService = require('../../services/vusService');
+const Messages = require('../../constants/Messages');
 const AuthRequestService = require('../../services/AuthRequestService');
+const ResponseHandler = require('../../utils/ResponseHandler');
 
 const createVerification = async (req, res) => {
   const params = req.body;
@@ -9,9 +11,9 @@ const createVerification = async (req, res) => {
 
     // Guardar estado como "en progreso y retornar"
     await AuthRequestService.create(response.operationId, params.did);
-    return res.status(200).json(response);
+    return ResponseHandler.sendRes(res, response);
   } catch (error) {
-    return res.status(500).json(error);
+    return ResponseHandler.sendErrWithStatus(res, Messages.VUS.NEW_OPERATION);
   }
 };
 
