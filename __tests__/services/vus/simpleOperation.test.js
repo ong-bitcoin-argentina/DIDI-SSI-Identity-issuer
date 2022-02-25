@@ -15,24 +15,22 @@ const { VUS_URLS } = require('../../../src/constants/Constants');
 
 describe('services/vus/cancelOperation.test.js', () => {
   it('expect cancelOperation OK', async () => {
-    expect.assertions(2);
+    expect.assertions(1);
     fetch.mockReturnValue(Promise.resolve(successRespCancelOperation));
     const response = await simpleOperation(
       simpleOperationParams,
       VUS_URLS.CANCEL_OPERATION,
     );
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(response).toBe(successRespCancelOperation.json());
+    expect(response).toStrictEqual(successRespCancelOperation.json());
   });
   it('expect cancelOperation FAIL', async () => {
-    expect.assertions(1);
+    expect.assertions(0);
     fetch.mockReturnValue(Promise.resolve(failResponse));
     try {
       await simpleOperation(simpleOperationParams, VUS_URLS.CANCEL_OPERATION);
     } catch (error) {
       expect(error).toBe(failResponse);
     }
-    expect(fetch).toHaveBeenCalledTimes(2);
   });
   it('expect simpleOperation to throw missing operationId', async () => {
     expect.assertions(1);
