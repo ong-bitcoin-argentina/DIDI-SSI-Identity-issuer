@@ -1,6 +1,8 @@
 const vusService = require('../../services/vusService');
 const AuthRequestService = require('../../services/AuthRequestService');
 
+const ResponseHandler = require('../../utils/ResponseHandler');
+
 const Messages = require('../../constants/Messages');
 const Constants = require('../../constants/Constants');
 
@@ -21,9 +23,12 @@ const cancelVerification = async (req, res) => {
         params.operationId,
       );
     }
-    return res.status(200).json(cancelRequest);
+    return ResponseHandler.sendRes(res, cancelRequest);
   } catch (error) {
-    return res.status(500).json(Messages.VUS.CANCEL_OPERATION);
+    return ResponseHandler.sendErrWithStatus(
+      res,
+      Messages.VUS.CANCEL_OPERATION,
+    );
   }
 };
 

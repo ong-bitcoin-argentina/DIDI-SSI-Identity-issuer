@@ -45,15 +45,10 @@ module.exports = {
       message:
         'No pudo actualizarse el pedido de validacion de identidad, por favor inténtelo de nuevo más tarde.',
     },
-    ADD_DOCUMENT_IMAGE: {
-      code: 'ADD_DOCUMENT_IMAGE',
-      message:
-        'Hubo un error al adherir la imgen del frente del documento. Inténtelo nuevamente más tarde.',
-    },
     ADD_IMAGE: {
       code: 'ADD_IMAGE',
       message:
-        'Hubo un error al adherir la imagen documento. Inténtelo nuevamente más tarde.',
+        'Hubo un error al adherir la imagen. Inténtelo nuevamente más tarde.',
     },
     FIND_BY_ID: {
       code: 'FIND_BY_ID',
@@ -64,11 +59,6 @@ module.exports = {
       code: 'CANCEL_VERIFICATION',
       message:
         'No se pudo cancelar la operacion. Inténtelo nuevamente más tarde.',
-    },
-    ADD_SELFIE: {
-      code: 'ADD_SELFIE',
-      message:
-        'No se pudo registrar la selfie. Inténtelo nuevamente más tarde.',
     },
     END_OPERATION: {
       code: 'END_OPERATION',
