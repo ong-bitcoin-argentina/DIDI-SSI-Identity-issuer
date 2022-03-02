@@ -18,10 +18,7 @@ const verifyToken = async (token) => {
     });
     const { status } = await response.json();
 
-    if (status !== 'success') {
-      return false;
-    }
-    return true;
+    return status === 'success';
   } catch (error) {
     return error;
   }
