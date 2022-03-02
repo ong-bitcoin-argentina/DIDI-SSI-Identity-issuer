@@ -38,6 +38,7 @@ jobs:
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
           VUS_APP_VERS: ${{ secrets.VUS_APP_VERS }}
+          APP_INSIGTHS_IKEY: $${{ secrets.APP_INSIGTHS_IKEY }}
           PORT: 8089
           ENVIRONMENT: dev
           NAME: Identity-Issuer

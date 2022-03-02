@@ -16,7 +16,12 @@ const {
   VUS_API,
   IP_ADDRESS,
   VERSION_APP,
+  APP_INSIGTHS_IKEY,
 } = process.env;
+
+// Microsoft App Insigths
+const DISABLE_TELEMETRY_CLIENT =
+  process.env.DISABLE_TELEMETRY_CLIENT === 'true';
 
 assert.ok(PORT, 'No esta definida la varibale PORT');
 assert.ok(ENVIRONMENT, 'No esta definida la varibale ENVIRONMENT');
@@ -30,6 +35,7 @@ assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
 assert.ok(IP_ADDRESS, 'No esta definida la variable IP_ADDRESS');
 assert.ok(VERSION_APP, 'No esta definida la variable VERSION_APP');
+assert.ok(APP_INSIGTHS_IKEY, 'No esta definida la variable APP_INSIGTHS_IKEY');
 
 module.exports = {
   PORT,
@@ -77,4 +83,6 @@ module.exports = {
 
   VERSION_APP,
   IP_ADDRESS,
+  DISABLE_TELEMETRY_CLIENT,
+  APP_INSIGTHS_IKEY,
 };
