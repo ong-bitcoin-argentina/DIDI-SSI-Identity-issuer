@@ -1,5 +1,6 @@
-const Messages = require('../constants/Messages');
 const AuthRequest = require('../models/AuthRequest');
+
+const Messages = require('../constants/Messages');
 const {
   missingOperationId,
   missingStatus,
