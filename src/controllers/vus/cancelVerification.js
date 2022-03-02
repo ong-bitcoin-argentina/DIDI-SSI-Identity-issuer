@@ -1,8 +1,10 @@
+const vusService = require('../../services/vusService');
+const AuthRequestService = require('../../services/AuthRequestService');
+
+const ResponseHandler = require('../../utils/ResponseHandler');
+
 const Messages = require('../../constants/Messages');
 const Constants = require('../../constants/Constants');
-const AuthRequestService = require('../../services/AuthRequestService');
-const vusService = require('../../services/vusService');
-const ResponseHandler = require('../../utils/ResponseHandler');
 
 const cancelVerification = async (req, res) => {
   const params = req.body;

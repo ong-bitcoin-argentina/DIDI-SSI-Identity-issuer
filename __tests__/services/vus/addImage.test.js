@@ -1,19 +1,19 @@
 jest.mock('node-fetch');
-
 const fetch = require('node-fetch');
+
 const { addImage } = require('../../../src/services/vusService');
+
+const { addImageParams } = require('./constants');
+const {
+  successRespAddBack,
+  successRespAddFront,
+} = require('../mock/constants');
 const {
   missingOperationId,
   missingUserName,
   missingFile,
   missingSide,
 } = require('../../../src/constants/serviceErrors');
-const {
-  successRespAddBack,
-  successRespAddFront,
-} = require('../mock/constants');
-
-const { addImageParams } = require('./constants');
 
 describe('services/vus/addImage.test.js', () => {
   it('expect addBack OK', async () => {
