@@ -217,4 +217,48 @@ router.post(
   vus.finishOperation,
 );
 
+/**
+ * @openapi
+ * 	 /vuSecurity/getStatus:
+ *   post:
+ *     summary: Permite obtener el estado del trámite/operación.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/getStatus',
+  validateUser,
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
+  vus.getStatus,
+);
+
 module.exports = router;

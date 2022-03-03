@@ -1,33 +1,32 @@
 const vusService = require('../../services/vusService');
 const AuthRequestService = require('../../services/AuthRequestService');
-const { get, set } = require('../../services/RedisService');
+
+const ResponseHandler = require('../../utils/ResponseHandler');
+
 const Constants = require('../../constants/Constants');
 const Messages = require('../../constants/Messages');
-const ResponseHandler = require('../../utils/ResponseHandler');
 
 const finishOperation = async (req, res) => {
   const params = req.body;
   try {
-    // obtengo did asociado a operationId
-    const did = await AuthRequestService.getDidByOperationId(
+    const response = await vusService.simpleOperation(
+      params,
+      Constants.VUS_URLS.END_OPERATION,
+    );
+
+    await AuthRequestService.update(
+      Constants.AUTHENTICATION_REQUEST.SUCCESSFUL,
+      Messages.VUS.ADD_IMAGE.message,
       params.operationId,
     );
-    if (!did) throw Messages.VUS.GET_DID;
 
-    // verifico existencia en cache
-    const searchTerm = `finish-operation-${did}`;
-    let response = JSON.parse(await get(searchTerm));
-
-    // si no existe en cache, realizo la operacion
-    if (!response) {
-      response = await vusService.simpleOperation(
-        params,
-        Constants.VUS_URLS.END_OPERATION,
-      );
-      await set(searchTerm, JSON.stringify(response));
-    }
     return ResponseHandler.sendRes(res, response);
   } catch (error) {
+    await AuthRequestService.update(
+      Constants.AUTHENTICATION_REQUEST.FAILED,
+      Messages.VUS.ADD_IMAGE.message,
+      params.operationId,
+    );
     return ResponseHandler.sendErrWithStatus(res, error);
   }
 };
