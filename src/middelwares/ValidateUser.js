@@ -14,7 +14,7 @@ const validateUser = async (req, res, next) => {
     const userInCache = await get(searchTerm);
     if (!userInCache) {
       const verified = await verifyToken(jwt);
-      if (!verified) throw USER.ERR.VALIDATE;
+      if (!verified) throw USER.ERR.NOT_FOUND;
       await set(searchTerm, iss);
     }
     next();

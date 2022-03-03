@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 
 const { DIDI_SERVER } = require('../constants/Constants');
+const { USER } = require('../constants/Messages');
 const { missingToken } = require('../constants/serviceErrors');
 
 /**
@@ -8,20 +9,18 @@ const { missingToken } = require('../constants/serviceErrors');
  */
 const verifyToken = async (token) => {
   if (!token) throw missingToken;
-  try {
-    const response = await fetch(`${DIDI_SERVER}/user/verifyToken`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ jwt: token }),
-    });
-    const { status } = await response.json();
+  const response = await fetch(`${DIDI_SERVER}/user/verifyToken`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ jwt: token }),
+  });
 
-    return status === 'success';
-  } catch (error) {
-    return error;
-  }
+  if (!response) throw USER.ERR.VALIDATE;
+
+  const { status } = await response.json();
+  return status === 'success';
 };
 
 module.exports = {
