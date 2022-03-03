@@ -1,9 +1,10 @@
 const router = require('express').Router();
 
-const { validateUser } = require('../middelwares/ValidateUser');
-const Constants = require('../constants/Constants');
 const vus = require('../controllers/vus');
+
+const { validateUser } = require('../middelwares/ValidateUser');
 const Validator = require('../utils/Validator');
+const Constants = require('../constants/Constants');
 
 const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 

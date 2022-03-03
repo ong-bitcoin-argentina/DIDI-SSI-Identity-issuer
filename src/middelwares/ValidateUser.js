@@ -1,11 +1,11 @@
 const fetch = require('node-fetch');
-
 const didJWT = require('did-jwt');
 
+const { get, set } = require('../services/RedisService');
+
+const { sendErrWithStatus } = require('../utils/ResponseHandler');
 const { USER } = require('../constants/Messages');
 const { DIDI_SERVER } = require('../constants/Constants');
-const { sendErrWithStatus } = require('../utils/ResponseHandler');
-const { get, set } = require('../services/RedisService');
 
 const url = `${DIDI_SERVER}/user/verifyToken`;
 

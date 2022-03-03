@@ -1,6 +1,10 @@
 jest.mock('node-fetch');
-
 const fetch = require('node-fetch');
+
+const { simpleOperation } = require('../../../src/services/vusService');
+
+const { VUS_URLS } = require('../../../src/constants/Constants');
+const { simpleOperationParams } = require('./constants');
 const {
   missingOperationId,
   missingUserName,
@@ -9,9 +13,6 @@ const {
   successRespCancelOperation,
   failResponse,
 } = require('../mock/constants');
-const { simpleOperation } = require('../../../src/services/vusService');
-const { simpleOperationParams } = require('./constants');
-const { VUS_URLS } = require('../../../src/constants/Constants');
 
 describe('services/vus/cancelOperation.test.js', () => {
   it('expect cancelOperation OK', async () => {
