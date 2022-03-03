@@ -1,6 +1,9 @@
+const vusService = require('../../services/vusService');
+
+const ResponseHandler = require('../../utils/ResponseHandler');
+
 const Constants = require('../../constants/Constants');
 const Messages = require('../../constants/Messages');
-const vusService = require('../../services/vusService');
 
 const finishOperation = async (req, res) => {
   const params = req.body;
@@ -9,9 +12,9 @@ const finishOperation = async (req, res) => {
       params,
       Constants.VUS_URLS.END_OPERATION,
     );
-    return res.status(200).json(endOperation);
+    return ResponseHandler.sendRes(res, endOperation);
   } catch (error) {
-    return res.status(500).json(Messages.VUS.END_OPERATION);
+    return ResponseHandler.sendErrWithStatus(res, Messages.VUS.END_OPERATION);
   }
 };
 
