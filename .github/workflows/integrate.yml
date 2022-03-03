@@ -30,6 +30,8 @@ jobs:
         run: npm run lint
       - name: Run tests
         run: npm test
+      - name: Run Coverage
+        run: npm coverage
         env:
           DIDI_SERVER: ${{ secrets.DIDI_SERVER }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
