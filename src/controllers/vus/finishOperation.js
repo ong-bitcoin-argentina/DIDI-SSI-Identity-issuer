@@ -1,7 +1,9 @@
 const vusService = require('../../services/vusService');
+
+const ResponseHandler = require('../../utils/ResponseHandler');
+
 const Constants = require('../../constants/Constants');
 const Messages = require('../../constants/Messages');
-const ResponseHandler = require('../../utils/ResponseHandler');
 
 const finishOperation = async (req, res) => {
   const params = req.body;
