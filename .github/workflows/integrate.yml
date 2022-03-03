@@ -45,7 +45,7 @@ jobs:
           IP_ADDRESS: 127.0.0.1
           VERSION_APP: 1.0.0
       - name: Run Coverage
-        run: npm coverage
+        run: npm run coverage
   build-image:
     runs-on: ubuntu-latest
     steps:
