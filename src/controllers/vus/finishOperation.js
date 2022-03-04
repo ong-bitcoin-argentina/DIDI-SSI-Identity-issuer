@@ -13,18 +13,16 @@ const finishOperation = async (req, res) => {
       params,
       Constants.VUS_URLS.END_OPERATION,
     );
-
     await AuthRequestService.update(
       Constants.AUTHENTICATION_REQUEST.SUCCESSFUL,
-      Messages.VUS.ADD_IMAGE.message,
+      response.message,
       params.operationId,
     );
-
     return ResponseHandler.sendRes(res, response);
   } catch (error) {
     await AuthRequestService.update(
       Constants.AUTHENTICATION_REQUEST.FAILED,
-      Messages.VUS.ADD_IMAGE.message,
+      Messages.VUS.END_OPERATION.message,
       params.operationId,
     );
     return ResponseHandler.sendErrWithStatus(res, error);
