@@ -1,13 +1,10 @@
-const fetch = require('node-fetch');
 const didJWT = require('did-jwt');
 
 const { get, set } = require('../services/RedisService');
+const { verifyToken } = require('../services/DidiServerService');
 
 const { sendErrWithStatus } = require('../utils/ResponseHandler');
 const { USER } = require('../constants/Messages');
-const { DIDI_SERVER } = require('../constants/Constants');
-
-const url = `${DIDI_SERVER}/user/verifyToken`;
 
 // Middelware para verificar que un usuario exista en Didi Server
 const validateUser = async (req, res, next) => {
@@ -17,17 +14,9 @@ const validateUser = async (req, res, next) => {
     const searchTerm = `verificacion-usuario-${iss}`;
     const userInCache = await get(searchTerm);
     if (!userInCache) {
-      const user = await fetch(url, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ jwt }),
-      });
-      const { data } = await user.json();
-
-      if (!data) throw USER.ERR.VALIDATE;
-      await set(searchTerm, data.did);
+      const verified = await verifyToken(jwt);
+      if (!verified) throw USER.ERR.NOT_FOUND;
+      await set(searchTerm, iss);
     }
     next();
   } catch (e) {
