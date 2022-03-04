@@ -75,4 +75,8 @@ module.exports = {
     code: '#service-missingSelfieList',
     message: 'Falta el parametro SelfieList',
   },
+  missingToken: {
+    code: '#service-missingToken',
+    message: 'Falta el parametro Token',
+  },
 };
