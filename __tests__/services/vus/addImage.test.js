@@ -28,7 +28,7 @@ describe('services/vus/addImage.test.js', () => {
     addImageParams.side = 'front';
     fetch.mockReturnValue(Promise.resolve(successRespAddFront));
     const response = await addImage(addImageParams);
-    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenCalledTimes(1);
     expect(response).toBe(successRespAddFront.json());
   });
   it('expect addImage to throw missing OperationId', async () => {

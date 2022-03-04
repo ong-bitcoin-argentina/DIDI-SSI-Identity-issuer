@@ -33,7 +33,7 @@ describe('services/vus/cancelOperation.test.js', () => {
     } catch (error) {
       expect(error).toBe(failResponse);
     }
-    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenCalledTimes(1);
   });
   it('expect simpleOperation to throw missing operationId', async () => {
     expect.assertions(1);
