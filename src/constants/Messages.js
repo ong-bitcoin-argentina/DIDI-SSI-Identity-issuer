@@ -155,6 +155,10 @@ module.exports = {
         code: 'VALIDATE',
         message: 'Error al validar información de usuario.',
       },
+      NOT_FOUND: {
+        code: 'NOT_FOUND',
+        message: 'Usuario no encontrardo.',
+      },
     },
   },
 };

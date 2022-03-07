@@ -4,10 +4,11 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest --runInBand --forceExit",
+    "test": "jest --forceExit",
     "start": "nodemon --experimental-worker ./src/server.js",
     "lint": "eslint --ext .js __tests__/ src/",
-    "lint:fix": "eslint --fix --ext .js __tests__/ src/"
+    "lint:fix": "eslint --fix --ext .js __tests__/ src/",
+    "coverage": "coveralls < coverage/lcov.info"
   },
   "repository": {
     "type": "git",
@@ -35,6 +36,7 @@
     "swagger-ui-express": "^4.1.6"
   },
   "devDependencies": {
+    "coveralls": "^3.1.1",
     "eslint": "^8.4.1",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-prettier": "^8.3.0",
