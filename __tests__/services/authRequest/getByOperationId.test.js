@@ -1,27 +1,15 @@
-const mongoose = require('mongoose');
-const AuthRequestModel = require('../../../src/models/AuthRequest');
-
 const {
   getByOperationId,
 } = require('../../../src/services/AuthRequestService');
-const { missingOperationId } = require('../../../src/constants/serviceErrors');
 
-const { MONGO_URI } = require('../../../src/constants/Constants');
+const { beforeAllHook, afterAllHook } = require('./utils');
+
+const { missingOperationId } = require('../../../src/constants/serviceErrors');
 const { authRequestData } = require('./constants');
 
 describe('services/AuthRequest/getByOperationId.test.js', () => {
-  beforeAll(async () => {
-    mongoose.connect(MONGO_URI);
-    await AuthRequestModel.generate(
-      authRequestData.operationId,
-      authRequestData.did,
-    );
-  });
-  afterAll(async () => {
-    await AuthRequestModel.deleteOne({ did: authRequestData.did });
-    await mongoose.connection.close();
-  });
-
+  beforeAll(beforeAllHook);
+  afterAll(afterAllHook);
   it('expect getByOperationId to throw on missing operationId', async () => {
     expect.assertions(1);
     try {
