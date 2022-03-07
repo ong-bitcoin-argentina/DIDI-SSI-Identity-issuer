@@ -17,6 +17,11 @@ const {
   missingSelfieList,
 } = require('../constants/serviceErrors');
 
+function validateCommonParams(params) {
+  if (!params.userName) throw missingUserName;
+  if (!params.operationId) throw missingOperationId;
+}
+
 /**
  *  Realiza un post al servicio de vuSecurity con la url interna y el body recibidos
  */
@@ -64,8 +69,7 @@ module.exports.newOperation = async function newOperation(params) {
 };
 
 module.exports.addImage = async function addImage(params) {
-  if (!params.operationId) throw missingOperationId;
-  if (!params.userName) throw missingUserName;
+  validateCommonParams(params);
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
   try {
@@ -85,8 +89,7 @@ module.exports.addImage = async function addImage(params) {
 };
 
 module.exports.addSelfie = async function addSelfie(params) {
-  if (!params.operationId) throw missingOperationId;
-  if (!params.userName) throw missingUserName;
+  validateCommonParams(params);
   if (!params.file) throw missingSelfieList;
   try {
     return vuSecurityPost(
@@ -104,8 +107,7 @@ module.exports.addSelfie = async function addSelfie(params) {
 
 // OPERACION SIMPLE: consultas por userName y operationId
 module.exports.simpleOperation = async function simpleOperation(params, url) {
-  if (!params.userName) throw missingUserName;
-  if (!params.operationId) throw missingOperationId;
+  validateCommonParams(params);
   try {
     return vuSecurityPost(
       url,
