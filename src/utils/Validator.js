@@ -1,4 +1,5 @@
 const { body, validationResult } = require('express-validator');
+
 const Messages = require('../constants/Messages');
 const Constants = require('../constants/Constants');
 const ResponseHandler = require('./ResponseHandler');

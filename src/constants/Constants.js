@@ -54,6 +54,7 @@ module.exports = {
     ADD_BACK: `${VUS_URL}/addBack`,
     ADD_SELFIE: `${VUS_URL}/register`,
     END_OPERATION: `${VUS_URL}/endOperation`,
+    GET_STATUS: `${VUS_URL}/statusOperation`,
   },
   VUS_API_KEY,
   VUS_API,
@@ -61,7 +62,7 @@ module.exports = {
   AUTHENTICATION_REQUEST: {
     IN_PROGRESS: 'In Progress',
     SUCCESSFUL: 'Successful',
-    FALIED: 'Falied',
+    FAILED: 'Failed',
     CANCELLED: 'Cancelled',
   },
 

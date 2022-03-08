@@ -1,9 +1,10 @@
 const router = require('express').Router();
 
-const { validateUser } = require('../middelwares/ValidateUser');
-const Constants = require('../constants/Constants');
 const vus = require('../controllers/vus');
+
+const { validateUser } = require('../middelwares/ValidateUser');
 const Validator = require('../utils/Validator');
+const Constants = require('../constants/Constants');
 
 const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
@@ -215,6 +216,50 @@ router.post(
   ]),
   Validator.checkValidationResult,
   vus.finishOperation,
+);
+
+/**
+ * @openapi
+ * 	 /vuSecurity/getStatus:
+ *   post:
+ *     summary: Permite obtener el estado del trámite/operación.
+ *     parameters:
+ *       - in: header
+ *         name: Authorization
+ *         schema:
+ *           type: string
+ *         required: true
+ *     requestBody:
+ *       required:
+ *         - userName
+ *         - operationId
+ *       content:
+ *         multipart/form-data:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               userName:
+ *                  type: string
+ *               operationId:
+ *                  type: string
+ *     responses:
+ *       200:
+ *         description: Puede devolver ok o error en algun parametro
+ *       401:
+ *         description: Acción no autorizada
+ *       500:
+ *         description: Error interno del servidor
+ *
+ */
+router.post(
+  '/getStatus',
+  validateUser,
+  Validator.validateBody([
+    { name: 'userName', validate: [IS_STRING] },
+    { name: 'operationId', validate: [IS_STRING] },
+  ]),
+  Validator.checkValidationResult,
+  vus.getStatus,
 );
 
 module.exports = router;

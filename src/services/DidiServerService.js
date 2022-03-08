@@ -1,6 +1,7 @@
 const fetch = require('node-fetch');
 
 const { DIDI_SERVER } = require('../constants/Constants');
+const { USER } = require('../constants/Messages');
 const { missingToken } = require('../constants/serviceErrors');
 
 /**
@@ -15,12 +16,11 @@ const verifyToken = async (token) => {
     },
     body: JSON.stringify({ jwt: token }),
   });
-  const { status } = await response.json();
 
-  if (status !== 'success') {
-    return false;
-  }
-  return true;
+  if (!response) throw USER.ERR.VALIDATE;
+
+  const { status } = await response.json();
+  return status === 'success';
 };
 
 module.exports = {

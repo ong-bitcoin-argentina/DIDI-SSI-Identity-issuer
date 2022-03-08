@@ -1,17 +1,26 @@
+const vusService = require('../../services/vusService');
+const AuthRequestService = require('../../services/AuthRequestService');
+
+const ResponseHandler = require('../../utils/ResponseHandler');
+
 const Messages = require('../../constants/Messages');
 const Constants = require('../../constants/Constants');
-const AuthRequestService = require('../../services/AuthRequestService');
-const vusService = require('../../services/vusService');
-const ResponseHandler = require('../../utils/ResponseHandler');
 
 const cancelVerification = async (req, res) => {
   const params = req.body;
   try {
-    const cancelRequest = await vusService.simpleOperation(
+    // obtengo el did asociado al operationId
+    const did = await AuthRequestService.getDidByOperationId(
+      params.operationId,
+    );
+    if (!did) throw Messages.VUS.GET_DID;
+
+    const response = await vusService.simpleOperation(
       params,
       Constants.VUS_URLS.CANCEL_OPERATION,
     );
-    // verificar si la operacion esta pendiente
+
+    // verifico si la operacion esta pendiente
     if (
       await AuthRequestService.verifyStatus(params.operationId, 'In Progress')
     ) {
@@ -21,12 +30,10 @@ const cancelVerification = async (req, res) => {
         params.operationId,
       );
     }
-    return ResponseHandler.sendRes(res, cancelRequest);
+
+    return ResponseHandler.sendRes(res, response);
   } catch (error) {
-    return ResponseHandler.sendErrWithStatus(
-      res,
-      Messages.VUS.CANCEL_OPERATION,
-    );
+    return ResponseHandler.sendErrWithStatus(res, error);
   }
 };
 

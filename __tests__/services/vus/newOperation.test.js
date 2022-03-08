@@ -1,7 +1,10 @@
 jest.mock('node-fetch');
-
 const fetch = require('node-fetch');
+
 const { newOperation } = require('../../../src/services/vusService');
+
+const { newOperationParams } = require('./constants');
+const { successRespNewOperation } = require('../mock/constants');
 const {
   missingUserName,
   missingDeviceHash,
@@ -10,16 +13,13 @@ const {
   missingDeviceManufacturer,
   missingDeviceName,
 } = require('../../../src/constants/serviceErrors');
-const { newOperationParams } = require('./constants');
-const { successRespNewOperation } = require('../mock/constants');
 
 describe('services/vus/newOperation.test.js', () => {
   it('expect newOperation OK', async () => {
-    expect.assertions(2);
+    expect.assertions(1);
     fetch.mockReturnValue(Promise.resolve(successRespNewOperation));
     const response = await newOperation(newOperationParams);
-    expect(fetch).toHaveBeenCalledTimes(1);
-    expect(response).toBe(successRespNewOperation.json());
+    expect(response).toStrictEqual(successRespNewOperation.json());
   });
   it('expect newOperation to throw on missing userName', async () => {
     expect.assertions(1);

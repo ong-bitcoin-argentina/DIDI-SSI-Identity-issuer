@@ -1,9 +1,10 @@
 const didJWT = require('did-jwt');
 
-const { USER } = require('../constants/Messages');
-const { verifyToken } = require('../services/DidiServerService');
-const { sendErrWithStatus } = require('../utils/ResponseHandler');
 const { get, set } = require('../services/RedisService');
+const { verifyToken } = require('../services/DidiServerService');
+
+const { sendErrWithStatus } = require('../utils/ResponseHandler');
+const { USER } = require('../constants/Messages');
 
 // Middelware para verificar que un usuario exista en Didi Server
 const validateUser = async (req, res, next) => {
@@ -14,7 +15,7 @@ const validateUser = async (req, res, next) => {
     const userInCache = await get(searchTerm);
     if (!userInCache) {
       const verified = await verifyToken(jwt);
-      if (!verified) throw USER.ERR.VALIDATE;
+      if (!verified) throw USER.ERR.NOT_FOUND;
       await set(searchTerm, iss);
     }
     next();
