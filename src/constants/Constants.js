@@ -16,7 +16,12 @@ const {
   VUS_API,
   IP_ADDRESS,
   VERSION_APP,
+  APP_INSIGTHS_IKEY,
 } = process.env;
+
+// Microsoft App Insigths
+const DISABLE_TELEMETRY_CLIENT =
+  process.env.DISABLE_TELEMETRY_CLIENT === 'true';
 
 assert.ok(PORT, 'No esta definida la varibale PORT');
 assert.ok(ENVIRONMENT, 'No esta definida la varibale ENVIRONMENT');
@@ -78,4 +83,6 @@ module.exports = {
 
   VERSION_APP,
   IP_ADDRESS,
+  DISABLE_TELEMETRY_CLIENT,
+  APP_INSIGTHS_IKEY,
 };
