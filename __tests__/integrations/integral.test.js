@@ -1,4 +1,7 @@
 /* eslint-disable jest/no-disabled-tests */
+/* eslint-disable import/extensions */
+/* eslint-disable import/extensions */
+
 const request = require('supertest');
 
 const app = require('../../src/server');
