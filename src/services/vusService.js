@@ -61,7 +61,7 @@ module.exports.newOperation = async function newOperation(params) {
         deviceManufacturer: params.deviceManufacturer,
         deviceName: params.deviceName,
       }),
-    );
+    });
     if (!result) throw Messages.VUS.OPERATION_FAIL;
     result.userName = params.userName;
     return result;
@@ -75,16 +75,16 @@ module.exports.addImage = async function addImage(params) {
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
   try {
-    const response = await vuSecurityPost(
-      options.get(params.side),
-      JSON.stringify({
+    const response = await vuSecurityPost({
+      url: options.get(params.side),
+      body: JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         analyzeAnomalies: true,
         analyzeOcr: true,
         file: params.file,
       }),
-    );
+    });
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
@@ -96,14 +96,14 @@ module.exports.addSelfie = async function addSelfie(params) {
   validateCommonParams(params);
   if (!params.file) throw missingSelfieList;
   try {
-    const response = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_SELFIE,
-      JSON.stringify({
+    const response = await vuSecurityPost({
+      url: Constants.VUS_URLS.ADD_SELFIE,
+      body: JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
-    );
+    });
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
