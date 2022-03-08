@@ -1,8 +1,15 @@
-const addImageParams = {
+const addBackParams = {
   operationId: 'operationId',
   userName: 'userName',
-  file: 'file',
   side: 'back',
+  file: 'fileBack',
+};
+
+const addFrontParams = {
+  operationId: 'operationId',
+  userName: 'userName',
+  side: 'front',
+  file: 'fileFront',
 };
 
 const simpleOperationParams = {
@@ -19,8 +26,10 @@ const newOperationParams = {
   deviceManufacturer: 'deviceManufacturer',
   deviceName: 'deviceName',
 };
+
 module.exports = {
-  addImageParams,
+  addBackParams,
+  addFrontParams,
   simpleOperationParams,
   newOperationParams,
 };
