@@ -1,6 +1,6 @@
 /* eslint-disable jest/no-disabled-tests */
 /* eslint-disable import/extensions */
-/* eslint-disable import/extensions */
+/* eslint-disable import/no-unresolved */
 
 const request = require('supertest');
 
