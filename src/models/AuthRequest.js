@@ -3,10 +3,10 @@ const mongoose = require('mongoose');
 const Constants = require('../constants/Constants');
 const Messages = require('../constants/Messages');
 
-const { IN_PROGRESS, SUCCESSFUL, FALIED, CANCELLED } =
+const { IN_PROGRESS, SUCCESSFUL, FAILED, CANCELLED } =
   Constants.AUTHENTICATION_REQUEST;
 
-const statuses = [IN_PROGRESS, SUCCESSFUL, FALIED, CANCELLED];
+const statuses = [IN_PROGRESS, SUCCESSFUL, FAILED, CANCELLED];
 
 // Registra la informacion de un pedido de validacion de identidad contra VU Security
 const AuthRequestSchema = new mongoose.Schema({
