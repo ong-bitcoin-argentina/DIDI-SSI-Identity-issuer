@@ -35,7 +35,11 @@ assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
 assert.ok(IP_ADDRESS, 'No esta definida la variable IP_ADDRESS');
 assert.ok(VERSION_APP, 'No esta definida la variable VERSION_APP');
-assert.ok(APP_INSIGTHS_IKEY, 'No esta definida la variable APP_INSIGTHS_IKEY');
+if (!DISABLE_TELEMETRY_CLIENT)
+  assert.ok(
+    APP_INSIGTHS_IKEY,
+    'No esta definida la variable APP_INSIGTHS_IKEY',
+  );
 
 module.exports = {
   PORT,
