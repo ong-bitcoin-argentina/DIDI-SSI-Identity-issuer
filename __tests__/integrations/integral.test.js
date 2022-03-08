@@ -4,11 +4,14 @@
 
 const request = require('supertest');
 
-const app = require('../../src/server');
+const { app, server } = require('../../src/server');
 const { newOperationData, jwtAuth } = require('./constants');
 const { fileFront, fileBack, fileSelfie } = require('./filesConstants');
 
 describe('finish operation to be OK', () => {
+  afterAll(async () => {
+    await server.close();
+  });
   it.skip('responds final operation OK', async () => {
     expect.assertions(0);
     const res = await request(app)
