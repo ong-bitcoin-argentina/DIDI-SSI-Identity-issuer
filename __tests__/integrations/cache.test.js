@@ -1,8 +1,11 @@
 const request = require('supertest');
 
-const app = require('../../src/server');
+const { app, server } = require('../../src/server');
 
 describe('get /cache', () => {
+  afterAll(async () => {
+    server.close();
+  });
   it('responds with json', async () => {
     expect.assertions(0);
     await request(app)
