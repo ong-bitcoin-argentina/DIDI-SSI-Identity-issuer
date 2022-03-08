@@ -25,15 +25,15 @@ function validateCommonParams(params) {
 /**
  *  Realiza un post al servicio de vuSecurity con la url interna y el body recibidos
  */
-const vuSecurityPost = async function vuSecurityPost(url, body) {
-  const response = await fetch(url, {
+const vuSecurityPost = async function vuSecurityPost(params) {
+  const response = await fetch(params.url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-access-apikey': Constants.VUS_API_KEY,
     },
-    body,
-    url,
+    body: params.body,
+    url: params.url,
   });
   if (response.status === 400) throw response.json();
   return response.json();
@@ -47,9 +47,9 @@ module.exports.newOperation = async function newOperation(params) {
   if (!params.deviceManufacturer) throw missingDeviceManufacturer;
   if (!params.deviceName) throw missingDeviceName;
   try {
-    const result = await vuSecurityPost(
-      Constants.VUS_URLS.NEW_OPERATION,
-      JSON.stringify({
+    const result = await vuSecurityPost({
+      url: Constants.VUS_URLS.NEW_OPERATION,
+      body: JSON.stringify({
         userName: params.userName,
         ipAddress: Constants.IP_ADDRESS,
         deviceHash: params.deviceHash,
@@ -60,7 +60,7 @@ module.exports.newOperation = async function newOperation(params) {
         deviceManufacturer: params.deviceManufacturer,
         deviceName: params.deviceName,
       }),
-    );
+    });
     result.userName = params.userName;
     return result;
   } catch (error) {
@@ -73,16 +73,16 @@ module.exports.addImage = async function addImage(params) {
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
   try {
-    return vuSecurityPost(
-      options.get(params.side),
-      JSON.stringify({
+    return vuSecurityPost({
+      url: options.get(params.side),
+      body: JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         analyzeAnomalies: true,
         analyzeOcr: true,
         file: params.file,
       }),
-    );
+    });
   } catch (error) {
     return error;
   }
@@ -92,30 +92,30 @@ module.exports.addSelfie = async function addSelfie(params) {
   validateCommonParams(params);
   if (!params.file) throw missingSelfieList;
   try {
-    return vuSecurityPost(
-      Constants.VUS_URLS.ADD_SELFIE,
-      JSON.stringify({
+    return vuSecurityPost({
+      url: Constants.VUS_URLS.ADD_SELFIE,
+      body: JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
-    );
+    });
   } catch (error) {
     return error;
   }
 };
 
 // OPERACION SIMPLE: consultas por userName y operationId
-module.exports.simpleOperation = async function simpleOperation(params, url) {
+module.exports.simpleOperation = async function simpleOperation(params) {
   validateCommonParams(params);
   try {
-    return vuSecurityPost(
-      url,
-      JSON.stringify({
+    return vuSecurityPost({
+      url: params.url,
+      body: JSON.stringify({
         userName: params.userName,
         operationId: params.operationId,
       }),
-    );
+    });
   } catch (error) {
     return error;
   }

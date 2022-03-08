@@ -23,14 +23,14 @@ describe('services/didiServer/validateUser.test.js', () => {
     expect.assertions(2);
     fetch.mockReturnValue(Promise.resolve(invalidJWT));
     const response = await verifyToken('asd');
-    expect(fetch).toHaveBeenCalledTimes(2);
+    expect(fetch).toHaveBeenCalledTimes(1);
     expect(response).toBe(false);
   });
   it('expect verifyToken to return false on invalid Token', async () => {
     expect.assertions(2);
     fetch.mockReturnValue(Promise.resolve(failVerifyToken));
     const response = await verifyToken(invalidToken);
-    expect(fetch).toHaveBeenCalledTimes(3);
+    expect(fetch).toHaveBeenCalledTimes(1);
     expect(response).toBe(false);
   });
   it('expect verifyToken to throw on missing token', async () => {
