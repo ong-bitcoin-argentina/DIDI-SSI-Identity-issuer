@@ -1,4 +1,5 @@
 const vusService = require('../../services/vusService');
+const AuthRequestService = require('../../services/AuthRequestService');
 
 const ResponseHandler = require('../../utils/ResponseHandler');
 
@@ -9,10 +10,20 @@ const finishOperation = async (req, res) => {
   const params = req.body;
   try {
     params.url = Constants.VUS_URLS.END_OPERATION;
-    const endOperation = await vusService.simpleOperation(params);
-    return ResponseHandler.sendRes(res, endOperation);
+    const response = await vusService.simpleOperation(params);
+    await AuthRequestService.update(
+      Constants.AUTHENTICATION_REQUEST.SUCCESSFUL,
+      response.message,
+      params.operationId,
+    );
+    return ResponseHandler.sendRes(res, response);
   } catch (error) {
-    return ResponseHandler.sendErrWithStatus(res, Messages.VUS.END_OPERATION);
+    await AuthRequestService.update(
+      Constants.AUTHENTICATION_REQUEST.FAILED,
+      Messages.VUS.END_OPERATION.message,
+      params.operationId,
+    );
+    return ResponseHandler.sendErrWithStatus(res, error);
   }
 };
 

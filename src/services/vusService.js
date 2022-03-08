@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 
 const Constants = require('../constants/Constants');
 const options = require('../constants/ImageOptions');
+const Messages = require('../constants/Messages');
 
 const {
   missingUserName,
@@ -60,11 +61,12 @@ module.exports.newOperation = async function newOperation(params) {
         deviceManufacturer: params.deviceManufacturer,
         deviceName: params.deviceName,
       }),
-    });
+    );
+    if (!result) throw Messages.VUS.OPERATION_FAIL;
     result.userName = params.userName;
     return result;
   } catch (error) {
-    return error;
+    throw Messages.VUS.NEW_OPERATION;
   }
 };
 
@@ -73,18 +75,20 @@ module.exports.addImage = async function addImage(params) {
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
   try {
-    return vuSecurityPost({
-      url: options.get(params.side),
-      body: JSON.stringify({
+    const response = await vuSecurityPost(
+      options.get(params.side),
+      JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         analyzeAnomalies: true,
         analyzeOcr: true,
         file: params.file,
       }),
-    });
+    );
+    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    return response;
   } catch (error) {
-    return error;
+    throw Messages.VUS.ADD_IMAGE;
   }
 };
 
@@ -92,16 +96,18 @@ module.exports.addSelfie = async function addSelfie(params) {
   validateCommonParams(params);
   if (!params.file) throw missingSelfieList;
   try {
-    return vuSecurityPost({
-      url: Constants.VUS_URLS.ADD_SELFIE,
-      body: JSON.stringify({
+    const response = await vuSecurityPost(
+      Constants.VUS_URLS.ADD_SELFIE,
+      JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
-    });
+    );
+    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    return response;
   } catch (error) {
-    return error;
+    throw Messages.VUS.ADD_SELFIE;
   }
 };
 
@@ -117,6 +123,6 @@ module.exports.simpleOperation = async function simpleOperation(params) {
       }),
     });
   } catch (error) {
-    return error;
+    throw Messages.VUS.SIMPLE_OPERATION;
   }
 };

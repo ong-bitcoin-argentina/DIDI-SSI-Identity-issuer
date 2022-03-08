@@ -1,6 +1,6 @@
 const vusService = require('../../services/vusService');
+
 const ResponseHandler = require('../../utils/ResponseHandler');
-const Messages = require('../../constants/Messages');
 
 const addDocumentImage = async (req, res) => {
   const params = req.body;
@@ -10,10 +10,11 @@ const addDocumentImage = async (req, res) => {
   try {
     const addImageMethod =
       params.side === 'selfie' ? vusService.addSelfie : vusService.addImage;
-    const addImage = await addImageMethod(params);
-    return ResponseHandler.sendRes(res, addImage);
+    const response = await addImageMethod(params);
+
+    return ResponseHandler.sendRes(res, response);
   } catch (error) {
-    return ResponseHandler.sendErrWithStatus(res, Messages.VUS.ADD_IMAGE);
+    return ResponseHandler.sendErrWithStatus(res, error);
   }
 };
 

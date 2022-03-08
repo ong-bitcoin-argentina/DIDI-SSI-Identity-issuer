@@ -2,6 +2,7 @@ const successBodyNewOPeration = {
   code: 901,
   message: 'New operation created',
   operationId: 1,
+  userName: 'userName',
 };
 
 const successBodyDocumentImage = {
@@ -12,8 +13,8 @@ const successBodyDocumentImage = {
 };
 
 const successBodyAddFront = {
-  image: {
-    code: 0,
+  imgage: {
+    code: 912,
     message: 'Add front success',
     detectedCountry: 'pais',
     detectedCountryId: 1,
