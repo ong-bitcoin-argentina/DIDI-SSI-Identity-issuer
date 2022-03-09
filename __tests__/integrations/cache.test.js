@@ -4,7 +4,7 @@ const { app, server } = require('../../src/server');
 
 describe('get /cache', () => {
   afterAll(async () => {
-    await server.close();
+    server.close();
   });
   it('responds with json', async () => {
     expect.assertions(0);

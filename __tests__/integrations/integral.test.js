@@ -17,7 +17,7 @@ const { app, server } = require('../../src/server');
 
 describe('finish operation to be OK', () => {
   afterAll(async () => {
-    await server.close();
+    server.close();
   });
 
   it.skip('responds final operation OK', async () => {
