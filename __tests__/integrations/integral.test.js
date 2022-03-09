@@ -5,13 +5,20 @@
 const request = require('supertest');
 
 const { app, server } = require('../../src/server');
-const { newOperationData, jwtAuth } = require('./constants');
-const { fileFront, fileBack, fileSelfie } = require('./filesConstants');
+
+const {
+  newOperationData,
+  jwtAuth,
+  fileFront,
+  fileBack,
+  fileSelfie,
+} = require('./vuUserInfoTest');
 
 describe('finish operation to be OK', () => {
   afterAll(async () => {
     await server.close();
   });
+
   it.skip('responds final operation OK', async () => {
     expect.assertions(0);
     const res = await request(app)
