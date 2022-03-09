@@ -5,21 +5,21 @@
 
 const request = require('supertest');
 
-// const { app, server } = require('../../src/server');
-// const {
-//   newOperationData,
-//   jwtAuth,
-//   fileFront,
-//   fileBack,
-//   fileSelfie,
-// } = require('./vuUserInfoTest');
+const { app, server } = require('../../src/server');
+const {
+  newOperationData,
+  jwtAuth,
+  fileFront,
+  fileBack,
+  fileSelfie,
+} = require('./vuUserInfoTest');
 
 describe('finish operation to be OK', () => {
   afterAll(async () => {
     server.close();
   });
 
-  it.skip('responds final operation OK', async () => {
+  it('responds final operation OK', async () => {
     expect.assertions(0);
     const res = await request(app)
       .post('/vuSecurity/createVerification')
@@ -70,7 +70,7 @@ describe('finish operation to be OK', () => {
 });
 
 describe('cancel operation to be OK', () => {
-  it.skip('responds cancel operation OK', async () => {
+  it('responds cancel operation OK', async () => {
     expect.assertions(0);
     const res = await request(app)
       .post('/vuSecurity/createVerification')

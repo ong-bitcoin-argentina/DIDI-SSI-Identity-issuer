@@ -15,5 +15,11 @@
 - Run Tests
 
 ```
-To run the complete integration test, create a file inside the __tests__/integrations folder called vuUserInfoTest, fill in the necessary data for the operations and then uncomment lines 8 to 15.
+To run the complete integration test, create a file inside the __tests__/integrations folder called vuUserInfoTest, and delete the 'integral' file from the array modulePathIgnorePatterns in the file jest.config.js line 92.
+Complete the file vuUserInfoTest with the corresponding data:
+  newOperationData,
+  jwtAuth,
+  fileFront,
+  fileBack,
+  fileSelfie,
 ```
