@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jest/no-disabled-tests */
 /* eslint-disable import/extensions */
 /* eslint-disable import/no-unresolved */
@@ -6,13 +7,13 @@ const request = require('supertest');
 
 const { app, server } = require('../../src/server');
 
-const {
-  newOperationData,
-  jwtAuth,
-  fileFront,
-  fileBack,
-  fileSelfie,
-} = require('./vuUserInfoTest');
+// const {
+//   newOperationData,
+//   jwtAuth,
+//   fileFront,
+//   fileBack,
+//   fileSelfie,
+// } = require('./vuUserInfoTest');
 
 describe('finish operation to be OK', () => {
   afterAll(async () => {
