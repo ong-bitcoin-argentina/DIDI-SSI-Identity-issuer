@@ -19,7 +19,7 @@ describe('services/AuthRequest/findByDid.test.js', () => {
 
   it('expect findByDid to find', async () => {
     expect.assertions(1);
-    const result = await findByDid(authRequestData.did);
-    expect(result).toMatch(authRequestData.operationId);
+    const result = JSON.parse(await findByDid(authRequestData.did));
+    expect(result.operationId).toMatch(authRequestData.operationId);
   });
 });
