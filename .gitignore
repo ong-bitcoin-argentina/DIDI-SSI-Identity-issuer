@@ -1,3 +1,6 @@
+# file to run the full integration test
+__tests__/integrations/vuUserInfoTest.js
+
 # Logs
 logs
 *.log
