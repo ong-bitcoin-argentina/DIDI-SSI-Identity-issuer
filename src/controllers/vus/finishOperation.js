@@ -4,7 +4,6 @@ const AuthRequestService = require('../../services/AuthRequestService');
 const ResponseHandler = require('../../utils/ResponseHandler');
 
 const Constants = require('../../constants/Constants');
-const Messages = require('../../constants/Messages');
 
 const finishOperation = async (req, res) => {
   const params = req.body;
@@ -22,7 +21,7 @@ const finishOperation = async (req, res) => {
       // identical false implica un caso FAILED
       await AuthRequestService.update(
         Constants.AUTHENTICATION_REQUEST.FAILED,
-        Messages.VUS.END_OPERATION.message,
+        response.message,
         params.operationId,
       );
     }
