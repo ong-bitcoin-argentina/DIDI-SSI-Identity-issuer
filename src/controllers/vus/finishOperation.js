@@ -9,10 +9,8 @@ const Messages = require('../../constants/Messages');
 const finishOperation = async (req, res) => {
   const params = req.body;
   try {
-    const response = await vusService.simpleOperation(
-      params,
-      Constants.VUS_URLS.END_OPERATION,
-    );
+    params.operation = 'finish';
+    const response = await vusService.simpleOperation(params);
     await AuthRequestService.update(
       Constants.AUTHENTICATION_REQUEST.SUCCESSFUL,
       response.message,

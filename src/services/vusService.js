@@ -2,7 +2,7 @@
 const fetch = require('node-fetch');
 
 const Constants = require('../constants/Constants');
-const options = require('../constants/ImageOptions');
+const options = require('../constants/urlOptions');
 const Messages = require('../constants/Messages');
 
 const {
@@ -18,17 +18,23 @@ const {
   missingSelfieList,
 } = require('../constants/serviceErrors');
 
+function validateCommonParams(params) {
+  if (!params.userName) throw missingUserName;
+  if (!params.operationId) throw missingOperationId;
+}
+
 /**
  *  Realiza un post al servicio de vuSecurity con la url interna y el body recibidos
  */
-const vuSecurityPost = async function vuSecurityPost(url, body) {
+const vuSecurityPost = async function vuSecurityPost(params) {
+  const url = await options.get(params.url);
   const response = await fetch(url, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       'x-access-apikey': Constants.VUS_API_KEY,
     },
-    body,
+    body: params.body,
     url,
   });
   if (response.status === 400) throw response.json();
@@ -43,9 +49,9 @@ module.exports.newOperation = async function newOperation(params) {
   if (!params.deviceManufacturer) throw missingDeviceManufacturer;
   if (!params.deviceName) throw missingDeviceName;
   try {
-    const result = await vuSecurityPost(
-      Constants.VUS_URLS.NEW_OPERATION,
-      JSON.stringify({
+    const result = await vuSecurityPost({
+      url: 'create',
+      body: JSON.stringify({
         userName: params.userName,
         ipAddress: Constants.IP_ADDRESS,
         deviceHash: params.deviceHash,
@@ -56,7 +62,7 @@ module.exports.newOperation = async function newOperation(params) {
         deviceManufacturer: params.deviceManufacturer,
         deviceName: params.deviceName,
       }),
-    );
+    });
     if (!result) throw Messages.VUS.OPERATION_FAIL;
     result.userName = params.userName;
     return result;
@@ -66,21 +72,20 @@ module.exports.newOperation = async function newOperation(params) {
 };
 
 module.exports.addImage = async function addImage(params) {
-  if (!params.operationId) throw missingOperationId;
-  if (!params.userName) throw missingUserName;
+  validateCommonParams(params);
   if (!params.file) throw missingFile;
   if (!params.side) throw missingSide;
   try {
-    const response = await vuSecurityPost(
-      options.get(params.side),
-      JSON.stringify({
+    const response = await vuSecurityPost({
+      url: params.side,
+      body: JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         analyzeAnomalies: true,
         analyzeOcr: true,
         file: params.file,
       }),
-    );
+    });
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
@@ -89,18 +94,17 @@ module.exports.addImage = async function addImage(params) {
 };
 
 module.exports.addSelfie = async function addSelfie(params) {
-  if (!params.operationId) throw missingOperationId;
-  if (!params.userName) throw missingUserName;
+  validateCommonParams(params);
   if (!params.file) throw missingSelfieList;
   try {
-    const response = await vuSecurityPost(
-      Constants.VUS_URLS.ADD_SELFIE,
-      JSON.stringify({
+    const response = await vuSecurityPost({
+      url: 'selfie',
+      body: JSON.stringify({
         operationId: params.operationId,
         userName: params.userName,
         selfieList: [{ file: params.file, imageType: 'SN' }],
       }),
-    );
+    });
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
@@ -109,19 +113,16 @@ module.exports.addSelfie = async function addSelfie(params) {
 };
 
 // OPERACION SIMPLE: consultas por userName y operationId
-module.exports.simpleOperation = async function simpleOperation(params, url) {
-  if (!params.userName) throw missingUserName;
-  if (!params.operationId) throw missingOperationId;
+module.exports.simpleOperation = async function simpleOperation(params) {
+  validateCommonParams(params);
   try {
-    const response = await vuSecurityPost(
-      url,
-      JSON.stringify({
+    return vuSecurityPost({
+      url: params.operation,
+      body: JSON.stringify({
         userName: params.userName,
         operationId: params.operationId,
       }),
-    );
-    if (!response) throw Messages.VUS.OPERATION_FAIL;
-    return response;
+    });
   } catch (error) {
     throw Messages.VUS.SIMPLE_OPERATION;
   }
