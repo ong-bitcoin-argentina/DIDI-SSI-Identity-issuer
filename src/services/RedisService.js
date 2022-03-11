@@ -11,7 +11,7 @@ const config = {
 let client;
 (async () => {
   try {
-    client = await redis.createClient(config);
+    client = redis.createClient(config);
 
     client.on('error', (err) => console.log('Redis Client Error', err));
 
