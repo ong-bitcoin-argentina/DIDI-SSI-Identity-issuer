@@ -21,21 +21,6 @@ describe('services/vus/simpleOperation.test.js', () => {
     const response = await simpleOperation(simpleOperationParams, 'cancel');
     expect(response).toStrictEqual(successRespCancelOperation.json());
   });
-  it('expect endOperation OK', async () => {
-    expect.assertions(1);
-    fetch.mockReturnValue(Promise.resolve(successRespCancelOperation));
-    const response = await simpleOperation(simpleOperationParams, 'finish');
-    expect(response).toStrictEqual(successRespCancelOperation.json());
-  });
-  it('expect getInformation OK', async () => {
-    expect.assertions(1);
-    fetch.mockReturnValue(Promise.resolve(successRespCancelOperation));
-    const response = await simpleOperation(
-      simpleOperationParams,
-      'getInformation',
-    );
-    expect(response).toStrictEqual(successRespCancelOperation.json());
-  });
 
   // CASOS SIMPLES NO EXITOSOS
   it('expect cancelOperation FAIL', async () => {
@@ -43,24 +28,6 @@ describe('services/vus/simpleOperation.test.js', () => {
     fetch.mockReturnValue(Promise.resolve(failResponse));
     try {
       await simpleOperation(simpleOperationParams, 'cancel');
-    } catch (error) {
-      expect(error).toBe(failResponse);
-    }
-  });
-  it('expect endOperation FAIL', async () => {
-    expect.assertions(0);
-    fetch.mockReturnValue(Promise.resolve(failResponse));
-    try {
-      await simpleOperation(simpleOperationParams, 'finish');
-    } catch (error) {
-      expect(error).toBe(failResponse);
-    }
-  });
-  it('expect getInformation FAIL', async () => {
-    expect.assertions(0);
-    fetch.mockReturnValue(Promise.resolve(failResponse));
-    try {
-      await simpleOperation(simpleOperationParams, 'getInformation');
     } catch (error) {
       expect(error).toBe(failResponse);
     }
