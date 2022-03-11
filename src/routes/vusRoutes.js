@@ -12,7 +12,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  * @openapi
  * 	 /vuSecurity/createVerification:
  *   post:
- *     summary: Permite validar la identidad de un usuario contra vu Security
+ *     summary: Permite crear un nuevo trámite de validación de identidad de un usuario
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -83,7 +83,7 @@ router.post(
  * @openapi
  * 	 /vuSecurity/cancelVerification:
  *   post:
- *     summary: Permite cancelar operación pendiente de validación de identidad
+ *     summary: Permite cancelar una operación pendiente de validación de identidad
  *     parameters:
  *       - in: header
  *         name: Authorization
@@ -127,7 +127,7 @@ router.post(
  * @openapi
  * 	 /vuSecurity/addDocumentImage:
  *   post:
- *     summary: Permite adherir el frente/dorso de un documento
+ *     summary: Permite adherir el frente/dorso de un documento o selfie a una operación
  *     parameters:
  *       - in: header
  *         name: Authorization
