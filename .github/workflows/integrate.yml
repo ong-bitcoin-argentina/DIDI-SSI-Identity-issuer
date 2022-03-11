@@ -37,6 +37,7 @@ jobs:
           VUS_URL: ${{ secrets.VUS_URL }}
           VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
+          VUS_API_KEY_PRIVATE: ${{ secrets.VUS_API_KEY_PRIVATE }}
           VUS_APP_VERS: ${{ secrets.VUS_APP_VERS }}
           PORT: 8089
           ENVIRONMENT: dev
