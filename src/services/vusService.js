@@ -32,7 +32,7 @@ const vuSecurityPost = async function vuSecurityPost(params) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-access-apikey': Constants.VUS_API_KEY,
+      'x-access-apikey-private': Constants.VUS_API_KEY_PRIVATE,
     },
     body: params.body,
     url,
