@@ -23,10 +23,7 @@ const cancelVerification = async (req, res) => {
     }
     return ResponseHandler.sendRes(res, cancelRequest);
   } catch (error) {
-    return ResponseHandler.sendErrWithStatus(
-      res,
-      Messages.VUS.CANCEL_OPERATION,
-    );
+    return ResponseHandler.sendErrWithStatus(res, error);
   }
 };
 
