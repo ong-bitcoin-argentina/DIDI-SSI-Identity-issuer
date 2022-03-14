@@ -37,8 +37,9 @@ const vuSecurityPost = async function vuSecurityPost(params) {
     body: params.body,
     url,
   });
-  if (response.status === 400) throw response.json();
-  return response.json();
+  const jsronResp = await response.json();
+  if (response.status === 400) throw jsronResp;
+  return jsronResp;
 };
 
 module.exports.newOperation = async function newOperation(params) {
@@ -67,7 +68,9 @@ module.exports.newOperation = async function newOperation(params) {
     result.userName = params.userName;
     return result;
   } catch (error) {
-    throw Messages.VUS.NEW_OPERATION;
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
   }
 };
 
@@ -89,7 +92,9 @@ module.exports.addImage = async function addImage(params) {
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
-    throw Messages.VUS.ADD_IMAGE;
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
   }
 };
 
@@ -108,7 +113,9 @@ module.exports.addSelfie = async function addSelfie(params) {
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
-    throw Messages.VUS.ADD_SELFIE;
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
   }
 };
 
@@ -124,6 +131,8 @@ module.exports.simpleOperation = async function simpleOperation(params) {
       }),
     });
   } catch (error) {
-    throw Messages.VUS.SIMPLE_OPERATION;
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
   }
 };
