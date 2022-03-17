@@ -79,4 +79,12 @@ module.exports = {
     code: '#service-missingToken',
     message: 'Falta el parametro Token',
   },
+  missingData: {
+    code: '#service-missingData',
+    message: 'Falta el parametro Data',
+  },
+  missingTemplateId: {
+    code: '#service-missingTemplateId',
+    message: 'Falta el parametro TemplateId',
+  },
 };
