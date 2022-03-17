@@ -18,6 +18,7 @@ const {
   IP_ADDRESS,
   VERSION_APP,
   APP_INSIGTHS_IKEY,
+  ISSUER_URL,
 } = process.env;
 
 // Microsoft App Insigths
@@ -38,6 +39,7 @@ assert.ok(VUS_API_KEY_PRIVATE, 'No esta definida la variable API_KEY_PRIVATE');
 
 assert.ok(PREFIJO_REDIS, 'No esta definida la variable PREFIJO_REDIS');
 assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
+assert.ok(ISSUER_URL, 'No esta definida la variable DIDI_SERVER');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
 
 module.exports = {
@@ -46,6 +48,7 @@ module.exports = {
   NAME,
   VERSION,
   DIDI_SERVER,
+  ISSUER_URL,
   MONGO_URI,
   REDIS_URI,
   PREFIJO_REDIS,
