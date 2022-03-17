@@ -13,6 +13,7 @@ const {
   VUS_URL,
   VUS_APP_VERS,
   VUS_API_KEY,
+  VUS_API_KEY_PRIVATE,
   VUS_API,
   IP_ADDRESS,
   VERSION_APP,
@@ -27,14 +28,17 @@ assert.ok(PORT, 'No esta definida la varibale PORT');
 assert.ok(ENVIRONMENT, 'No esta definida la varibale ENVIRONMENT');
 assert.ok(NAME, 'No esta definida la varibale NAME');
 assert.ok(VERSION, 'No esta definida la varibale VERSION');
+assert.ok(IP_ADDRESS, 'No esta definida la variable IP_ADDRESS');
+assert.ok(VERSION_APP, 'No esta definida la variable VERSION_APP');
+
 assert.ok(VUS_URL, 'No esta definida la variable VUS_URL');
 assert.ok(VUS_APP_VERS, 'No esta definida la variable VUS_APP_VERS');
 assert.ok(VUS_API_KEY, 'No esta definida la variable API_KEY');
+assert.ok(VUS_API_KEY_PRIVATE, 'No esta definida la variable API_KEY_PRIVATE');
+
 assert.ok(PREFIJO_REDIS, 'No esta definida la variable PREFIJO_REDIS');
 assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
-assert.ok(IP_ADDRESS, 'No esta definida la variable IP_ADDRESS');
-assert.ok(VERSION_APP, 'No esta definida la variable VERSION_APP');
 
 module.exports = {
   PORT,
@@ -54,8 +58,10 @@ module.exports = {
     ADD_SELFIE: `${VUS_URL}/register`,
     END_OPERATION: `${VUS_URL}/endOperation`,
     GET_STATUS: `${VUS_URL}/statusOperation`,
+    GET_DOCUMENT_INFORMATION: `${VUS_URL}/getDocumentInformation`,
   },
   VUS_API_KEY,
+  VUS_API_KEY_PRIVATE,
   VUS_API,
   VUS_APP_VERS,
   AUTHENTICATION_REQUEST: {

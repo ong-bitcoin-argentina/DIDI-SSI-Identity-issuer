@@ -25,6 +25,7 @@ const newOperationParams = {
   operativeSystemVersion: 'operativeSystemVersion',
   deviceManufacturer: 'deviceManufacturer',
   deviceName: 'deviceName',
+  url: 'create',
 };
 
 module.exports = {
