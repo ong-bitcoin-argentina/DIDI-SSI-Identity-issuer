@@ -162,6 +162,35 @@ const emmitedCertResp = {
   },
 };
 
+const emmitedCertError = {
+  status: 'error',
+  data: { code: 'CERT_GET', message: 'El certificado no pudo ser obtenido.' },
+};
+
+const invalidTemplateId = {
+  status: 'error',
+  data: {
+    code: 'TEMPLATE_GET',
+    message: 'El modelo del certificado no pudo ser obtenido.',
+  },
+};
+
+const extraElement = {
+  status: 'error',
+  data: {
+    code: 'EXTRA_ELEMENT',
+    message: 'El campo DID no se encuentra en el modelo de certificado.',
+  },
+};
+
+const missingElement = {
+  status: 'error',
+  data: {
+    code: 'MISSING_ELEMENT',
+    message: 'El campo Credencial está faltando en el certificado.',
+  },
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
@@ -184,8 +213,20 @@ module.exports = {
   successRespCreateCert: {
     json: () => createdCertResp,
   },
+  invalidTemplateResp: {
+    json: () => invalidTemplateId,
+  },
+  extraElementResp: {
+    json: () => extraElement,
+  },
+  missingElementResp: {
+    json: () => missingElement,
+  },
   successRespEmmitCert: {
     json: () => emmitedCertResp,
+  },
+  failRespEmmitCert: {
+    json: () => emmitedCertError,
   },
   successVerifyToken: {
     json: () => successVerifyToken,

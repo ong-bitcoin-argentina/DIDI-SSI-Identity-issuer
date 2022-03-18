@@ -8,6 +8,7 @@ const { personalData, personalTemplateId, did } = require('./constants');
 const {
   successRespCreateCert,
   successRespEmmitCert,
+  failRespEmmitCert,
 } = require('../mock/constants');
 
 describe('services/cert/emmitCert.test.js', () => {
@@ -25,6 +26,16 @@ describe('services/cert/emmitCert.test.js', () => {
     expect(status).toBe('success');
     expect(emmitedData.templateId).toBe(personalTemplateId);
     expect(emmitedData.emmitedOn).not.toBeNull();
+  });
+
+  it('expect verifyToken FAIL', async () => {
+    expect.assertions(3);
+    const id = '123456';
+    fetch.mockReturnValue(Promise.resolve(failRespEmmitCert));
+    const { status, data } = await emmitCert(id);
+    expect(status).toBe('error');
+    expect(data.code).toBe('CERT_GET');
+    expect(data.message).toBe('El certificado no pudo ser obtenido.');
   });
 
   it('expect emmitCert to thrwo on missing did', async () => {
