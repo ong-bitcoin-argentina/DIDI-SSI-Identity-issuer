@@ -91,4 +91,8 @@ module.exports = {
     code: '#service-missingId',
     message: 'Falta el parametro Id',
   },
+  missingBody: {
+    code: '#service-missingBody',
+    message: 'Falta el parametro Body',
+  },
 };
