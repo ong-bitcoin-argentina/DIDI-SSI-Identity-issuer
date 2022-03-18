@@ -8,7 +8,7 @@ const {
   missingId,
 } = require('../constants/serviceErrors');
 
-const { CREATE_CERT, EMMIT_CERT } = ISSUER_URLS;
+const { CREATE_CREDENTIAL, EMMIT_CREDENTIAL } = ISSUER_URLS;
 
 const formatBody = (data, did, templateId) => {
   const dataArray = [];
@@ -45,37 +45,37 @@ const formatBody = (data, did, templateId) => {
   });
 };
 
-const createCert = async (data, did, templateId) => {
+const createCredential = async (data, did, templateId) => {
   if (!data) throw missingData;
   if (!did) throw missingDid;
   if (!templateId) throw missingTemplateId;
 
-  const response = await fetch(CREATE_CERT, {
+  const response = await fetch(CREATE_CREDENTIAL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       token: ISSUER_AUTH_TOKEN,
     },
     body: formatBody(data, did, templateId),
-    url: CREATE_CERT,
+    url: CREATE_CREDENTIAL,
   });
   const jsronResp = await response.json();
   return jsronResp;
 };
 
-const emmitCert = async (id) => {
+const emmitCredential = async (id) => {
   if (!id) throw missingId;
 
-  const response = await fetch(EMMIT_CERT(id), {
+  const response = await fetch(EMMIT_CREDENTIAL(id), {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
       token: ISSUER_AUTH_TOKEN,
     },
-    url: EMMIT_CERT(id),
+    url: EMMIT_CREDENTIAL(id),
   });
   const jsronResp = await response.json();
   return jsronResp;
 };
 
-module.exports = { createCert, emmitCert };
+module.exports = { createCredential, emmitCredential };

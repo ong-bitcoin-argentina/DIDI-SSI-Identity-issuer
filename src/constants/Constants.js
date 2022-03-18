@@ -65,8 +65,8 @@ module.exports = {
     GET_DOCUMENT_INFORMATION: `${VUS_URL}/getDocumentInformation`,
   },
   ISSUER_URLS: {
-    CREATE_CERT: `${ISSUER_URL}/cert`,
-    EMMIT_CERT: (id) => `${ISSUER_URL}/cert/${id}/emmit`,
+    CREATE_CREDENTIAL: `${ISSUER_URL}/cert`,
+    EMMIT_CREDENTIAL: (id) => `${ISSUER_URL}/cert/${id}/emmit`,
   },
   ISSUER_AUTH_TOKEN,
   VUS_API_KEY,
