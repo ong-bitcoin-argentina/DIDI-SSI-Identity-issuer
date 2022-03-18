@@ -5,9 +5,10 @@ const {
   missingData,
   missingDid,
   missingTemplateId,
+  missingId,
 } = require('../constants/serviceErrors');
 
-const { CREATE_CERT } = ISSUER_URLS;
+const { CREATE_CERT, EMMIT_CERT } = ISSUER_URLS;
 
 const formatBody = (data, did, templateId) => {
   const dataArray = [];
@@ -49,8 +50,6 @@ const createCert = async (data, did, templateId) => {
   if (!did) throw missingDid;
   if (!templateId) throw missingTemplateId;
 
-  const body = formatBody(data, did, templateId);
-
   try {
     const response = await fetch(CREATE_CERT, {
       method: 'POST',
@@ -58,7 +57,7 @@ const createCert = async (data, did, templateId) => {
         'Content-Type': 'application/json',
         token: ISSUER_AUTH_TOKEN,
       },
-      body,
+      body: formatBody(data, did, templateId),
       url: CREATE_CERT,
     });
     const jsronResp = await response.json();
@@ -70,4 +69,25 @@ const createCert = async (data, did, templateId) => {
   }
 };
 
-module.exports = { createCert };
+const emmitCert = async (id) => {
+  if (!id) throw missingId;
+
+  try {
+    const response = await fetch(EMMIT_CERT(id), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token: ISSUER_AUTH_TOKEN,
+      },
+      url: EMMIT_CERT(id),
+    });
+    const jsronResp = await response.json();
+    return jsronResp;
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
+  }
+};
+
+module.exports = { createCert, emmitCert };

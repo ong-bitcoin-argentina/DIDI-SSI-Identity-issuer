@@ -87,4 +87,8 @@ module.exports = {
     code: '#service-missingTemplateId',
     message: 'Falta el parametro TemplateId',
   },
+  missingId: {
+    code: '#service-missingId',
+    message: 'Falta el parametro Id',
+  },
 };

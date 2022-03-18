@@ -129,6 +129,39 @@ const badRequest = {
   statusText: 'Bad Request',
 };
 
+const createdCertResp = {
+  status: 'success',
+  data: [
+    {
+      data: [Object],
+      split: false,
+      deleted: false,
+      createdOn: '2022-03-18T14:42:31.876Z',
+      _id: '62349a57a0354898b85c1973',
+      microCredentials: [],
+      jwts: [],
+      templateId: '62262ce12248912bdc580a36',
+      __v: 0,
+    },
+  ],
+};
+
+const emmitedCertResp = {
+  status: 'success',
+  data: {
+    data: { cert: [Array], participant: [Array], others: [] },
+    _id: '62349a57a0354898b85c1973',
+    split: false,
+    deleted: false,
+    createdOn: '2022-03-18T14:42:31.876Z',
+    microCredentials: [],
+    jwts: [],
+    templateId: '62262ce12248912bdc580a36',
+    __v: 0,
+    emmitedOn: '2022-03-18T14:42:39.417Z',
+  },
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
@@ -147,6 +180,12 @@ module.exports = {
   },
   successRespEndOperation: {
     json: () => successBodyEndOperation,
+  },
+  successRespCreateCert: {
+    json: () => createdCertResp,
+  },
+  successRespEmmitCert: {
+    json: () => emmitedCertResp,
   },
   successVerifyToken: {
     json: () => successVerifyToken,
