@@ -40,8 +40,8 @@ assert.ok(VUS_API_KEY_PRIVATE, 'No esta definida la variable API_KEY_PRIVATE');
 
 assert.ok(PREFIJO_REDIS, 'No esta definida la variable PREFIJO_REDIS');
 assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
-assert.ok(ISSUER_URL, 'No esta definida la variable DIDI_SERVER');
-assert.ok(ISSUER_AUTH_TOKEN, 'No esta definida la variable DIDI_SERVER');
+assert.ok(ISSUER_URL, 'No esta definida la variable ISSUER_URL');
+assert.ok(ISSUER_AUTH_TOKEN, 'No esta definida la variable ISSUER_AUTH_TOKEN');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
 
 module.exports = {
