@@ -1,6 +1,5 @@
 const vusService = require('../../services/vusService');
 const AuthRequestService = require('../../services/AuthRequestService');
-// const { createCredential } = require('../../services/CertService');
 
 const ResponseHandler = require('../../utils/ResponseHandler');
 
