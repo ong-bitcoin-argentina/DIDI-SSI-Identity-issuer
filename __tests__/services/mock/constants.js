@@ -129,6 +129,68 @@ const badRequest = {
   statusText: 'Bad Request',
 };
 
+const createdCredentialResp = {
+  status: 'success',
+  data: [
+    {
+      data: [Object],
+      split: false,
+      deleted: false,
+      createdOn: '2022-03-18T14:42:31.876Z',
+      _id: '62349a57a0354898b85c1973',
+      microCredentials: [],
+      jwts: [],
+      templateId: '62262ce12248912bdc580a36',
+      __v: 0,
+    },
+  ],
+};
+
+const emmitedCredentialResp = {
+  status: 'success',
+  data: {
+    data: { cert: [Array], participant: [Array], others: [] },
+    _id: '62349a57a0354898b85c1973',
+    split: false,
+    deleted: false,
+    createdOn: '2022-03-18T14:42:31.876Z',
+    microCredentials: [],
+    jwts: [],
+    templateId: '62262ce12248912bdc580a36',
+    __v: 0,
+    emmitedOn: '2022-03-18T14:42:39.417Z',
+  },
+};
+
+const emmitedCredentialError = {
+  status: 'error',
+  data: { code: 'CERT_GET', message: 'El certificado no pudo ser obtenido.' },
+};
+
+const invalidTemplateId = {
+  status: 'error',
+  data: {
+    code: 'TEMPLATE_GET',
+    message: 'El modelo del certificado no pudo ser obtenido.',
+  },
+};
+
+const extraElement = {
+  status: 'error',
+  data: {
+    code: 'EXTRA_ELEMENT',
+    message: 'El campo DID no se encuentra en el modelo de certificado.',
+  },
+};
+
+const missingElement = {
+  status: 'error',
+  data: {
+    code: 'MISSING_ELEMENT',
+    message: 'El campo Credencial está faltando en el certificado.',
+  },
+};
+
 module.exports = {
   successRespDocumentImage: {
     json: () => successBodyDocumentImage,
@@ -147,6 +209,24 @@ module.exports = {
   },
   successRespEndOperation: {
     json: () => successBodyEndOperation,
+  },
+  successRespCreateCredential: {
+    json: () => createdCredentialResp,
+  },
+  invalidTemplateResp: {
+    json: () => invalidTemplateId,
+  },
+  extraElementResp: {
+    json: () => extraElement,
+  },
+  missingElementResp: {
+    json: () => missingElement,
+  },
+  successRespEmmitCredential: {
+    json: () => emmitedCredentialResp,
+  },
+  failRespEmmitCredential: {
+    json: () => emmitedCredentialError,
   },
   successVerifyToken: {
     json: () => successVerifyToken,
