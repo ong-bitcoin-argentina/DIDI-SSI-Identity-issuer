@@ -7,29 +7,39 @@ const { CREATE_CREDENTIAL, EMMIT_CREDENTIAL } = ISSUER_URLS;
 
 const createCredential = async (body) => {
   if (!body) throw missingBody;
-  const response = await fetch(CREATE_CREDENTIAL, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      token: ISSUER_AUTH_TOKEN,
-    },
-    body,
-    url: CREATE_CREDENTIAL,
-  });
-  return response.json();
+  try {
+    const response = await fetch(CREATE_CREDENTIAL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token: ISSUER_AUTH_TOKEN,
+      },
+      body,
+    });
+    return response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
+  }
 };
 
 const emmitCredential = async (id) => {
   if (!id) throw missingId;
-  const response = await fetch(EMMIT_CREDENTIAL(id), {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      token: ISSUER_AUTH_TOKEN,
-    },
-    url: EMMIT_CREDENTIAL(id),
-  });
-  return response.json();
+  try {
+    const response = await fetch(EMMIT_CREDENTIAL(id), {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        token: ISSUER_AUTH_TOKEN,
+      },
+    });
+    return response.json();
+  } catch (error) {
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
+  }
 };
 
 module.exports = {

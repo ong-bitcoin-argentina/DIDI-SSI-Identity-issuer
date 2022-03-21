@@ -129,7 +129,7 @@ const badRequest = {
   statusText: 'Bad Request',
 };
 
-const createdCertResp = {
+const createdCredentialResp = {
   status: 'success',
   data: [
     {
@@ -146,7 +146,7 @@ const createdCertResp = {
   ],
 };
 
-const emmitedCertResp = {
+const emmitedCredentialResp = {
   status: 'success',
   data: {
     data: { cert: [Array], participant: [Array], others: [] },
@@ -162,7 +162,7 @@ const emmitedCertResp = {
   },
 };
 
-const emmitedCertError = {
+const emmitedCredentialError = {
   status: 'error',
   data: { code: 'CERT_GET', message: 'El certificado no pudo ser obtenido.' },
 };
@@ -210,8 +210,8 @@ module.exports = {
   successRespEndOperation: {
     json: () => successBodyEndOperation,
   },
-  successRespCreateCert: {
-    json: () => createdCertResp,
+  successRespCreateCredential: {
+    json: () => createdCredentialResp,
   },
   invalidTemplateResp: {
     json: () => invalidTemplateId,
@@ -222,11 +222,11 @@ module.exports = {
   missingElementResp: {
     json: () => missingElement,
   },
-  successRespEmmitCert: {
-    json: () => emmitedCertResp,
+  successRespEmmitCredential: {
+    json: () => emmitedCredentialResp,
   },
-  failRespEmmitCert: {
-    json: () => emmitedCertError,
+  failRespEmmitCredential: {
+    json: () => emmitedCredentialError,
   },
   successVerifyToken: {
     json: () => successVerifyToken,

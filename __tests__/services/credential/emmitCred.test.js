@@ -9,16 +9,16 @@ const {
 const { missingId } = require('../../../src/constants/serviceErrors');
 const { personalData, personalTemplateId, did } = require('./constants');
 const {
-  successRespCreateCert,
-  successRespEmmitCert,
-  failRespEmmitCert,
+  successRespCreateCredential,
+  successRespEmmitCredential,
+  failRespEmmitCredential,
 } = require('../mock/constants');
 
 describe('services/cert/emmitCredential.test.js', () => {
   it('expect verifyToken OK', async () => {
     expect.assertions(3);
 
-    fetch.mockReturnValue(Promise.resolve(successRespCreateCert));
+    fetch.mockReturnValue(Promise.resolve(successRespCreateCredential));
     const { data } = await createCredential(
       personalData,
       did,
@@ -27,7 +27,7 @@ describe('services/cert/emmitCredential.test.js', () => {
 
     const { _id: id } = data[0];
 
-    fetch.mockReturnValue(Promise.resolve(successRespEmmitCert));
+    fetch.mockReturnValue(Promise.resolve(successRespEmmitCredential));
     const { status, data: emmitedData } = await emmitCredential(id);
 
     expect(status).toBe('success');
@@ -38,7 +38,7 @@ describe('services/cert/emmitCredential.test.js', () => {
   it('expect verifyToken FAIL', async () => {
     expect.assertions(3);
     const id = '123456';
-    fetch.mockReturnValue(Promise.resolve(failRespEmmitCert));
+    fetch.mockReturnValue(Promise.resolve(failRespEmmitCredential));
     const { status, data } = await emmitCredential(id);
     expect(status).toBe('error');
     expect(data.code).toBe('CERT_GET');

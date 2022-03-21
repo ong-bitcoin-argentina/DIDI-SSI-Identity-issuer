@@ -18,7 +18,7 @@ const {
   missingElement,
 } = require('./constants');
 const {
-  successRespCreateCert,
+  successRespCreateCredential,
   invalidTemplateResp,
   extraElementResp,
   missingElementResp,
@@ -27,7 +27,7 @@ const {
 describe('services/cert/createCredential.test.js', () => {
   it('expect createCredential OK', async () => {
     expect.assertions(2);
-    fetch.mockReturnValue(Promise.resolve(successRespCreateCert));
+    fetch.mockReturnValue(Promise.resolve(successRespCreateCredential));
 
     const { status, data } = await createCredential(
       personalData,

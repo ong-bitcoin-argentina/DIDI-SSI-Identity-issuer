@@ -15,14 +15,8 @@ const formatBody = (data, did, templateId) => {
       value: key,
     });
   });
-
-  const certData = {
-    cert: dataArray.map((item) => {
-      return {
-        name: item.name,
-        value: item.value,
-      };
-    }),
+  const credentialData = {
+    cert: dataArray,
     participant: [
       [
         {
@@ -38,7 +32,7 @@ const formatBody = (data, did, templateId) => {
     templateId,
     split: false,
     microCredentials: [],
-    data: JSON.stringify(certData),
+    data: JSON.stringify(credentialData),
   });
 };
 
