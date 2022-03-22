@@ -8,7 +8,9 @@ const getStatus = async (req, res) => {
     const searchTerm = `getStatus-${operationId}`;
     let authRequest = JSON.parse(await get(searchTerm));
     if (!authRequest) {
-      authRequest = await AuthRequestService.getByOperationId(operationId);
+      authRequest = await AuthRequestService.getByOperationId({
+        operationId,
+      });
       await set(searchTerm, JSON.stringify(authRequest));
     }
     return ResponseHandler.sendRes(res, {

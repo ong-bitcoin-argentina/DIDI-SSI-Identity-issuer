@@ -90,8 +90,7 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
 // retorna el pedido buscandolo por 'did' y successful
 AuthRequest.findByDid = async function findByDid(did) {
   try {
-    const query = { did };
-    const request = await AuthRequest.findOne(query);
+    const request = await AuthRequest.findOne({ did });
     if (!request) throw Messages.VUS.FIND_BY_ID;
     const response = JSON.stringify({
       operationId: request.operationId,
