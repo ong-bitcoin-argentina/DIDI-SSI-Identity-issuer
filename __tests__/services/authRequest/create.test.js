@@ -19,7 +19,7 @@ describe('services/AuthRequest/create.test.js', () => {
   it('expect create to throw on missing operationId', async () => {
     expect.assertions(1);
     try {
-      await create(undefined, 'userDID');
+      await create({ operationId: undefined, userDid: 'userDid' });
     } catch (e) {
       expect(e.code).toMatch(missingOperationId.code);
     }
@@ -27,10 +27,7 @@ describe('services/AuthRequest/create.test.js', () => {
 
   it('expect create to create', async () => {
     expect.assertions(2);
-    const result = await create(
-      authRequestData.operationId,
-      authRequestData.did,
-    );
+    const result = await create(authRequestData);
     expect(result.operationId).toMatch(authRequestData.operationId);
     expect(result.did).toMatch(authRequestData.did);
   });

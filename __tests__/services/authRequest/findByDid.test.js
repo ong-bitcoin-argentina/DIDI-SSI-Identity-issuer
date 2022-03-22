@@ -11,7 +11,7 @@ describe('services/AuthRequest/findByDid.test.js', () => {
   it('expect findByDid to throw on missing did', async () => {
     expect.assertions(1);
     try {
-      await findByDid(undefined);
+      await findByDid({ did: undefined });
     } catch (e) {
       expect(e.code).toMatch(missingDid.code);
     }
@@ -19,7 +19,7 @@ describe('services/AuthRequest/findByDid.test.js', () => {
 
   it('expect findByDid to find', async () => {
     expect.assertions(1);
-    const result = JSON.parse(await findByDid(authRequestData.did));
+    const result = JSON.parse(await findByDid({ did: authRequestData.did }));
     expect(result.operationId).toMatch(authRequestData.operationId);
   });
 });

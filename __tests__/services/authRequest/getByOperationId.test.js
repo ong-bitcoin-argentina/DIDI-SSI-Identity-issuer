@@ -13,7 +13,7 @@ describe('services/AuthRequest/getByOperationId.test.js', () => {
   it('expect getByOperationId to throw on missing operationId', async () => {
     expect.assertions(1);
     try {
-      await getByOperationId(undefined);
+      await getByOperationId({ operationId: undefined });
     } catch (e) {
       expect(e.code).toMatch(missingOperationId.code);
     }
@@ -22,7 +22,9 @@ describe('services/AuthRequest/getByOperationId.test.js', () => {
   it('expect getByOperationId to get', async () => {
     expect.assertions(3);
     authRequestData.status = 'In Progress';
-    const result = await getByOperationId(authRequestData.operationId);
+    const result = await getByOperationId({
+      operationId: authRequestData.operationId,
+    });
     expect(result.did).toMatch(authRequestData.did);
     expect(result.operationId).toMatch(authRequestData.operationId);
     expect(result.status).toMatch(authRequestData.status);
