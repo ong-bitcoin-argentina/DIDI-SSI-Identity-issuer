@@ -89,7 +89,12 @@ module.exports.addImage = async function addImage(params) {
         file: params.file,
       }),
     });
-    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    // CASO QUE NO HAYA RESPUESTA, O QUE NO SE DETECTE LA IMAGEN DEL DOCUMENTO
+    if (
+      !response ||
+      (params.side === 'front' && !response.documentPictureDetected)
+    )
+      throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console
