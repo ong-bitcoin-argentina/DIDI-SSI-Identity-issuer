@@ -84,8 +84,7 @@ AuthRequest.generate = async function generate(operationId, did) {
 AuthRequest.findByOperationId = async function findByOperationId(operationId) {
   if (!operationId) throw missingOperationId;
   try {
-    const request = await AuthRequest.findOne({ operationId });
-    return request;
+    return AuthRequest.findOne({ operationId });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
