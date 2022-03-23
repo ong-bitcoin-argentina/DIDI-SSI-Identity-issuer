@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const Constants = require('../constants/Constants');
 const Messages = require('../constants/Messages');
+const {
+  missingOperationId,
+  missingDid,
+} = require('../constants/serviceErrors');
 
 const { IN_PROGRESS, SUCCESSFUL, FAILED, CANCELLED } =
   Constants.AUTHENTICATION_REQUEST;
@@ -58,6 +62,8 @@ module.exports = AuthRequest;
 
 // inicailizar registro de un pedido nuevo
 AuthRequest.generate = async function generate(operationId, did) {
+  if (!operationId) throw missingOperationId;
+  if (!did) throw missingDid;
   try {
     let request = new AuthRequest();
     request.operationId = operationId;
@@ -76,9 +82,9 @@ AuthRequest.generate = async function generate(operationId, did) {
 
 // retorna el pedido buscandolo por 'operationId'
 AuthRequest.findByOperationId = async function findByOperationId(operationId) {
+  if (!operationId) throw missingOperationId;
   try {
-    const query = { operationId };
-    const request = await AuthRequest.findOne(query);
+    const request = await AuthRequest.findOne({ operationId });
     return request;
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -89,6 +95,7 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
 
 // retorna el pedido buscandolo por 'did' y successful
 AuthRequest.findByDid = async function findByDid(did) {
+  if (!did) throw missingDid;
   try {
     const request = await AuthRequest.findOne({ did });
     if (!request) throw Messages.VUS.FIND_BY_ID;
