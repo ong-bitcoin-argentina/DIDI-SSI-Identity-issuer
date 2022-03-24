@@ -23,26 +23,23 @@ Complete the file vuUserInfoTest with the corresponding data:
   fileBack,
   fileSelfie,
 
-  where newOperationData must contain the following parameters:
-    newOperationData: {
-      did: 'did:ethr:0x000',
-      userName: 'userPrueba',
-      ipAddress: '0.0.0.0',
-      deviceHash: 'hash',
-      rooted: false,
-      applicationVersion: '1.0.0',
-      operativeSystem: 'console test',
-      operativeSystemVersion: '11',
-      deviceManufacturer: 'Apple',
-      deviceName: 'Iphone',
-  }
-
-  jwtAuth must contains a token with the DID.
-
-  fileFront must contain the image of the front of the identification in base64
-
-  fileBack must contain the image of the back of the identification in base64
-
-  fileBack must contain the selfie image in base64
+  where: 
+  - newOperationData must contain the following parameters:
+      newOperationData: {
+        did: 'did:ethr:0x000',
+        userName: 'userPrueba',
+        ipAddress: '0.0.0.0',
+        deviceHash: 'hash',
+        rooted: false,
+        applicationVersion: '1.0.0',
+        operativeSystem: 'console test',
+        operativeSystemVersion: '11',
+        deviceManufacturer: 'Apple',
+        deviceName: 'Iphone',
+      }
+  - jwtAuth must contains a token with the DID.
+  - fileFront must contain the image of the front of the identification in base64
+  - fileBack must contain the image of the back of the identification in base64
+  - fileBack must contain the selfie image in base64
 
 ```
