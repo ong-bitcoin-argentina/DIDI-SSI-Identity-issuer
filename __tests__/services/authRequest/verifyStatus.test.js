@@ -17,7 +17,7 @@ describe('services/AuthRequest/verifyStatus.test.js', () => {
     try {
       await verifyStatus({ operationId: undefined, status: 'status' });
     } catch (e) {
-      expect(e.code).toMatch(missingOperationId.code);
+      expect(e.code).toBe(missingOperationId.code);
     }
   });
 
@@ -26,7 +26,7 @@ describe('services/AuthRequest/verifyStatus.test.js', () => {
     try {
       await verifyStatus({ operationId: 'operationId', status: undefined });
     } catch (e) {
-      expect(e.code).toMatch(missingStatus.code);
+      expect(e.code).toBe(missingStatus.code);
     }
   });
   it('expect verifyStatus to be false', async () => {
@@ -41,5 +41,16 @@ describe('services/AuthRequest/verifyStatus.test.js', () => {
       status: 'In Progress',
     });
     expect(result).toBe(true);
+  });
+});
+
+describe('services/AuthRequest/verifyStatus fail', () => {
+  it('expect verifyStatus to fail', async () => {
+    expect.assertions(1);
+    try {
+      await verifyStatus(authRequestData);
+    } catch (error) {
+      expect(error).not.toBeNull();
+    }
   });
 });

@@ -14,12 +14,12 @@ module.exports.create = async function create({ operationId, did }) {
   if (!operationId) throw missingOperationId;
   try {
     const authRequest = await AuthRequest.generate(operationId, did);
-    if (!authRequest) return Messages.VUS.CREATE;
+    if (!authRequest) throw Messages.VUS.CREATE;
     return authRequest;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return Messages.COMMUNICATION_ERROR;
+    throw Messages.COMMUNICATION_ERROR;
   }
 };
 
@@ -66,7 +66,7 @@ module.exports.findByDid = async function findByDid({ did }) {
     if (!response) throw Messages.VUS.FIND_BY_ID;
     return response;
   } catch (error) {
-    return Messages.VUS.FIND_BY_ID;
+    throw Messages.VUS.FIND_BY_ID;
   }
 };
 

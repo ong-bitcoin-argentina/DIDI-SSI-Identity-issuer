@@ -6,6 +6,7 @@ const { beforeAllHook, afterAllHook } = require('./utils');
 
 const { missingOperationId } = require('../../../src/constants/serviceErrors');
 const { authRequestData } = require('./constants');
+const Messages = require('../../../src/constants/Messages');
 
 describe('services/AuthRequest/getByOperationId.test.js', () => {
   beforeAll(beforeAllHook);
@@ -15,8 +16,14 @@ describe('services/AuthRequest/getByOperationId.test.js', () => {
     try {
       await getByOperationId({ operationId: undefined });
     } catch (e) {
-      expect(e.code).toMatch(missingOperationId.code);
+      expect(e.code).toBe(missingOperationId.code);
     }
+  });
+
+  it('expect getByOperationId to throw cannot get', async () => {
+    expect.assertions(1);
+    const result = await getByOperationId({ operationId: 'hola' });
+    expect(result).toBe(Messages.VUS.GET);
   });
 
   it('expect getByOperationId to get', async () => {
@@ -25,8 +32,21 @@ describe('services/AuthRequest/getByOperationId.test.js', () => {
     const result = await getByOperationId({
       operationId: authRequestData.operationId,
     });
-    expect(result.did).toMatch(authRequestData.did);
-    expect(result.operationId).toMatch(authRequestData.operationId);
-    expect(result.status).toMatch(authRequestData.status);
+    expect(result.did).toBe(authRequestData.did);
+    expect(result.operationId).toBe(authRequestData.operationId);
+    expect(result.status).toBe(authRequestData.status);
+  });
+});
+
+describe('services/AuthRequest/getByOperationId fail', () => {
+  it('expect getByOperationId to fail', async () => {
+    expect.assertions(1);
+    try {
+      await getByOperationId({
+        operationId: authRequestData.operationId,
+      });
+    } catch (error) {
+      expect(error).not.toBeNull();
+    }
   });
 });

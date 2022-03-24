@@ -15,7 +15,7 @@ describe('services/AuthRequest/getDidByOperationId.test.js', () => {
     try {
       await getDidByOperationId({ operationId: undefined });
     } catch (e) {
-      expect(e.code).toMatch(missingOperationId.code);
+      expect(e.code).toBe(missingOperationId.code);
     }
   });
 
@@ -24,6 +24,19 @@ describe('services/AuthRequest/getDidByOperationId.test.js', () => {
     const result = await getDidByOperationId({
       operationId: authRequestData.operationId,
     });
-    expect(result).toMatch(authRequestData.did);
+    expect(result).toBe(authRequestData.did);
+  });
+});
+
+describe('services/AuthRequest/getDidByOperationId fail', () => {
+  it('expect getDidByOperationId to fail', async () => {
+    expect.assertions(1);
+    try {
+      await getDidByOperationId({
+        operationId: authRequestData.operationId,
+      });
+    } catch (error) {
+      expect(error).not.toBeNull();
+    }
   });
 });

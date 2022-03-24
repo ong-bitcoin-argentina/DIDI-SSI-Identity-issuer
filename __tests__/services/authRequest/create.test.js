@@ -21,14 +21,25 @@ describe('services/AuthRequest/create.test.js', () => {
     try {
       await create({ operationId: undefined, userDid: 'userDid' });
     } catch (e) {
-      expect(e.code).toMatch(missingOperationId.code);
+      expect(e.code).toBe(missingOperationId.code);
     }
   });
 
   it('expect create to create', async () => {
     expect.assertions(2);
     const result = await create(authRequestData);
-    expect(result.operationId).toMatch(authRequestData.operationId);
-    expect(result.did).toMatch(authRequestData.did);
+    expect(result.operationId).toBe(authRequestData.operationId);
+    expect(result.did).toBe(authRequestData.did);
+  });
+});
+
+describe('services/AuthRequest/create fail', () => {
+  it('expect create to fail', async () => {
+    expect.assertions(1);
+    try {
+      await create(authRequestData);
+    } catch (error) {
+      expect(error).not.toBeNull();
+    }
   });
 });

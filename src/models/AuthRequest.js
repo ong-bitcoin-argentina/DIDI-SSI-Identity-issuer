@@ -48,7 +48,7 @@ AuthRequestSchema.methods.update = async function update(status, errorMessage) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
@@ -76,7 +76,7 @@ AuthRequest.generate = async function generate(operationId, did) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
@@ -88,7 +88,7 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
@@ -104,6 +104,8 @@ AuthRequest.findByDid = async function findByDid(did) {
     });
     return response;
   } catch (error) {
-    return error;
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
   }
 };
