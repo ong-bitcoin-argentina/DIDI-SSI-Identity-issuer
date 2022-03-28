@@ -41,6 +41,8 @@ jobs:
           VUS_APP_VERS: ${{ secrets.VUS_APP_VERS }}
           ISSUER_URL: ${{ secrets.ISSUER_URL }}
           ISSUER_AUTH_TOKEN: ${{ secrets.ISSUER_AUTH_TOKEN }}
+          PERSONAL_TEMP_ID: ${{ secrets.PERSONAL_TEMP_ID }}
+          LOCATION_TEMP_ID: ${{ secrets.LOCATION_TEMP_ID }}
           PORT: 8089
           ENVIRONMENT: dev
           NAME: Identity-Issuer
