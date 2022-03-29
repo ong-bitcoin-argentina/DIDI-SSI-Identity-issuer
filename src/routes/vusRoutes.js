@@ -53,6 +53,8 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *                  type: string
  *               deviceName:
  *                  type: string
+ *               ipAddress:
+ *                  type: string
  *     responses:
  *       200:
  *         description: Puede devolver ok o error en algun parametro
@@ -74,6 +76,7 @@ router.post(
     { name: 'operativeSystemVersion', validate: [IS_STRING] },
     { name: 'deviceManufacturer', validate: [IS_STRING] },
     { name: 'deviceName', validate: [IS_STRING] },
+    { name: 'ipAddress', validate: [IS_STRING] },
   ]),
   Validator.checkValidationResult,
   vus.createVerification,
