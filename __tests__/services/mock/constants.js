@@ -6,42 +6,34 @@ const successBodyNewOPeration = {
 };
 
 const successBodyDocumentImage = {
-  imageDocument: {
-    code: 937,
-    message: 'Add document image success',
-  },
+  code: 937,
+  message: 'Add document image success',
 };
 
 const successBodyAddFront = {
-  imgage: {
-    code: 912,
-    message: 'Add front success',
-    detectedCountry: 'pais',
-    detectedCountryId: 1,
-    detectedDocumentCountryId: 1,
-    detectedDocumentCountry: 'Pais',
-    addBackRequired: true,
-    addDocumentPictureRequired: true,
-    documentPictureDetected: true,
-    containsBarcode: true,
-    barcodeDetected: true,
-  },
+  code: 912,
+  message: 'Add front success',
+  detectedCountry: 'pais',
+  detectedCountryId: 1,
+  detectedDocumentCountryId: 1,
+  detectedDocumentCountry: 'Pais',
+  addBackRequired: true,
+  addDocumentPictureRequired: true,
+  documentPictureDetected: true,
+  containsBarcode: true,
+  barcodeDetected: true,
 };
 
 const successBodyAddBack = {
-  imgage: {
-    code: 912,
-    message: 'Add back success',
-    containsBarcode: true,
-    barcodeDetected: true,
-  },
+  code: 912,
+  message: 'Add back success',
+  containsBarcode: true,
+  barcodeDetected: true,
 };
 
 const successBodyCancelOperation = {
-  imgage: {
-    code: 906,
-    message: 'Cancel operation success',
-  },
+  code: 906,
+  message: 'Cancel operation success',
 };
 
 const successBodyEndOperation = {
