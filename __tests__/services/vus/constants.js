@@ -20,7 +20,6 @@ const simpleOperationParams = {
 const newOperationParams = {
   userName: 'userName',
   deviceHash: 'deviceHash',
-  ipAddress: '127.0.0.1',
   rooted: 'rooted',
   operativeSystem: 'operativeSystem',
   operativeSystemVersion: 'operativeSystemVersion',
