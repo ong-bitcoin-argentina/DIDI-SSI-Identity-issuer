@@ -35,10 +35,8 @@ jobs:
           MONGO_URI: ${{ secrets.MONGO_URI }}
           PREFIJO_REDIS: ${{ secrets.PREFIJO_REDIS }}
           VUS_URL: ${{ secrets.VUS_URL }}
-          VUS_API: ${{ secrets.VUS_API }}
           VUS_API_KEY: ${{ secrets.VUS_API_KEY }}
           VUS_API_KEY_PRIVATE: ${{ secrets.VUS_API_KEY_PRIVATE }}
-          VUS_APP_VERS: ${{ secrets.VUS_APP_VERS }}
           ISSUER_URL: ${{ secrets.ISSUER_URL }}
           ISSUER_AUTH_TOKEN: ${{ secrets.ISSUER_AUTH_TOKEN }}
           PORT: 8089
@@ -46,7 +44,6 @@ jobs:
           NAME: Identity-Issuer
           VERSION: 1.0.0
           IP_ADDRESS: 127.0.0.1
-          VERSION_APP: 1.0.0
       - name: Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
         with:

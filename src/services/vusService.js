@@ -57,7 +57,7 @@ module.exports.newOperation = async function newOperation(params) {
         ipAddress: Constants.IP_ADDRESS,
         deviceHash: params.deviceHash,
         rooted: params.rooted,
-        applicationVersion: Constants.VUS_APP_VERS,
+        applicationVersion: Constants.VERSION,
         operativeSystem: params.operativeSystem,
         operativeSystemVersion: params.operativeSystemVersion,
         deviceManufacturer: params.deviceManufacturer,
