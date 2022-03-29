@@ -2,7 +2,7 @@ const { CronJob } = require('cron');
 const ValidatedData = require('../models/ValidatedData');
 const { createAndEmmitCredentials } = require('./credentialActions');
 
-const FREQUENCY = '0 */1 * * * *'; // frecuencia de 1 minuto
+const FREQUENCY = '0 */1 * * * *'; // Frecuencia de 1 minuto
 
 const processValidatedData = async () => {
   // Se ejecutan de a 1
@@ -19,17 +19,15 @@ const processValidatedData = async () => {
       const credentials = await createAndEmmitCredentials(did, userData);
       if (credentials) await ValidatedData.deleteOne({ _id: id });
     } catch (error) {
-      // await validatedData.addAttempt(error);
+      await validatedData[0].addAttempt(error);
       // eslint-disable-next-line no-console
       console.log(error);
-      throw error;
     }
   }
 };
 
 const validatedDataJob = (frequency) => {
-  // eslint-disable-next-line no-new
-  new CronJob(
+  const job = new CronJob(
     frequency,
     processValidatedData,
     null,
@@ -38,6 +36,7 @@ const validatedDataJob = (frequency) => {
     false,
     true,
   );
+  job.start();
 };
 
 exports.permanentJob = () => {

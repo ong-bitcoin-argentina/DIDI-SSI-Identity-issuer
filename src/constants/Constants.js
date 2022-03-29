@@ -20,8 +20,6 @@ const {
   APP_INSIGTHS_IKEY,
   ISSUER_URL,
   ISSUER_AUTH_TOKEN,
-  PERSONAL_TEMP_ID,
-  LOCATION_TEMP_ID,
 } = process.env;
 
 // Microsoft App Insigths
@@ -45,9 +43,6 @@ assert.ok(DIDI_SERVER, 'No esta definida la variable DIDI_SERVER');
 assert.ok(ISSUER_URL, 'No esta definida la variable ISSUER_URL');
 assert.ok(ISSUER_AUTH_TOKEN, 'No esta definida la variable ISSUER_AUTH_TOKEN');
 assert.ok(MONGO_URI, 'No esta definida la variable MONGO_URI');
-
-assert.ok(PERSONAL_TEMP_ID, 'No esta definida la variable PERSONAL_TEMP_ID');
-assert.ok(LOCATION_TEMP_ID, 'No esta definida la variable LOCATION_TEMP_ID');
 
 module.exports = {
   PORT,
@@ -74,8 +69,8 @@ module.exports = {
     EMMIT_CREDENTIAL: (id) => `${ISSUER_URL}/cert/${id}/emmit`,
   },
   ISSUER_AUTH_TOKEN,
-  PERSONAL_TEMP_ID,
-  LOCATION_TEMP_ID,
+  PERSONAL_TEMP_ID: '62262ce12248912bdc580a36',
+  LOCATION_TEMP_ID: '6226536d2248912bdc580a37',
   VUS_API_KEY,
   VUS_API_KEY_PRIVATE,
   VUS_API,

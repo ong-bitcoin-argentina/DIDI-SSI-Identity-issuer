@@ -21,17 +21,23 @@ const ValidatedDataSchema = new mongoose.Schema({
     type: Number,
     default: 0,
   },
-  error: {
-    type: Object,
+  emmitionErrors: {
+    type: Array,
   },
 });
 
-ValidatedDataSchema.methods.addAttempt = async (error) => {
-  const update =
-    this.attempts > 5
-      ? { $set: { status: 'Failed', error } }
-      : { $inc: { attempts: 1 } };
-  return this.updateOne(update);
+ValidatedDataSchema.methods.addAttempt = async function addAttempt(error) {
+  try {
+    if (this.attemps > 5) this.status = 'Failed';
+    this.attemps += 1;
+    this.emmitionErrors = [...this.emmitionErrors, error];
+    await this.save();
+    return this;
+  } catch (err) {
+    // eslint-disable-next-line no-console
+    console.log(err);
+    return err;
+  }
 };
 
 const ValidatedData = mongoose.model('ValidatedData', ValidatedDataSchema);
