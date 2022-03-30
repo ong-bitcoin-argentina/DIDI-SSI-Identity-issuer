@@ -4,6 +4,8 @@ const ResponseHandler = require('../../utils/ResponseHandler');
 
 const getInformation = async (req, res) => {
   const params = req.body;
+  params.operationId = req.params.operationId;
+
   try {
     params.operation = 'getInformation';
     const information = await vusService.simpleOperation(params);
