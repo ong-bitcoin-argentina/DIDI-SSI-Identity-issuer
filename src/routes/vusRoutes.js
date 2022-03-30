@@ -80,8 +80,8 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/cancelVerification:
- *   post:
+ * 	 /vuSecurity/verification:
+ *   delete:
  *     summary: Permite cancelar una operación pendiente de validación de identidad
  *     parameters:
  *       - in: header
@@ -111,8 +111,8 @@ router.post(
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/cancelVerification',
+router.delete(
+  '/verification',
   validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },

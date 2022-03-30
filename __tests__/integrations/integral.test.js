@@ -83,7 +83,7 @@ describe('cancel operation to be OK', () => {
   it('responds cancel operation OK', async () => {
     expect.assertions(1);
     const res = await request(app)
-      .post('/vuSecurity/createVerification')
+      .post('/vuSecurity/verification')
       .set('Authorization', jwtAuth)
       .send(newOperationData)
       .expect(200);
@@ -96,7 +96,7 @@ describe('cancel operation to be OK', () => {
 
     // FINALIZAR OPERACION
     await request(app)
-      .post('/vuSecurity/cancelVerification')
+      .delete('/vuSecurity/verification')
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
