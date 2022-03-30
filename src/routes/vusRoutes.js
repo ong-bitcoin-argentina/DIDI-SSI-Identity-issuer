@@ -10,7 +10,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- * 	 /vuSecurity/verification:
+ * 	 /verification:
  *   post:
  *     summary: Permite crear un nuevo trámite de validación de identidad de un usuario
  *     parameters:
@@ -80,7 +80,7 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/verification:
+ * 	 /verification:
  *   delete:
  *     summary: Permite cancelar una operación pendiente de validación de identidad
  *     parameters:
@@ -124,7 +124,7 @@ router.delete(
 
 /**
  * @openapi
- * 	 /vuSecurity/{operationId}/documentImage:
+ * 	 /{operationId}/documentImage:
  *   post:
  *     summary: Permite adherir el frente/dorso de un documento o selfie a una operación
  *     parameters:
@@ -177,7 +177,7 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/verification/{operationId}:
+ * 	 /verification/{operationId}:
  *   patch:
  *     summary: Permite finalizar una operacion.
  *     parameters:
@@ -220,7 +220,7 @@ router.patch(
 
 /**
  * @openapi
- * 	 /vuSecurity/verification/{operationId}:
+ * 	 /verification/{operationId}:
  *   get:
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
@@ -252,7 +252,7 @@ router.get(
 
 /**
  * @openapi
- * 	 /vuSecurity/verification/{operationId}:
+ * 	 /verification/{operationId}:
  *   get:
  *     summary: Permite traer los datos del documento analizado.
  *     parameters:
