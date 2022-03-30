@@ -10,7 +10,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- * 	 /vuSecurity/createVerification:
+ * 	 /vuSecurity/verification:
  *   post:
  *     summary: Permite crear un nuevo trámite de validación de identidad de un usuario
  *     parameters:
@@ -62,7 +62,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *
  */
 router.post(
-  '/createVerification',
+  '/verification',
   validateUser,
   Validator.validateBody([
     { name: 'did', validate: [IS_STRING] },
