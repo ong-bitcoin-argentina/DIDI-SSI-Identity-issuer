@@ -253,7 +253,7 @@ router.get(
 /**
  * @openapi
  * 	 /vuSecurity/verification/{operationId}:
- *   post:
+ *   get:
  *     summary: Permite traer los datos del documento analizado.
  *     parameters:
  *       - in: header
