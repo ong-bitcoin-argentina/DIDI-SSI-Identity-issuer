@@ -124,7 +124,7 @@ router.delete(
 
 /**
  * @openapi
- * 	 /vuSecurity/addDocumentImage:
+ * 	 /vuSecurity/{operationId}/documentImage:
  *   post:
  *     summary: Permite adherir el frente/dorso de un documento o selfie a una operación
  *     parameters:
@@ -133,19 +133,22 @@ router.delete(
  *         schema:
  *           type: string
  *         required: true
+ *       - name: operationId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     requestBody:
  *       required:
  *         - userName
- *         - operationId
  *         - file
+ *         - side
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               userName:
- *                  type: string
- *               operationId:
  *                  type: string
  *               file:
  *                  type: string
@@ -161,11 +164,10 @@ router.delete(
  *
  */
 router.post(
-  '/addDocumentImage',
+  '/:operationId/documentImage',
   validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
     { name: 'file', validate: [IS_STRING] },
     { name: 'side', validate: [IS_STRING] },
   ]),
