@@ -177,8 +177,8 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/finishOperation:
- *   post:
+ * 	 /vuSecurity/verification/{operationId}:
+ *   patch:
  *     summary: Permite finalizar una operacion.
  *     parameters:
  *       - in: header
@@ -186,18 +186,20 @@ router.post(
  *         schema:
  *           type: string
  *         required: true
+ *       - name: operationId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     requestBody:
  *       required:
  *         - userName
- *         - operationId
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               userName:
- *                  type: string
- *               operationId:
  *                  type: string
  *     responses:
  *       200:
@@ -208,13 +210,10 @@ router.post(
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/finishOperation',
+router.patch(
+  '/verification/:operationId',
   validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-  ]),
+  Validator.validateBody([{ name: 'userName', validate: [IS_STRING] }]),
   Validator.checkValidationResult,
   vus.finishOperation,
 );
