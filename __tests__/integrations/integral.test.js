@@ -62,14 +62,14 @@ describe('finish operation to be OK', () => {
 
     // FINALIZAR OPERACION
     await request(app)
-      .post('/vuSecurity/finishOperation')
+      .patch(`/vuSecurity/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // CONSULTO ESTADO DE LA OPERACION
     await request(app)
-      .post('/vuSecurity/getStatus')
+      .get(`/vuSecurity/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
@@ -90,9 +90,10 @@ describe('cancel operation to be OK', () => {
 
     // GUARDO PARAMETROS NECESARIOS PARA LAS SIGUIENTES OPERACIONES.
     const params = {
-      operationId: JSON.stringify(res.body.data.operationId),
       userName: res.body.data.userName,
     };
+    const operationId = JSON.stringify(res.body.data.operationId);
+    params.operationId = operationId;
 
     // FINALIZAR OPERACION
     await request(app)
@@ -103,7 +104,7 @@ describe('cancel operation to be OK', () => {
 
     // CONSULTAR ESTADO DE LA OPERACION
     await request(app)
-      .post('/vuSecurity/getStatus')
+      .get(`/vuSecurity/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
