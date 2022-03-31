@@ -16,6 +16,7 @@ const {
   missingFile,
   missingSide,
   missingSelfieList,
+  missingIpAddress,
 } = require('../constants/serviceErrors');
 
 function validateCommonParams(params) {
@@ -48,12 +49,13 @@ module.exports.newOperation = async function newOperation(params) {
   if (!params.operativeSystemVersion) throw missingOperativeSystemVersion;
   if (!params.deviceManufacturer) throw missingDeviceManufacturer;
   if (!params.deviceName) throw missingDeviceName;
+  if (!params.ipAddress) throw missingIpAddress;
   try {
     const result = await vuSecurityPost({
       url: 'create',
       body: JSON.stringify({
         userName: params.userName,
-        ipAddress: Constants.IP_ADDRESS,
+        ipAddress: params.ipAddress,
         deviceHash: params.deviceHash,
         rooted: params.rooted,
         applicationVersion: Constants.VERSION,

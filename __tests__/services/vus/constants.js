@@ -21,6 +21,7 @@ const newOperationParams = {
   userName: 'userName',
   deviceHash: 'deviceHash',
   rooted: 'rooted',
+  ipAddress: '127.0.0.1',
   operativeSystem: 'operativeSystem',
   operativeSystemVersion: 'operativeSystemVersion',
   deviceManufacturer: 'deviceManufacturer',
