@@ -4,6 +4,6 @@ const vusRoutes = require('./vusRoutes');
 
 const router = new express.Router();
 
-router.use('/vuSecurity', vusRoutes);
+router.use('', vusRoutes);
 
 module.exports = router;

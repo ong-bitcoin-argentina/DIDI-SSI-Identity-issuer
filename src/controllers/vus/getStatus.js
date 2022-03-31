@@ -3,7 +3,7 @@ const AuthRequestService = require('../../services/AuthRequestService');
 const ResponseHandler = require('../../utils/ResponseHandler');
 
 const getStatus = async (req, res) => {
-  const { operationId } = req.body;
+  const { operationId } = req.params;
   try {
     const searchTerm = `getStatus-${operationId}`;
     let authRequest = JSON.parse(await get(searchTerm));

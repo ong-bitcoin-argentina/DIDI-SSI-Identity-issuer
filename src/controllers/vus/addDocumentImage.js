@@ -4,6 +4,7 @@ const ResponseHandler = require('../../utils/ResponseHandler');
 
 const addDocumentImage = async (req, res) => {
   const params = req.body;
+  params.operationId = req.params.operationId;
 
   // eslint-disable-next-line no-console
   console.log(`${params.operationId} adding ${params.side}`);

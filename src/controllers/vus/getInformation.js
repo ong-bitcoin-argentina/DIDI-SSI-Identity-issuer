@@ -3,7 +3,8 @@ const vusService = require('../../services/vusService');
 const ResponseHandler = require('../../utils/ResponseHandler');
 
 const getInformation = async (req, res) => {
-  const params = req.body;
+  const { params } = req;
+
   try {
     params.operation = 'getInformation';
     const information = await vusService.simpleOperation(params);
