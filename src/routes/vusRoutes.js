@@ -247,6 +247,7 @@ router.get(
   '/verification/:operationId',
   validateUser,
   Validator.checkValidationResult,
+  Validator.validateParams,
   vus.getStatus,
 );
 
@@ -284,6 +285,7 @@ router.get(
   '/verification/:operationId/:userName',
   validateUser,
   Validator.checkValidationResult,
+  Validator.validateParams,
   vus.getInformation,
 );
 
