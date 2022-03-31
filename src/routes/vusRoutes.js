@@ -220,7 +220,7 @@ router.patch(
 
 /**
  * @openapi
- * 	 /verification/{operationId}/status:
+ * 	 /verification/{operationId}:
  *   get:
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
@@ -244,7 +244,7 @@ router.patch(
  *
  */
 router.get(
-  '/verification/:operationId/status',
+  '/verification/:operationId',
   validateUser,
   Validator.checkValidationResult,
   vus.getStatus,
@@ -252,7 +252,7 @@ router.get(
 
 /**
  * @openapi
- * 	 /verification/{operationId}/information:
+ * 	 /verification/{operationId}/{userName}:
  *   get:
  *     summary: Permite traer los datos del documento analizado.
  *     parameters:
@@ -266,16 +266,11 @@ router.get(
  *         required: true
  *         schema:
  *           type : string
- *     requestBody:
- *       required:
- *         - userName
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                  type: string
+ *       - name: userName
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     responses:
  *       200:
  *         description: Puede devolver ok o error en algun parametro
@@ -286,9 +281,8 @@ router.get(
  *
  */
 router.get(
-  '/verification/:operationId/information',
+  '/verification/:operationId/:userName',
   validateUser,
-  Validator.validateBody([{ name: 'userName', validate: [IS_STRING] }]),
   Validator.checkValidationResult,
   vus.getInformation,
 );

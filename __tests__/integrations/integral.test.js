@@ -69,7 +69,7 @@ describe('finish operation to be OK', () => {
 
     // CONSULTO ESTADO DE LA OPERACION
     await request(app)
-      .get(`/verification/${operationId}/status`)
+      .get(`/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
@@ -104,7 +104,7 @@ describe('cancel operation to be OK', () => {
 
     // CONSULTAR ESTADO DE LA OPERACION
     await request(app)
-      .get(`/verification/${operationId}/status`)
+      .get(`/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
