@@ -35,7 +35,6 @@ const vuSecurityPost = async function vuSecurityPost(params) {
       'x-access-apikey-private': Constants.VUS_API_KEY_PRIVATE,
     },
     body: params.body,
-    url,
   });
   const jsronResp = await response.json();
   if (response.status === 400) throw jsronResp;

@@ -10,7 +10,10 @@ const createVerification = async (req, res) => {
     const response = await vusService.newOperation(params);
 
     // Guardar estado como "en progreso y retornar"
-    await AuthRequestService.create(response.operationId, params.did);
+    await AuthRequestService.create({
+      operationId: response.operationId,
+      did: params.did,
+    });
 
     return ResponseHandler.sendRes(res, response);
   } catch (error) {
