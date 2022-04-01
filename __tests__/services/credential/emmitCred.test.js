@@ -19,16 +19,16 @@ describe('services/cert/emmitCredential.test.js', () => {
     expect.assertions(3);
 
     fetch.mockReturnValue(Promise.resolve(successRespCreateCredential));
-    const { data } = await createCredential(
+    const { data } = await createCredential({
       personalData,
       did,
       personalTemplateId,
-    );
+    });
 
     const { _id: id } = data[0];
 
     fetch.mockReturnValue(Promise.resolve(successRespEmmitCredential));
-    const { status, data: emmitedData } = await emmitCredential(id);
+    const { status, data: emmitedData } = await emmitCredential({ id });
 
     expect(status).toBe('success');
     expect(emmitedData.templateId).toBe(personalTemplateId);
@@ -39,7 +39,7 @@ describe('services/cert/emmitCredential.test.js', () => {
     expect.assertions(3);
     const id = '123456';
     fetch.mockReturnValue(Promise.resolve(failRespEmmitCredential));
-    const { status, data } = await emmitCredential(id);
+    const { status, data } = await emmitCredential({ id });
     expect(status).toBe('error');
     expect(data.code).toBe('CERT_GET');
     expect(data.message).toBe('El certificado no pudo ser obtenido.');
@@ -48,7 +48,7 @@ describe('services/cert/emmitCredential.test.js', () => {
   it('expect emmitCredential to thrwo on missing did', async () => {
     expect.assertions(1);
     try {
-      await emmitCredential(undefined);
+      await emmitCredential({ undefined });
     } catch (error) {
       expect(error).toBe(missingId);
     }

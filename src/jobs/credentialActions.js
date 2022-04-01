@@ -4,19 +4,19 @@ const {
 } = require('../services/CredentialService');
 
 const {
-  PERSONAL_TEMP_ID,
-  LOCATION_TEMP_ID,
+  PERSONAL_TEMPLATE_ID,
+  LOCATION_TEMPLATE_ID,
 } = require('../constants/Constants');
 
 const { formatLocationData, formatPeronalData } = require('./utils');
 
 const emmitIdentityCredential = async (did, credData, templateId) => {
   // Creación de credencial
-  const { data } = await createCredential(credData, did, templateId);
-  const { _id } = data[0];
+  const { data } = await createCredential({ credData, did, templateId });
+  const { _id: id } = data[0];
 
   // Emisión de credencial
-  const credential = await emmitCredential(_id);
+  const credential = await emmitCredential({ id });
 
   if (credential.status === 'error') {
     const { data: error } = credential;
@@ -42,7 +42,7 @@ const createAndEmmitCredentials = async (did, ocr) => {
   const personalCredential = await emmitIdentityCredential(
     did,
     personalData,
-    PERSONAL_TEMP_ID,
+    PERSONAL_TEMPLATE_ID,
   );
 
   // Se da formato a la informacion de domicilio
@@ -57,7 +57,7 @@ const createAndEmmitCredentials = async (did, ocr) => {
   const locationCredential = await emmitIdentityCredential(
     did,
     locationData,
-    LOCATION_TEMP_ID,
+    LOCATION_TEMPLATE_ID,
   );
 
   return [personalCredential, locationCredential];
