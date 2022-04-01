@@ -12,7 +12,7 @@ const { formatLocationData, formatPeronalData } = require('./utils');
 
 const emmitIdentityCredential = async (did, credData, templateId) => {
   // Creación de credencial
-  const { data } = await createCredential({ credData, did, templateId });
+  const { data } = await createCredential({ data: credData, did, templateId });
   const { _id: id } = data[0];
 
   // Emisión de credencial

@@ -30,9 +30,9 @@ describe('services/cert/createCredential.test.js', () => {
     fetch.mockReturnValue(Promise.resolve(successRespCreateCredential));
 
     const { status, data } = await createCredential({
-      personalData,
+      data: personalData,
       did,
-      personalTemplateId,
+      templateId: personalTemplateId,
     });
     expect(status).toBe('success');
     expect(data[0].templateId).toBe(personalTemplateId);
@@ -43,9 +43,9 @@ describe('services/cert/createCredential.test.js', () => {
     fetch.mockReturnValue(Promise.resolve(invalidTemplateResp));
 
     const { status, data } = await createCredential({
-      personalData,
+      data: personalData,
       did,
-      invalidTemplateId,
+      templateId: invalidTemplateId,
     });
 
     expect(status).toBe('error');
@@ -60,9 +60,9 @@ describe('services/cert/createCredential.test.js', () => {
     fetch.mockReturnValue(Promise.resolve(extraElementResp));
 
     const { status, data } = await createCredential({
-      extraElement,
+      data: extraElement,
       did,
-      personalTemplateId,
+      templateId: personalTemplateId,
     });
     expect(status).toBe('error');
     expect(data.code).toBe('EXTRA_ELEMENT');
@@ -76,9 +76,9 @@ describe('services/cert/createCredential.test.js', () => {
     fetch.mockReturnValue(Promise.resolve(missingElementResp));
 
     const { status, data } = await createCredential({
-      missingElement,
+      data: missingElement,
       did,
-      personalTemplateId,
+      templateId: personalTemplateId,
     });
 
     expect(status).toBe('error');
@@ -91,7 +91,11 @@ describe('services/cert/createCredential.test.js', () => {
   it('expect createCredential to thrwo on missing personalData', async () => {
     expect.assertions(1);
     try {
-      await createCredential({ undefined, did, personalTemplateId });
+      await createCredential({
+        data: undefined,
+        did,
+        templateId: personalTemplateId,
+      });
     } catch (error) {
       expect(error).toBe(missingData);
     }
@@ -99,7 +103,11 @@ describe('services/cert/createCredential.test.js', () => {
   it('expect createCredential to thrwo on missing did', async () => {
     expect.assertions(1);
     try {
-      await createCredential({ personalData, undefined, personalTemplateId });
+      await createCredential({
+        data: personalData,
+        undefined,
+        templateId: personalTemplateId,
+      });
     } catch (error) {
       expect(error).toBe(missingDid);
     }
@@ -107,7 +115,11 @@ describe('services/cert/createCredential.test.js', () => {
   it('expect createCredential to thrwo on missing templateId', async () => {
     expect.assertions(1);
     try {
-      await createCredential({ personalData, did, undefined });
+      await createCredential({
+        data: personalData,
+        did,
+        templateId: undefined,
+      });
     } catch (error) {
       expect(error).toBe(missingTemplateId);
     }

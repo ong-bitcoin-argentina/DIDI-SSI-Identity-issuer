@@ -20,9 +20,9 @@ describe('services/cert/emmitCredential.test.js', () => {
 
     fetch.mockReturnValue(Promise.resolve(successRespCreateCredential));
     const { data } = await createCredential({
-      personalData,
+      data: personalData,
       did,
-      personalTemplateId,
+      templateId: personalTemplateId,
     });
 
     const { _id: id } = data[0];
