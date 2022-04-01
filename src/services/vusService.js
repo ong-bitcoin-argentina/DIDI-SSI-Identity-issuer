@@ -16,6 +16,7 @@ const {
   missingFile,
   missingSide,
   missingSelfieList,
+  missingIpAddress,
 } = require('../constants/serviceErrors');
 
 function validateCommonParams(params) {
@@ -35,7 +36,6 @@ const vuSecurityPost = async function vuSecurityPost(params) {
       'x-access-apikey-private': Constants.VUS_API_KEY_PRIVATE,
     },
     body: params.body,
-    url,
   });
   const jsronResp = await response.json();
   if (response.status === 400) throw jsronResp;
@@ -49,15 +49,16 @@ module.exports.newOperation = async function newOperation(params) {
   if (!params.operativeSystemVersion) throw missingOperativeSystemVersion;
   if (!params.deviceManufacturer) throw missingDeviceManufacturer;
   if (!params.deviceName) throw missingDeviceName;
+  if (!params.ipAddress) throw missingIpAddress;
   try {
     const result = await vuSecurityPost({
       url: 'create',
       body: JSON.stringify({
         userName: params.userName,
-        ipAddress: Constants.IP_ADDRESS,
+        ipAddress: params.ipAddress,
         deviceHash: params.deviceHash,
         rooted: params.rooted,
-        applicationVersion: Constants.VUS_APP_VERS,
+        applicationVersion: Constants.VERSION,
         operativeSystem: params.operativeSystem,
         operativeSystemVersion: params.operativeSystemVersion,
         deviceManufacturer: params.deviceManufacturer,
@@ -89,7 +90,12 @@ module.exports.addImage = async function addImage(params) {
         file: params.file,
       }),
     });
-    if (!response) throw Messages.VUS.OPERATION_FAIL;
+    // CASO QUE NO HAYA RESPUESTA, O QUE NO SE DETECTE LA IMAGEN DEL DOCUMENTO
+    if (
+      !response ||
+      (params.side === 'front' && !response.documentPictureDetected)
+    )
+      throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
     // eslint-disable-next-line no-console

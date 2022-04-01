@@ -15,34 +15,42 @@ describe('services/AuthRequest/verifyStatus.test.js', () => {
   it('expect verifyStatus to throw on missing operationId', async () => {
     expect.assertions(1);
     try {
-      await verifyStatus(undefined, 'status');
+      await verifyStatus({ operationId: undefined, status: 'status' });
     } catch (e) {
-      expect(e.code).toMatch(missingOperationId.code);
+      expect(e.code).toBe(missingOperationId.code);
     }
   });
 
   it('expect verifyStatus to throw on missing status', async () => {
     expect.assertions(1);
     try {
-      await verifyStatus('operationId', undefined);
+      await verifyStatus({ operationId: 'operationId', status: undefined });
     } catch (e) {
-      expect(e.code).toMatch(missingStatus.code);
+      expect(e.code).toBe(missingStatus.code);
     }
   });
   it('expect verifyStatus to be false', async () => {
     expect.assertions(1);
-    const result = await verifyStatus(
-      authRequestData.operationId,
-      authRequestData.status,
-    );
+    const result = await verifyStatus(authRequestData);
     expect(result).toBe(false);
   });
   it('expect verifyStatus to be true', async () => {
     expect.assertions(1);
-    const result = await verifyStatus(
-      authRequestData.operationId,
-      'In Progress',
-    );
+    const result = await verifyStatus({
+      operationId: authRequestData.operationId,
+      status: 'In Progress',
+    });
     expect(result).toBe(true);
+  });
+});
+
+describe('services/AuthRequest/verifyStatus fail', () => {
+  it('expect verifyStatus to fail', async () => {
+    expect.assertions(1);
+    try {
+      await verifyStatus(authRequestData);
+    } catch (error) {
+      expect(error).not.toBeNull();
+    }
   });
 });

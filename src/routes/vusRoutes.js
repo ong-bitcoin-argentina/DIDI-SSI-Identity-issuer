@@ -10,7 +10,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- * 	 /vuSecurity/createVerification:
+ * 	 /verification:
  *   post:
  *     summary: Permite crear un nuevo trámite de validación de identidad de un usuario
  *     parameters:
@@ -23,7 +23,6 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *       required:
  *         - did
  *         - userName
- *         - ipAddress
  *         - deviceHash
  *         - rooted
  *         - applicationVersion
@@ -63,7 +62,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *
  */
 router.post(
-  '/createVerification',
+  '/verification',
   validateUser,
   Validator.validateBody([
     { name: 'did', validate: [IS_STRING] },
@@ -81,8 +80,8 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/cancelVerification:
- *   post:
+ * 	 /verification:
+ *   delete:
  *     summary: Permite cancelar una operación pendiente de validación de identidad
  *     parameters:
  *       - in: header
@@ -112,8 +111,8 @@ router.post(
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/cancelVerification',
+router.delete(
+  '/verification',
   validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
@@ -125,7 +124,7 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/addDocumentImage:
+ * 	 /{operationId}/documentImage:
  *   post:
  *     summary: Permite adherir el frente/dorso de un documento o selfie a una operación
  *     parameters:
@@ -134,19 +133,22 @@ router.post(
  *         schema:
  *           type: string
  *         required: true
+ *       - name: operationId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     requestBody:
  *       required:
  *         - userName
- *         - operationId
  *         - file
+ *         - side
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               userName:
- *                  type: string
- *               operationId:
  *                  type: string
  *               file:
  *                  type: string
@@ -162,11 +164,10 @@ router.post(
  *
  */
 router.post(
-  '/addDocumentImage',
+  '/:operationId/documentImage',
   validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
     { name: 'file', validate: [IS_STRING] },
     { name: 'side', validate: [IS_STRING] },
   ]),
@@ -176,8 +177,8 @@ router.post(
 
 /**
  * @openapi
- * 	 /vuSecurity/finishOperation:
- *   post:
+ * 	 /verification/{operationId}:
+ *   patch:
  *     summary: Permite finalizar una operacion.
  *     parameters:
  *       - in: header
@@ -185,18 +186,20 @@ router.post(
  *         schema:
  *           type: string
  *         required: true
+ *       - name: operationId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     requestBody:
  *       required:
  *         - userName
- *         - operationId
  *       content:
  *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
  *               userName:
- *                  type: string
- *               operationId:
  *                  type: string
  *     responses:
  *       200:
@@ -207,21 +210,18 @@ router.post(
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/finishOperation',
+router.patch(
+  '/verification/:operationId',
   validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-  ]),
+  Validator.validateBody([{ name: 'userName', validate: [IS_STRING] }]),
   Validator.checkValidationResult,
   vus.finishOperation,
 );
 
 /**
  * @openapi
- * 	 /vuSecurity/getStatus:
- *   post:
+ * 	 /verification/{operationId}:
+ *   get:
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
  *       - in: header
@@ -229,19 +229,11 @@ router.post(
  *         schema:
  *           type: string
  *         required: true
- *     requestBody:
- *       required:
- *         - userName
- *         - operationId
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                  type: string
- *               operationId:
- *                  type: string
+ *       - name: operationId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     responses:
  *       200:
  *         description: Puede devolver ok o error en algun parametro
@@ -251,21 +243,18 @@ router.post(
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/getStatus',
+router.get(
+  '/verification/:operationId',
   validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-  ]),
   Validator.checkValidationResult,
+  Validator.validateParams,
   vus.getStatus,
 );
 
 /**
  * @openapi
- * 	 /vuSecurity/getInformation:
- *   post:
+ * 	 /verification/{operationId}/{userName}:
+ *   get:
  *     summary: Permite traer los datos del documento analizado.
  *     parameters:
  *       - in: header
@@ -273,19 +262,16 @@ router.post(
  *         schema:
  *           type: string
  *         required: true
- *     requestBody:
- *       required:
- *         - userName
- *         - operationId
- *       content:
- *         multipart/form-data:
- *           schema:
- *             type: object
- *             properties:
- *               userName:
- *                  type: string
- *               operationId:
- *                  type: string
+ *       - name: operationId
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
+ *       - name: userName
+ *         in: path
+ *         required: true
+ *         schema:
+ *           type : string
  *     responses:
  *       200:
  *         description: Puede devolver ok o error en algun parametro
@@ -295,14 +281,11 @@ router.post(
  *         description: Error interno del servidor
  *
  */
-router.post(
-  '/getInformation',
+router.get(
+  '/verification/:operationId/:userName',
   validateUser,
-  Validator.validateBody([
-    { name: 'userName', validate: [IS_STRING] },
-    { name: 'operationId', validate: [IS_STRING] },
-  ]),
   Validator.checkValidationResult,
+  Validator.validateParams,
   vus.getInformation,
 );
 

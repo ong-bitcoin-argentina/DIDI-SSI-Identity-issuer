@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 
 const Constants = require('../constants/Constants');
 const Messages = require('../constants/Messages');
+const {
+  missingOperationId,
+  missingDid,
+} = require('../constants/serviceErrors');
 
 const { IN_PROGRESS, SUCCESSFUL, FAILED, CANCELLED } =
   Constants.AUTHENTICATION_REQUEST;
@@ -44,7 +48,7 @@ AuthRequestSchema.methods.update = async function update(status, errorMessage) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
@@ -58,6 +62,8 @@ module.exports = AuthRequest;
 
 // inicailizar registro de un pedido nuevo
 AuthRequest.generate = async function generate(operationId, did) {
+  if (!operationId) throw missingOperationId;
+  if (!did) throw missingDid;
   try {
     let request = new AuthRequest();
     request.operationId = operationId;
@@ -70,28 +76,27 @@ AuthRequest.generate = async function generate(operationId, did) {
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
 // retorna el pedido buscandolo por 'operationId'
 AuthRequest.findByOperationId = async function findByOperationId(operationId) {
+  if (!operationId) throw missingOperationId;
   try {
-    const query = { operationId };
-    const request = await AuthRequest.findOne(query);
-    return request;
+    return AuthRequest.findOne({ operationId });
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return err;
+    throw err;
   }
 };
 
 // retorna el pedido buscandolo por 'did' y successful
 AuthRequest.findByDid = async function findByDid(did) {
+  if (!did) throw missingDid;
   try {
-    const query = { did };
-    const request = await AuthRequest.findOne(query);
+    const request = await AuthRequest.findOne({ did });
     if (!request) throw Messages.VUS.FIND_BY_ID;
     const response = JSON.stringify({
       operationId: request.operationId,
@@ -99,6 +104,8 @@ AuthRequest.findByDid = async function findByDid(did) {
     });
     return response;
   } catch (error) {
-    return error;
+    // eslint-disable-next-line no-console
+    console.log(error);
+    throw error;
   }
 };

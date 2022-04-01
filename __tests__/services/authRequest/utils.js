@@ -8,10 +8,7 @@ const { MONGO_URI } = require('../../../src/constants/Constants');
 
 const beforeAllHook = async () => {
   mongoose.connect(MONGO_URI);
-  await AuthRequestService.create(
-    authRequestData.operationId,
-    authRequestData.did,
-  );
+  await AuthRequestService.create(authRequestData);
 };
 
 const afterAllHook = async () => {

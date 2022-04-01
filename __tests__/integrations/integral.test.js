@@ -22,14 +22,14 @@ describe('finish operation to be OK', () => {
   it('responds final operation OK', async () => {
     expect.assertions(1);
     const res = await request(app)
-      .post('/vuSecurity/createVerification')
+      .post('/verification')
       .set('Authorization', jwtAuth)
       .send(newOperationData)
       .expect(200);
 
+    const operationId = JSON.stringify(res.body.data.operationId);
     // GUARDO PARAMETROS NECESARIOS PARA LAS SIGUIENTES OPERACIONES.
     const params = {
-      operationId: JSON.stringify(res.body.data.operationId),
       userName: res.body.data.userName,
       side: 'front',
       file: fileFront,
@@ -37,7 +37,7 @@ describe('finish operation to be OK', () => {
 
     // AGREGO EL FRENDE LA IDENTIFICACION
     await request(app)
-      .post('/vuSecurity/addDocumentImage')
+      .post(`/${operationId}/documentImage`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
@@ -46,7 +46,7 @@ describe('finish operation to be OK', () => {
     params.side = 'back';
     params.file = fileBack;
     await request(app)
-      .post('/vuSecurity/addDocumentImage')
+      .post(`/${operationId}/documentImage`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
@@ -55,21 +55,21 @@ describe('finish operation to be OK', () => {
     params.side = 'selfie';
     params.file = fileSelfie;
     await request(app)
-      .post('/vuSecurity/addDocumentImage')
+      .post(`/${operationId}/documentImage`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // FINALIZAR OPERACION
     await request(app)
-      .post('/vuSecurity/finishOperation')
+      .patch(`/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // CONSULTO ESTADO DE LA OPERACION
     await request(app)
-      .post('/vuSecurity/getStatus')
+      .get(`/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
@@ -83,27 +83,28 @@ describe('cancel operation to be OK', () => {
   it('responds cancel operation OK', async () => {
     expect.assertions(1);
     const res = await request(app)
-      .post('/vuSecurity/createVerification')
+      .post('/verification')
       .set('Authorization', jwtAuth)
       .send(newOperationData)
       .expect(200);
 
     // GUARDO PARAMETROS NECESARIOS PARA LAS SIGUIENTES OPERACIONES.
     const params = {
-      operationId: JSON.stringify(res.body.data.operationId),
       userName: res.body.data.userName,
     };
+    const operationId = JSON.stringify(res.body.data.operationId);
+    params.operationId = operationId;
 
     // FINALIZAR OPERACION
     await request(app)
-      .post('/vuSecurity/cancelVerification')
+      .delete('/verification')
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // CONSULTAR ESTADO DE LA OPERACION
     await request(app)
-      .post('/vuSecurity/getStatus')
+      .get(`/verification/${operationId}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)

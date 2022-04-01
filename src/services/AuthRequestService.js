@@ -10,23 +10,25 @@ const {
 /**
  *  Crea y guarda pedido de validación de identidad
  */
-module.exports.create = async function create(operationId, did) {
+module.exports.create = async function create({ operationId, did }) {
   if (!operationId) throw missingOperationId;
   try {
     const authRequest = await AuthRequest.generate(operationId, did);
-    if (!authRequest) return Messages.VUS.CREATE;
+    if (!authRequest) throw Messages.VUS.CREATE;
     return authRequest;
   } catch (err) {
     // eslint-disable-next-line no-console
     console.log(err);
-    return Messages.COMMUNICATION_ERROR;
+    throw Messages.COMMUNICATION_ERROR;
   }
 };
 
 /**
  *  Obtiene el pedido de validación a partir del código de operación
  */
-module.exports.getByOperationId = async function getByOperationId(operationId) {
+module.exports.getByOperationId = async function getByOperationId({
+  operationId,
+}) {
   if (!operationId) throw missingOperationId;
   try {
     const authRequest = await AuthRequest.findByOperationId(operationId);
@@ -40,11 +42,11 @@ module.exports.getByOperationId = async function getByOperationId(operationId) {
 /**
  *  Actualiza el pedido de validación
  */
-module.exports.update = async function update(
+module.exports.update = async function update({
   status,
   errorMessage,
   operationId,
-) {
+}) {
   if (!status) throw missingStatus;
   try {
     let authRequest = await AuthRequest.findByOperationId(operationId);
@@ -57,18 +59,21 @@ module.exports.update = async function update(
   }
 };
 
-module.exports.findByDid = async function findByDid(did) {
+module.exports.findByDid = async function findByDid({ did }) {
   if (!did) throw missingDid;
   try {
     const response = await AuthRequest.findByDid(did);
     if (!response) throw Messages.VUS.FIND_BY_ID;
     return response;
   } catch (error) {
-    return Messages.VUS.FIND_BY_ID;
+    throw Messages.VUS.FIND_BY_ID;
   }
 };
 
-module.exports.verifyStatus = async function verifyStatus(operationId, status) {
+module.exports.verifyStatus = async function verifyStatus({
+  operationId,
+  status,
+}) {
   if (!operationId) throw missingOperationId;
   if (!status) throw missingStatus;
   try {
@@ -81,9 +86,9 @@ module.exports.verifyStatus = async function verifyStatus(operationId, status) {
   }
 };
 
-module.exports.getDidByOperationId = async function getDidByOperationId(
+module.exports.getDidByOperationId = async function getDidByOperationId({
   operationId,
-) {
+}) {
   if (!operationId) throw missingOperationId;
   try {
     const authRequest = await AuthRequest.findByOperationId(operationId);

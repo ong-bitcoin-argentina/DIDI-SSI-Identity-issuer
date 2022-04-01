@@ -8,6 +8,7 @@ const ValidatedData = require('../../models/ValidatedData');
 
 const finishOperation = async (req, res) => {
   const params = req.body;
+  params.operationId = req.params.operationId;
   try {
     params.operation = 'finish';
     const response = await vusService.simpleOperation(params);
