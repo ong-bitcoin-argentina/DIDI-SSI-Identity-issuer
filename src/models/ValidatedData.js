@@ -5,8 +5,12 @@ const ValidatedDataSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  userData: {
-    type: Object,
+  personalData: {
+    type: Map,
+    require: true,
+  },
+  locationData: {
+    type: Map,
     require: true,
   },
   status: {
@@ -34,8 +38,6 @@ ValidatedDataSchema.methods.addAttempt = async function addAttempt(error) {
     await this.save();
     return this;
   } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
     return err;
   }
 };

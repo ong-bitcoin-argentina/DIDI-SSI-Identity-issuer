@@ -6,6 +6,7 @@ const {
   ENVIRONMENT,
   NAME,
   VERSION,
+  DEBUGG,
   DIDI_SERVER,
   MONGO_URI,
   REDIS_URI,
@@ -26,6 +27,7 @@ assert.ok(PORT, 'No esta definida la varibale PORT');
 assert.ok(ENVIRONMENT, 'No esta definida la varibale ENVIRONMENT');
 assert.ok(NAME, 'No esta definida la varibale NAME');
 assert.ok(VERSION, 'No esta definida la varibale VERSION');
+assert.ok(DEBUGG, 'No esta definida la varibale VERSION');
 
 assert.ok(VUS_URL, 'No esta definida la variable VUS_URL');
 assert.ok(VUS_API_KEY, 'No esta definida la variable API_KEY');
@@ -42,6 +44,7 @@ module.exports = {
   ENVIRONMENT,
   NAME,
   VERSION,
+  DEBUGG,
   DIDI_SERVER,
   MONGO_URI,
   REDIS_URI,
@@ -62,8 +65,11 @@ module.exports = {
     EMMIT_CREDENTIAL: (id) => `${ISSUER_URL}/cert/${id}/emmit`,
   },
   ISSUER_AUTH_TOKEN,
-  PERSONAL_TEMPLATE_ID: '62262ce12248912bdc580a36',
-  LOCATION_TEMPLATE_ID: '6226536d2248912bdc580a37',
+  // RSK
+  PERSONAL_TEMPLATE_ID: '623b2a6144c9913fc4e9cfc5',
+  LOCATION_TEMPLATE_ID: '623b2a7244c9913fc4e9cfc6',
+  // PERSONAL_TEMPLATE_ID: '62262ce12248912bdc580a36',
+  // LOCATION_TEMPLATE_ID: '6226536d2248912bdc580a37',
   VUS_API_KEY,
   VUS_API_KEY_PRIVATE,
   AUTHENTICATION_REQUEST: {
