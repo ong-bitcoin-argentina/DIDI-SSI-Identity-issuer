@@ -66,7 +66,7 @@ module.exports.findByDid = async function findByDid({ did }) {
     if (!response) throw Messages.VUS.FIND_BY_ID;
     return response;
   } catch (error) {
-    throw Messages.VUS.FIND_BY_ID;
+    throw Messages.COMMUNICATION_ERROR;
   }
 };
 
@@ -82,7 +82,7 @@ module.exports.verifyStatus = async function verifyStatus({
     if (authRequest.status === status) return true;
     return false;
   } catch (error) {
-    throw Messages.VUS.FIND_BY_ID;
+    throw Messages.COMMUNICATION_ERROR;
   }
 };
 
@@ -94,6 +94,6 @@ module.exports.getDidByOperationId = async function getDidByOperationId({
     const authRequest = await AuthRequest.findByOperationId(operationId);
     return authRequest.did;
   } catch (error) {
-    throw Messages.VUS.GET_DID;
+    throw Messages.COMMUNICATION_ERROR;
   }
 };
