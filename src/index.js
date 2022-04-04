@@ -50,16 +50,17 @@ if (Constants.DEBUGG) {
     console.log(error);
     next();
   });
-  app.use(serviceRoutes);
-  app.use(routes);
-  app.use('*', (req, res) =>
-    res.status(404).json({
-      status: 'error',
-      errorCode: 'INVALID_ROUTE',
-      message: 'La ruta no existe.',
-    }),
-  );
-  permanentJob();
 }
+
+app.use(serviceRoutes);
+app.use(routes);
+app.use('*', (req, res) =>
+  res.status(404).json({
+    status: 'error',
+    errorCode: 'INVALID_ROUTE',
+    message: 'La ruta no existe.',
+  }),
+);
+permanentJob();
 
 module.exports = app;
