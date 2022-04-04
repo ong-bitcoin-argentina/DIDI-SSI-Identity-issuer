@@ -17,7 +17,7 @@ const {
 //                    │ │ │ │ │ │
 //                    │ │ │ │ │ │
 //                    * * * * * *
-const FREQUENCY = '*/10 * * * * *'; // Frecuencia de 1 minuto
+const FREQUENCY = '*/10 * * * * *';
 
 const processValidatedData = async (credentialType) => {
   const validatedData = await ValidatedData.find({
