@@ -36,6 +36,7 @@ mongoose
     console.log(Messages.INDEX.ERR.CONNECTION + err.message);
   });
 
+// loggear llamadas
 if (Constants.DEBUGG) {
   app.use((req, _, next) => {
     console.log(`${req.method} ${req.originalUrl}`);
@@ -45,12 +46,12 @@ if (Constants.DEBUGG) {
     console.log(req.headers);
     next();
   });
-  // loggear errores
-  app.use((error, req, _, next) => {
-    console.log(error);
-    next();
-  });
 }
+// loggear errores
+app.use((error, req, _, next) => {
+  console.log(error);
+  next();
+});
 
 app.use(serviceRoutes);
 app.use(routes);
