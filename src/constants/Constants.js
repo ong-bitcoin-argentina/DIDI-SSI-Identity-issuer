@@ -27,7 +27,6 @@ assert.ok(PORT, 'No esta definida la varibale PORT');
 assert.ok(ENVIRONMENT, 'No esta definida la varibale ENVIRONMENT');
 assert.ok(NAME, 'No esta definida la varibale NAME');
 assert.ok(VERSION, 'No esta definida la varibale VERSION');
-assert.ok(DEBUGG, 'No esta definida la varibale DEBUGG');
 
 assert.ok(VUS_URL, 'No esta definida la variable VUS_URL');
 assert.ok(VUS_API_KEY, 'No esta definida la variable API_KEY');
