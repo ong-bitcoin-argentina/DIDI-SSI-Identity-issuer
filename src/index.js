@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
@@ -11,6 +10,7 @@ const serviceRoutes = require('./routes/serviceRoutes');
 const { MONGO_URI } = require('./constants/Constants');
 const Messages = require('./constants/Messages');
 const Constants = require('./constants/Constants');
+const { logCalls } = require('./middelwares/logCalls');
 
 const app = express();
 
@@ -37,15 +37,8 @@ mongoose
   });
 
 // loggear llamadas
-if (Constants.DEBUGG) {
-  app.use((req, _, next) => {
-    console.log(`${req.method} ${req.originalUrl}`);
-    process.stdout.write('body: ');
-    console.log(req.body);
-    process.stdout.write('Headers: ');
-    console.log(req.headers);
-    next();
-  });
+if (Constants.DEBUG) {
+  app.use(logCalls);
 }
 
 app.use(serviceRoutes);

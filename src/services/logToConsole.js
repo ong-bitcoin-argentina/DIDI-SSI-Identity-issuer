@@ -3,7 +3,8 @@ const Constants = require('../constants/Constants');
 
 // loggear errores
 const logError = (error) => {
-  if (Constants.DEBUGG) {
+  if (Constants.DEBUG) {
+    console.log(new Date().toLocaleString('es-AR'));
     console.log(error);
   }
 };

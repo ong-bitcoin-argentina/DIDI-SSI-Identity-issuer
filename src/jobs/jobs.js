@@ -5,7 +5,7 @@ const { createAndEmmitCredential } = require('./credentialActions');
 const {
   PERSONAL_TEMPLATE_ID,
   LOCATION_TEMPLATE_ID,
-  DEBUGG,
+  DEBUG,
 } = require('../constants/Constants');
 
 //                    ┌────────────── second (optional)
@@ -26,7 +26,7 @@ const processValidatedData = async (credentialType) => {
     .sort({ createdOn: -1 })
     .limit(1);
   // eslint-disable-next-line no-console
-  if (DEBUGG) console.log({ validatedData });
+  if (DEBUG) console.log({ validatedData });
 
   if (validatedData.length > 0) {
     const { did, personalData, locationData, _id: id } = validatedData[0];
