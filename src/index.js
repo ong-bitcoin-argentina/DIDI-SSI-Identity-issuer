@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
@@ -9,6 +10,7 @@ const serviceRoutes = require('./routes/serviceRoutes');
 
 const { MONGO_URI } = require('./constants/Constants');
 const Messages = require('./constants/Messages');
+const Constants = require('./constants/Constants');
 
 const app = express();
 
@@ -34,16 +36,30 @@ mongoose
     console.log(Messages.INDEX.ERR.CONNECTION + err.message);
   });
 
-app.use(serviceRoutes);
-app.use(routes);
-app.use('*', (req, res) =>
-  res.status(404).json({
-    status: 'error',
-    errorCode: 'INVALID_ROUTE',
-    message: 'La ruta no existe.',
-  }),
-);
-
-permanentJob();
+if (Constants.DEBUGG) {
+  app.use((req, _, next) => {
+    console.log(`${req.method} ${req.originalUrl}`);
+    process.stdout.write('body: ');
+    console.log(req.body);
+    process.stdout.write('Headers: ');
+    console.log(req.headers);
+    next();
+  });
+  // loggear errores
+  app.use((error, req, _, next) => {
+    console.log(error);
+    next();
+  });
+  app.use(serviceRoutes);
+  app.use(routes);
+  app.use('*', (req, res) =>
+    res.status(404).json({
+      status: 'error',
+      errorCode: 'INVALID_ROUTE',
+      message: 'La ruta no existe.',
+    }),
+  );
+  permanentJob();
+}
 
 module.exports = app;
