@@ -1,5 +1,7 @@
 const fetch = require('node-fetch');
 
+const { logError } = require('./logToConsole');
+
 const { ISSUER_URLS, ISSUER_AUTH_TOKEN } = require('../constants/Constants');
 const { missingBody, missingId } = require('../constants/serviceErrors');
 
@@ -18,8 +20,7 @@ const createCredential = async (body) => {
     });
     return response.json();
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logError(error);
     throw error;
   }
 };
@@ -36,8 +37,7 @@ const emmitCredential = async (id) => {
     });
     return response.json();
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logError(error);
     throw error;
   }
 };

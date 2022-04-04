@@ -47,11 +47,6 @@ if (Constants.DEBUGG) {
     next();
   });
 }
-// loggear errores
-app.use((error, req, _, next) => {
-  console.log(error);
-  next();
-});
 
 app.use(serviceRoutes);
 app.use(routes);
