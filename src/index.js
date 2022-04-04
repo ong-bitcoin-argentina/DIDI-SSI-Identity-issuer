@@ -2,6 +2,8 @@ const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
 
+const { permanentJob } = require('./jobs/jobs');
+
 const routes = require('./routes/index');
 const serviceRoutes = require('./routes/serviceRoutes');
 
@@ -41,5 +43,7 @@ app.use('*', (req, res) =>
     message: 'La ruta no existe.',
   }),
 );
+
+permanentJob();
 
 module.exports = app;

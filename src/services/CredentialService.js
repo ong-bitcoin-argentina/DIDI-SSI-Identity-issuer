@@ -36,20 +36,21 @@ const formatBody = (data, did, templateId) => {
   });
 };
 
-const createCredential = async (data, did, templateId) => {
-  if (!data) throw missingData;
-  if (!did) throw missingDid;
-  if (!templateId) throw missingTemplateId;
+const createCredential = async (params) => {
+  if (!params.data) throw missingData;
+  if (!params.did) throw missingDid;
+  if (!params.templateId) throw missingTemplateId;
+  const { data, did, templateId } = params;
 
   const body = formatBody(data, did, templateId);
 
   return IssuerService.createCredential(body);
 };
 
-const emmitCredential = async (id) => {
-  if (!id) throw missingId;
+const emmitCredential = async (params) => {
+  if (!params.id) throw missingId;
 
-  return IssuerService.emmitCredential(id);
+  return IssuerService.emmitCredential(params.id);
 };
 
 module.exports = { createCredential, emmitCredential };
