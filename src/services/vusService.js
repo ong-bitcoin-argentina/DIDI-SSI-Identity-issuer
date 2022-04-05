@@ -1,6 +1,8 @@
 /* eslint-disable camelcase */
 const fetch = require('node-fetch');
 
+const { logError } = require('./logToConsole');
+
 const Constants = require('../constants/Constants');
 const options = require('../constants/urlOptions');
 const Messages = require('../constants/Messages');
@@ -69,8 +71,7 @@ module.exports.newOperation = async function newOperation(params) {
     result.userName = params.userName;
     return result;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logError(error);
     throw error;
   }
 };
@@ -98,8 +99,7 @@ module.exports.addImage = async function addImage(params) {
       throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logError(error);
     throw error;
   }
 };
@@ -119,8 +119,7 @@ module.exports.addSelfie = async function addSelfie(params) {
     if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logError(error);
     throw error;
   }
 };
@@ -137,8 +136,7 @@ module.exports.simpleOperation = async function simpleOperation(params) {
       }),
     });
   } catch (error) {
-    // eslint-disable-next-line no-console
-    console.log(error);
+    logError(error);
     throw error;
   }
 };

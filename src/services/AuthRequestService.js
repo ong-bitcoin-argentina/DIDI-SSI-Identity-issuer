@@ -1,5 +1,7 @@
 const AuthRequest = require('../models/AuthRequest');
 
+const { logError } = require('./logToConsole');
+
 const Messages = require('../constants/Messages');
 const {
   missingOperationId,
@@ -16,9 +18,8 @@ module.exports.create = async function create({ operationId, did }) {
     const authRequest = await AuthRequest.generate(operationId, did);
     if (!authRequest) throw Messages.VUS.CREATE;
     return authRequest;
-  } catch (err) {
-    // eslint-disable-next-line no-console
-    console.log(err);
+  } catch (error) {
+    logError(error);
     throw Messages.COMMUNICATION_ERROR;
   }
 };
@@ -34,7 +35,8 @@ module.exports.getByOperationId = async function getByOperationId({
     const authRequest = await AuthRequest.findByOperationId(operationId);
     if (!authRequest) return Messages.VUS.GET;
     return authRequest;
-  } catch (err) {
+  } catch (error) {
+    logError(error);
     throw Messages.COMMUNICATION_ERROR;
   }
 };
@@ -54,7 +56,8 @@ module.exports.update = async function update({
     authRequest = await authRequest.update(status, errorMessage);
     if (!authRequest) return Messages.VUS.UPDATE;
     return authRequest;
-  } catch (err) {
+  } catch (error) {
+    logError(error);
     throw Messages.COMMUNICATION_ERROR;
   }
 };
@@ -66,6 +69,7 @@ module.exports.findByDid = async function findByDid({ did }) {
     if (!response) throw Messages.VUS.FIND_BY_ID;
     return response;
   } catch (error) {
+    logError(error);
     throw Messages.COMMUNICATION_ERROR;
   }
 };
@@ -82,6 +86,7 @@ module.exports.verifyStatus = async function verifyStatus({
     if (authRequest.status === status) return true;
     return false;
   } catch (error) {
+    logError(error);
     throw Messages.COMMUNICATION_ERROR;
   }
 };
@@ -94,6 +99,7 @@ module.exports.getDidByOperationId = async function getDidByOperationId({
     const authRequest = await AuthRequest.findByOperationId(operationId);
     return authRequest.did;
   } catch (error) {
+    logError(error);
     throw Messages.COMMUNICATION_ERROR;
   }
 };

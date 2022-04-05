@@ -9,6 +9,8 @@ const serviceRoutes = require('./routes/serviceRoutes');
 
 const { MONGO_URI } = require('./constants/Constants');
 const Messages = require('./constants/Messages');
+const Constants = require('./constants/Constants');
+const { logCalls } = require('./middelwares/logCalls');
 
 const app = express();
 
@@ -34,6 +36,11 @@ mongoose
     console.log(Messages.INDEX.ERR.CONNECTION + err.message);
   });
 
+// loggear llamadas
+if (Constants.DEBUG) {
+  app.use(logCalls);
+}
+
 app.use(serviceRoutes);
 app.use(routes);
 app.use('*', (req, res) =>
@@ -43,7 +50,6 @@ app.use('*', (req, res) =>
     message: 'La ruta no existe.',
   }),
 );
-
 permanentJob();
 
 module.exports = app;
