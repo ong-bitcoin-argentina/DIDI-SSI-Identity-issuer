@@ -28,7 +28,7 @@ module.exports.sendErr = function sendErr(res, err) {
   res.type('application/json; charset=UTF-8');
   return res.json({
     status: 'error',
-    errorCode: err && err.code,
+    errorCode: err && err?.code,
     message: err && err.message,
   });
 };
@@ -45,7 +45,7 @@ module.exports.sendErrWithStatus = function sendErrWithStatus(
   console.log(err);
   return res.status(status).json({
     status: 'error',
-    errorCode: err.code,
+    errorCode: err?.code,
     message: err.message,
   });
 };

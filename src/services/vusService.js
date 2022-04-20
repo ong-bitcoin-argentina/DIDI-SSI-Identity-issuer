@@ -91,12 +91,7 @@ module.exports.addImage = async function addImage(params) {
         file: params.file,
       }),
     });
-    // CASO QUE NO HAYA RESPUESTA, O QUE NO SE DETECTE LA IMAGEN DEL DOCUMENTO
-    if (
-      !response ||
-      (params.side === 'front' && !response.documentPictureDetected)
-    )
-      throw Messages.VUS.OPERATION_FAIL;
+    if (!response) throw Messages.VUS.OPERATION_FAIL;
     return response;
   } catch (error) {
     logError(error);
