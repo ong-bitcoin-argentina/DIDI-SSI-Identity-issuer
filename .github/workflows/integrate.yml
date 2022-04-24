@@ -39,6 +39,7 @@ jobs:
           VUS_API_KEY_PRIVATE: ${{ secrets.VUS_API_KEY_PRIVATE }}
           ISSUER_URL: ${{ secrets.ISSUER_URL }}
           ISSUER_AUTH_TOKEN: ${{ secrets.ISSUER_AUTH_TOKEN }}
+          APP_INSIGTHS_IKEY: ${{ secrets.APP_INSIGTHS_IKEY }}
           PORT: 8089
           ENVIRONMENT: dev
           NAME: Identity-Issuer
