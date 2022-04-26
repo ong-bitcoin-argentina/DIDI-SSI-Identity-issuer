@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { get, set } = require('../services/RedisService');
+const { get, del } = require('../services/RedisService');
 
 const Constants = require('../constants/Constants');
 const {
@@ -47,8 +47,7 @@ AuthRequestSchema.methods.update = async function update(status, errorMessage) {
     // BUSCO SI ESTA ALMACENADO EN CACHE
     const searchTerm = `getStatus-${this.did}`;
     const term = JSON.parse(await get(searchTerm));
-    // SI ESTA ACTUALIZO SU ESTADO
-    if (term) await set(searchTerm, JSON.stringify(this));
+    if (term) await del(searchTerm);
     return this;
   } catch (err) {
     // eslint-disable-next-line no-console
