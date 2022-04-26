@@ -14,7 +14,7 @@ describe('models/AuthRequest/create', () => {
 
   it('expect findByDid to find', async () => {
     expect.assertions(2);
-    const result = JSON.parse(await AuthRequest.findByDid(did));
+    const result = await AuthRequest.findByDid(did);
     expect(result.operationId).toBe(operationId);
     expect(result.status).toBe('In Progress');
   });

@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
+const { get, set } = require('../services/RedisService');
 
 const Constants = require('../constants/Constants');
-const Messages = require('../constants/Messages');
 const {
   missingOperationId,
   missingDid,
@@ -44,6 +44,11 @@ AuthRequestSchema.methods.update = async function update(status, errorMessage) {
     this.status = status;
     if (errorMessage) this.errorMessage = errorMessage;
     await this.save();
+    // BUSCO SI ESTA ALMACENADO EN CACHE
+    const searchTerm = `getStatus-${this.did}`;
+    const term = JSON.parse(await get(searchTerm));
+    // SI ESTA ACTUALIZO SU ESTADO
+    if (term) await set(searchTerm, JSON.stringify(this));
     return this;
   } catch (err) {
     // eslint-disable-next-line no-console
@@ -96,13 +101,7 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
 AuthRequest.findByDid = async function findByDid(did) {
   if (!did) throw missingDid;
   try {
-    const request = await AuthRequest.findOne({ did });
-    if (!request) throw Messages.VUS.FIND_BY_ID;
-    const response = JSON.stringify({
-      operationId: request.operationId,
-      status: request.status,
-    });
-    return response;
+    return await AuthRequest.findOne({ did });
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);
