@@ -15,7 +15,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *     summary: Permite crear un nuevo trámite de validación de identidad de un usuario
  *     parameters:
  *       - in: header
- *         name: AuthorizationToken
+ *         name: Authorization
  *         schema:
  *           type: string
  *         required: true
@@ -30,7 +30,6 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *         - operativesystemVersion
  *         - deviceManufacturer
  *         - deviceName
- *         - ipAddress
  *       content:
  *         application/json:
  *           schema:
@@ -52,8 +51,6 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *               deviceManufacturer:
  *                  type: string
  *               deviceName:
- *                  type: string
- *               ipAddress:
  *                  type: string
  *     responses:
  *       200:
@@ -88,7 +85,7 @@ router.post(
  *     summary: Permite cancelar una operación pendiente de validación de identidad
  *     parameters:
  *       - in: header
- *         name: AuthorizationToken
+ *         name: Authorization
  *         schema:
  *           type: string
  *         required: true
@@ -97,7 +94,7 @@ router.post(
  *         - userName
  *         - operationId
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -105,6 +102,7 @@ router.post(
  *                  type: string
  *               operationId:
  *                  type: string
+ *     responses:
  *       200:
  *         description: Puede devolver ok o error en algun parametro
  *       401:
@@ -131,7 +129,7 @@ router.delete(
  *     summary: Permite adherir el frente/dorso de un documento o selfie a una operación
  *     parameters:
  *       - in: header
- *         name: AuthorizationToken
+ *         name: Authorization
  *         schema:
  *           type: string
  *         required: true
@@ -146,7 +144,7 @@ router.delete(
  *         - file
  *         - side
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -184,7 +182,7 @@ router.post(
  *     summary: Permite finalizar una operacion.
  *     parameters:
  *       - in: header
- *         name: AuthorizationToken
+ *         name: Authorization
  *         schema:
  *           type: string
  *         required: true
@@ -197,7 +195,7 @@ router.post(
  *       required:
  *         - userName
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -227,7 +225,7 @@ router.patch(
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
  *       - in: header
- *         name: AuthorizationToken
+ *         name: Authorization
  *         schema:
  *           type: string
  *         required: true
@@ -260,7 +258,7 @@ router.get(
  *     summary: Permite traer los datos del documento analizado.
  *     parameters:
  *       - in: header
- *         name: AuthorizationToken
+ *         name: Authorization
  *         schema:
  *           type: string
  *         required: true
