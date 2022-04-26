@@ -1,3 +1,4 @@
+require('./services/logger');
 const express = require('express');
 const rateLimit = require('express-rate-limit');
 const mongoose = require('mongoose');
