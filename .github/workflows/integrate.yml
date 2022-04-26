@@ -39,11 +39,11 @@ jobs:
           VUS_API_KEY_PRIVATE: ${{ secrets.VUS_API_KEY_PRIVATE }}
           ISSUER_URL: ${{ secrets.ISSUER_URL }}
           ISSUER_AUTH_TOKEN: ${{ secrets.ISSUER_AUTH_TOKEN }}
-          APP_INSIGTHS_IKEY: ${{ secrets.APP_INSIGTHS_IKEY }}
           PORT: 8089
           ENVIRONMENT: dev
           NAME: Identity-Issuer
           VERSION: 1.0.0
+          DISABLE_TELEMETRY_CLIENT: 'true'
       - name: Publish to coveralls.io
         uses: coverallsapp/github-action@v1.1.2
         with:
