@@ -23,7 +23,7 @@ describe('finish operation to be OK', () => {
     expect.assertions(1);
     const res = await request(app)
       .post('/verification')
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(newOperationData)
       .expect(200);
 
@@ -38,7 +38,7 @@ describe('finish operation to be OK', () => {
     // AGREGO EL FRENDE LA IDENTIFICACION
     await request(app)
       .post(`/${operationId}/documentImage`)
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
@@ -47,7 +47,7 @@ describe('finish operation to be OK', () => {
     params.file = fileBack;
     await request(app)
       .post(`/${operationId}/documentImage`)
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
@@ -56,21 +56,21 @@ describe('finish operation to be OK', () => {
     params.file = fileSelfie;
     await request(app)
       .post(`/${operationId}/documentImage`)
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // FINALIZAR OPERACION
     await request(app)
       .patch(`/verification/${operationId}`)
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // CONSULTO ESTADO DE LA OPERACION
     await request(app)
       .get(`/verification/${operationId}`)
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
       .then((response) => {
@@ -84,7 +84,7 @@ describe('cancel operation to be OK', () => {
     expect.assertions(1);
     const res = await request(app)
       .post('/verification')
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(newOperationData)
       .expect(200);
 
@@ -98,14 +98,14 @@ describe('cancel operation to be OK', () => {
     // FINALIZAR OPERACION
     await request(app)
       .delete('/verification')
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200);
 
     // CONSULTAR ESTADO DE LA OPERACION
     await request(app)
       .get(`/verification/${operationId}`)
-      .set('AuthorizationToken', jwtAuth)
+      .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
       .then((response) => {
