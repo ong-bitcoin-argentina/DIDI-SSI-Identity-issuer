@@ -54,11 +54,11 @@ module.exports.update = async function update({
     let authRequest = await AuthRequest.findByOperationId(operationId);
     if (!authRequest) return Messages.VUS.GET;
     authRequest = await authRequest.update(status, errorMessage);
-    if (!authRequest) return Messages.VUS.UPDATE;
+    if (!authRequest) throw Messages.VUS.UPDATE;
     return authRequest;
   } catch (error) {
     logError(error);
-    throw Messages.COMMUNICATION_ERROR;
+    throw error;
   }
 };
 
@@ -70,7 +70,7 @@ module.exports.findByDid = async function findByDid({ did }) {
     return response;
   } catch (error) {
     logError(error);
-    throw Messages.COMMUNICATION_ERROR;
+    throw error;
   }
 };
 
@@ -87,7 +87,7 @@ module.exports.verifyStatus = async function verifyStatus({
     return false;
   } catch (error) {
     logError(error);
-    throw Messages.COMMUNICATION_ERROR;
+    throw error;
   }
 };
 
@@ -97,9 +97,10 @@ module.exports.getDidByOperationId = async function getDidByOperationId({
   if (!operationId) throw missingOperationId;
   try {
     const authRequest = await AuthRequest.findByOperationId(operationId);
+    if (!authRequest) throw Messages.VUS.FIND_BY_ID;
     return authRequest.did;
   } catch (error) {
     logError(error);
-    throw Messages.COMMUNICATION_ERROR;
+    throw error;
   }
 };
