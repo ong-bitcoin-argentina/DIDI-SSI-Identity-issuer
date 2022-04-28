@@ -6,6 +6,7 @@ const {
   missingOperationId,
   missingDid,
 } = require('../constants/serviceErrors');
+const Messages = require('../constants/Messages');
 
 const { IN_PROGRESS, SUCCESSFUL, FAILED, CANCELLED } =
   Constants.AUTHENTICATION_REQUEST;
@@ -100,7 +101,9 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
 AuthRequest.findByDid = async function findByDid(did) {
   if (!did) throw missingDid;
   try {
-    return await AuthRequest.findOne({ did });
+    const authRequest = await AuthRequest.findOne({ did });
+    if (!authRequest) throw Messages.VUS.FIND_BY_ID;
+    return authRequest;
   } catch (error) {
     // eslint-disable-next-line no-console
     console.log(error);

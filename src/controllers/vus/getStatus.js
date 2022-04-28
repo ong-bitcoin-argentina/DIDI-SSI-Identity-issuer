@@ -20,7 +20,7 @@ const getStatus = async (req, res) => {
       did,
     });
   } catch (err) {
-    return ResponseHandler.sendErr(res, err);
+    return ResponseHandler.sendErrWithStatus(res, err);
   }
 };
 
