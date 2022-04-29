@@ -220,7 +220,7 @@ router.patch(
 
 /**
  * @openapi
- * 	 /verification/{operationId}:
+ * 	 /verification/{did}:
  *   get:
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
@@ -229,7 +229,7 @@ router.patch(
  *         schema:
  *           type: string
  *         required: true
- *       - name: operationId
+ *       - name: did
  *         in: path
  *         required: true
  *         schema:
@@ -244,7 +244,7 @@ router.patch(
  *
  */
 router.get(
-  '/verification/:operationId',
+  '/verification/:did',
   validateUser,
   Validator.checkValidationResult,
   Validator.validateParams,

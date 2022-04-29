@@ -67,9 +67,11 @@ describe('finish operation to be OK', () => {
       .send(params)
       .expect(200);
 
+    const { did } = newOperationData;
+
     // CONSULTO ESTADO DE LA OPERACION
     await request(app)
-      .get(`/verification/${operationId}`)
+      .get(`/verification/${did}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)
@@ -94,6 +96,7 @@ describe('cancel operation to be OK', () => {
     };
     const operationId = JSON.stringify(res.body.data.operationId);
     params.operationId = operationId;
+    const { did } = newOperationData;
 
     // FINALIZAR OPERACION
     await request(app)
@@ -104,7 +107,7 @@ describe('cancel operation to be OK', () => {
 
     // CONSULTAR ESTADO DE LA OPERACION
     await request(app)
-      .get(`/verification/${operationId}`)
+      .get(`/verification/${did}`)
       .set('Authorization', jwtAuth)
       .send(params)
       .expect(200)

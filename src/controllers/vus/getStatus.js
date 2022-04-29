@@ -3,23 +3,24 @@ const AuthRequestService = require('../../services/AuthRequestService');
 const ResponseHandler = require('../../utils/ResponseHandler');
 
 const getStatus = async (req, res) => {
-  const { operationId } = req.params;
+  const { did } = req.params;
   try {
-    const searchTerm = `getStatus-${operationId}`;
+    const searchTerm = `getStatus-${did}`;
+    // BUSCO EN LA CACHE
     let authRequest = JSON.parse(await get(searchTerm));
     if (!authRequest) {
-      authRequest = await AuthRequestService.getByOperationId({
-        operationId,
+      authRequest = await AuthRequestService.findByDid({
+        did,
       });
       await set(searchTerm, JSON.stringify(authRequest));
     }
     return ResponseHandler.sendRes(res, {
       status: authRequest.status,
       operationId: authRequest.operationId,
-      message: authRequest.errorMessage,
+      did,
     });
   } catch (err) {
-    return ResponseHandler.sendErr(res, err);
+    return ResponseHandler.sendErrWithStatus(res, err);
   }
 };
 
