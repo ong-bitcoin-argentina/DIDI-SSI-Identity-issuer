@@ -28,4 +28,15 @@ describe('models/AuthRequest/create', () => {
       expect(error.message).toBe(missingDid.message);
     }
   });
+
+  it('expect findByDid to find the last register added', async () => {
+    expect.assertions(2);
+    await AuthRequest.generate('1', '1');
+    await AuthRequest.generate('2', '1');
+    await AuthRequest.generate('3', '1');
+    const result = await AuthRequest.findByDid('1');
+    expect(result.operationId).toBe('3');
+    expect(result.did).toBe('1');
+    await AuthRequest.deleteMany({ did: '1' });
+  });
 });

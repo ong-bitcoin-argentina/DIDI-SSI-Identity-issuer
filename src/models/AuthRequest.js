@@ -101,7 +101,8 @@ AuthRequest.findByOperationId = async function findByOperationId(operationId) {
 AuthRequest.findByDid = async function findByDid(did) {
   if (!did) throw missingDid;
   try {
-    const authRequest = await AuthRequest.findOne({ did });
+    // RETORNA EL ULTIMO REGISTRO CON EL DID INGRESADO
+    const authRequest = await AuthRequest.findOne({ did }).sort({ _id: -1 });
     if (!authRequest) throw Messages.VUS.FIND_BY_ID;
     return authRequest;
   } catch (error) {
