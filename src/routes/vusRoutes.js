@@ -30,7 +30,6 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *         - operativesystemVersion
  *         - deviceManufacturer
  *         - deviceName
- *         - ipAddress
  *       content:
  *         application/json:
  *           schema:
@@ -52,8 +51,6 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *               deviceManufacturer:
  *                  type: string
  *               deviceName:
- *                  type: string
- *               ipAddress:
  *                  type: string
  *     responses:
  *       200:
@@ -97,7 +94,7 @@ router.post(
  *         - userName
  *         - operationId
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -105,6 +102,7 @@ router.post(
  *                  type: string
  *               operationId:
  *                  type: string
+ *     responses:
  *       200:
  *         description: Puede devolver ok o error en algun parametro
  *       401:
@@ -146,7 +144,7 @@ router.delete(
  *         - file
  *         - side
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -197,7 +195,7 @@ router.post(
  *       required:
  *         - userName
  *       content:
- *         application/json:
+ *         multipart/form-data:
  *           schema:
  *             type: object
  *             properties:
@@ -222,7 +220,7 @@ router.patch(
 
 /**
  * @openapi
- * 	 /verifications/{operationId}:
+ * 	 /verifications/{did}:
  *   get:
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
@@ -231,7 +229,7 @@ router.patch(
  *         schema:
  *           type: string
  *         required: true
- *       - name: operationId
+ *       - name: did
  *         in: path
  *         required: true
  *         schema:
@@ -246,7 +244,7 @@ router.patch(
  *
  */
 router.get(
-  '/verifications/:operationId',
+  '/verifications/:did',
   validateUser,
   Validator.checkValidationResult,
   Validator.validateParams,

@@ -9,9 +9,6 @@ const {
   APP_INSIGTHS_IKEY,
 } = require('../constants/Constants');
 
-/**
- * LogIn en Azure
- */
 const loggerManager = new LoggerManager();
 const azureLogger = new AzureLogger({
   aiCloudRole: NAME,
