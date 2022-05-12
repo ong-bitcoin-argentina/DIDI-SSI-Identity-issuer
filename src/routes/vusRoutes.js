@@ -10,12 +10,12 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
 
 /**
  * @openapi
- * 	 /verification:
+ * 	 /verifications:
  *   post:
  *     summary: Permite crear un nuevo trámite de validación de identidad de un usuario
  *     parameters:
  *       - in: header
- *         name: Authorization
+ *         name: AuthorizationToken
  *         schema:
  *           type: string
  *         required: true
@@ -62,7 +62,7 @@ const { IS_STRING, IS_BOOLEAN } = Constants.VALIDATION_TYPES;
  *
  */
 router.post(
-  '/verification',
+  '/verifications',
   validateUser,
   Validator.validateBody([
     { name: 'did', validate: [IS_STRING] },
@@ -80,12 +80,12 @@ router.post(
 
 /**
  * @openapi
- * 	 /verification:
+ * 	 /verifications:
  *   delete:
  *     summary: Permite cancelar una operación pendiente de validación de identidad
  *     parameters:
  *       - in: header
- *         name: Authorization
+ *         name: AuthorizationToken
  *         schema:
  *           type: string
  *         required: true
@@ -112,7 +112,7 @@ router.post(
  *
  */
 router.delete(
-  '/verification',
+  '/verifications',
   validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
@@ -124,12 +124,12 @@ router.delete(
 
 /**
  * @openapi
- * 	 /{operationId}/documentImage:
+ * 	 /verifications/{operationId}/documentImage:
  *   post:
  *     summary: Permite adherir el frente/dorso de un documento o selfie a una operación
  *     parameters:
  *       - in: header
- *         name: Authorization
+ *         name: AuthorizationToken
  *         schema:
  *           type: string
  *         required: true
@@ -164,7 +164,7 @@ router.delete(
  *
  */
 router.post(
-  '/:operationId/documentImage',
+  '/verifications/:operationId/documentImage',
   validateUser,
   Validator.validateBody([
     { name: 'userName', validate: [IS_STRING] },
@@ -177,12 +177,12 @@ router.post(
 
 /**
  * @openapi
- * 	 /verification/{operationId}:
+ * 	 /verifications/{operationId}:
  *   patch:
  *     summary: Permite finalizar una operacion.
  *     parameters:
  *       - in: header
- *         name: Authorization
+ *         name: AuthorizationToken
  *         schema:
  *           type: string
  *         required: true
@@ -211,7 +211,7 @@ router.post(
  *
  */
 router.patch(
-  '/verification/:operationId',
+  '/verifications/:operationId',
   validateUser,
   Validator.validateBody([{ name: 'userName', validate: [IS_STRING] }]),
   Validator.checkValidationResult,
@@ -220,12 +220,12 @@ router.patch(
 
 /**
  * @openapi
- * 	 /verification/{did}:
+ * 	 /verifications/{did}:
  *   get:
  *     summary: Permite obtener el estado del trámite/operación.
  *     parameters:
  *       - in: header
- *         name: Authorization
+ *         name: AuthorizationToken
  *         schema:
  *           type: string
  *         required: true
@@ -244,7 +244,7 @@ router.patch(
  *
  */
 router.get(
-  '/verification/:did',
+  '/verifications/:did',
   validateUser,
   Validator.checkValidationResult,
   Validator.validateParams,
@@ -253,12 +253,12 @@ router.get(
 
 /**
  * @openapi
- * 	 /verification/{operationId}/{userName}:
+ * 	 /verifications/{operationId}/{userName}:
  *   get:
  *     summary: Permite traer los datos del documento analizado.
  *     parameters:
  *       - in: header
- *         name: Authorization
+ *         name: AuthorizationToken
  *         schema:
  *           type: string
  *         required: true
@@ -282,7 +282,7 @@ router.get(
  *
  */
 router.get(
-  '/verification/:operationId/:userName',
+  '/verifications/:operationId/:userName',
   validateUser,
   Validator.checkValidationResult,
   Validator.validateParams,

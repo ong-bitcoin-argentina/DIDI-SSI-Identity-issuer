@@ -8,7 +8,7 @@ const { USER } = require('../constants/Messages');
 
 // Middelware para verificar que un usuario exista en Didi Server
 const validateUser = async (req, res, next) => {
-  const jwt = req.header('Authorization');
+  const jwt = req.header('AuthorizationToken');
   try {
     const { iss } = await didJWT.decodeJWT(jwt).payload;
     const searchTerm = `verificacion-usuario-${iss}`;
