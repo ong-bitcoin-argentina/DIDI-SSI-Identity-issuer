@@ -1,5 +1,7 @@
 # DIDI-SSI-Identity-issuer
 
+Módulo que se encarga de procesar y emitir las credenciales de identidad. 
+
 # Pre-requisites
 
 - Install [Node.js](https://nodejs.org/en/) version 16.8.0
