@@ -1,6 +1,7 @@
 # DIDI-SSI-Identity-issuer
 
-Módulo que se encarga de procesar y emitir las credenciales de identidad. 
+DIDI-SSI-Identity-Issuer is the tool responsible of relay identity information from ai·di users to VU Security. Once the data is validated by VU Security, the information obtained from the analysis is forwarded to a DIDI trusted issuer that porcess this data and emits the corresponding credentials.
+It is developed in Node.js and Express.js. Uses MongoDB as database.
 
 # Pre-requisites
 
