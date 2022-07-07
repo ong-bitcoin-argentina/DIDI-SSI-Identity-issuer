@@ -39,6 +39,7 @@ const vuSecurityPost = async function vuSecurityPost(params) {
     },
     body: params.body,
   });
+  if (!response) throw Messages.VUS.NOT_RESPONSE;
   const jsronResp = await response.json();
   if (response.status === 400) throw jsronResp;
   return jsronResp;
