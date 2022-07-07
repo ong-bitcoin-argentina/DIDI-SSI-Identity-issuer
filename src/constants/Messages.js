@@ -80,6 +80,10 @@ module.exports = {
       message:
         'No se pudo realizar la operacion. Inténtelo nuevamente mas tarde.',
     },
+    NOT_RESPONSE: {
+      code: 'NOT_RESPONSE',
+      message: 'No hubo respuesta de VU-Security',
+    },
   },
 
   VALIDATION: {

@@ -46,6 +46,6 @@ module.exports.sendErrWithStatus = function sendErrWithStatus(
   return res.status(status).json({
     status: 'error',
     errorCode: err?.code,
-    message: err.message,
+    message: err?.message,
   });
 };

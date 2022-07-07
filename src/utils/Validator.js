@@ -18,7 +18,7 @@ module.exports.checkValidationResult = function checkValidationResult(
     return next();
   }
   const err = result.array();
-  return ResponseHandler.sendErr(res, {
+  return ResponseHandler.sendErrWithStatus(res, {
     code: err[0].msg.code,
     message: err[0].msg.message,
   });
