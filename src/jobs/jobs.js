@@ -1,12 +1,26 @@
 const { CronJob } = require('cron');
+const jsonwebtoken = require('jsonwebtoken');
+
 const ValidatedData = require('../models/ValidatedData');
 const { createAndEmmitCredential } = require('./credentialActions');
 
 const {
-  PERSONAL_TEMPLATE_ID,
-  LOCATION_TEMPLATE_ID,
   DEBUG,
+  ISSUER_SERVER_PRIVATE_KEY,
+  ISSUER_USER,
+  ISSUER_PASSWORD,
 } = require('../constants/Constants');
+const {
+  getPesonalTemplateId,
+  getLocationTemplateId,
+  updateToken,
+} = require('../models/Admin');
+const { login } = require('../services/IssuerService');
+const Admin = require('../models/Admin');
+
+const now = function now() {
+  return Math.floor(Date.now() / 1000);
+};
 
 //                    ┌────────────── second (optional)
 //                    │ ┌──────────── minute
@@ -32,12 +46,22 @@ const processValidatedData = async (credentialType) => {
     const { did, personalData, locationData, _id: id } = validatedData[0];
     try {
       const template = personalData
-        ? PERSONAL_TEMPLATE_ID
-        : LOCATION_TEMPLATE_ID;
+        ? await getPesonalTemplateId()
+        : await getLocationTemplateId();
+      // VERIFICO QUE EL TOKEN ACTUAL ESTE VIGENTE (deberia haber un solo admin en la coleccion Admin)
+      let { jwt } = await Admin.findOne();
+      const decoded = jsonwebtoken.verify(jwt, ISSUER_SERVER_PRIVATE_KEY);
+      if (!decoded.exp && decoded.exp > now()) {
+        // NO ESTA MAS VIGENTE
+        jwt = await login(ISSUER_USER, ISSUER_PASSWORD);
+        await updateToken(jwt);
+      }
+
       const credentials = await createAndEmmitCredential(
         did,
         personalData || locationData,
-        template,
+        template.toString(),
+        jwt,
       );
       if (credentials) await ValidatedData.deleteOne({ _id: id });
     } catch (error) {

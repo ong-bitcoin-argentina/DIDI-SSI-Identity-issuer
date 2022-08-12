@@ -40,17 +40,17 @@ const createCredential = async (params) => {
   if (!params.data) throw missingData;
   if (!params.did) throw missingDid;
   if (!params.templateId) throw missingTemplateId;
-  const { data, did, templateId } = params;
+  const { data, did, templateId, token } = params;
 
   const body = formatBody(data, did, templateId);
 
-  return IssuerService.createCredential(body);
+  return IssuerService.createCredential(body, token);
 };
 
 const emmitCredential = async (params) => {
   if (!params.id) throw missingId;
 
-  return IssuerService.emmitCredential(params.id);
+  return IssuerService.emmitCredential(params.id, params.token);
 };
 
 module.exports = { createCredential, emmitCredential };
